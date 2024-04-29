@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkSharing App", "LinkSharing App\LinkSharing App.csproj", "{028EA3D2-2774-4748-8C2F-3374750EF2BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{028EA3D2-2774-4748-8C2F-3374750EF2BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{028EA3D2-2774-4748-8C2F-3374750EF2BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{028EA3D2-2774-4748-8C2F-3374750EF2BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{028EA3D2-2774-4748-8C2F-3374750EF2BF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35B07313-41CF-41BE-847C-4087ECE36DF8}
+	EndGlobalSection
+EndGlobal
