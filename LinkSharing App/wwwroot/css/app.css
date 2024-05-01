@@ -7,7 +7,10 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #0071c1;
+    font-family: 'Instrument Sans';
+    font-size: 16px;
+    color: #633cFF;
+    text-decoration:none;
 }
 
 .btn-primary {
@@ -106,11 +109,38 @@ code {
     background-color : #FAFAFA
 }
 
-.purple-button {
+.primaryButton {
     background-color: #633CFF;
     border-radius:8px;
     width:100%;
     height:3em;
     color:white;
     
+}
+
+    .primaryButton:hover {
+        background-color: #BEADFF;
+    }
+
+.headingM 
+{
+    font-family: 'Instrument Sans';
+    font-size:32px;
+    font-weight:bold;
+}
+
+.headingS {
+    font-family: 'Instrument Sans';
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.bodyM {
+    font-family: 'Instrument Sans';
+    font-size: 16px;
+}
+
+.bodyS {
+    font-family: 'Instrument Sans';
+    font-size: 12px;
 }
