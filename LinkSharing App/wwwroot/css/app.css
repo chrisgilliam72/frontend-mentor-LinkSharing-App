@@ -106,11 +106,13 @@ code {
 }
 
 .page-background {
-    background-color : #FAFAFA
+    background-color : #fafafa
 }
 
 .block-background {
-    background-color: #FAFAFA;
+    background-color: #fafafa;
+    border:2px;
+    border-radius:10px;
 }
 
 .primaryButton {

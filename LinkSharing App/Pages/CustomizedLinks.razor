@@ -1,0 +1,61 @@
+﻿@page "/CustomizeLinks"
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="row">
+                <span class="headingM">Customize your links</span>
+                <span class="bodyS">Add/edit/remove links below and then share all your profile links with the world!</span>
+            </div>
+            <div class="row mt-5">
+                <button class="secondaryButton" @onclick="AddNewLink">  + Add new link</button>
+            </div>
+            <EditForm Model="@ViewModel">
+                @if (!ViewModel.CustomLinks.Any())
+                {
+                    <NoLinks/>
+                }
+                else
+                {                  
+                    int linkNo = 1;
+                    
+                    @foreach (var customLink in ViewModel.CustomLinks)
+                    {
+                        <div class="container block-background my-4 p-4">
+                            <div class="row align-items-center justify-content-between">
+                                <div class="col-2  align-items-center">
+                                    <img src="/img/icon-drag-and-drop.svg" />
+                                    <span class="headingS"> Link# @linkNo</span>
+                                </div>
+                                <div class="col-2">
+                                    <span class="BodyM">Remove</span>
+                                </div>
+                            </div>
+                            <div class="row mt-2 ">
+                                <label for="linkText" class="form-label bodyS">Platform</label>
+                                <InputSelect id="linkText" class="form-control" @bind-Value="customLink.PlatformLinkId">
+                                    @foreach (var platform in Platforms)
+                                    {
+                                        <option value="@platform.Id">@platform.Name</option>
+                                    }
+                                </InputSelect>
+                            </div>
+                            <div class="row mt-2">
+                                <label for="platformSelection" class="form-label bodyS">Link</label>
+                                <InputText type="text" id="platformSelection" @bind-Value="customLink.LinkUrl" class="form-control" />
+                            </div>
+              
+                        </div>
+
+                        linkNo++;
+                    }
+                }
+            
+
+            <div class="row mt-5 justify-content-end">
+                <button type="submit" class="primaryButton" style="width:100px; height:50px">Save</button>
+            </div>
+            </EditForm>
+        </div>
+    </div>
+
+</div>
