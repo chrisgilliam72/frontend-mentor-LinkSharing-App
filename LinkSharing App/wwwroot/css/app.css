@@ -109,6 +109,10 @@ code {
     background-color : #FAFAFA
 }
 
+.block-background {
+    background-color: #FAFAFA;
+}
+
 .primaryButton {
     background-color: #633CFF;
     border-radius:8px;
@@ -122,6 +126,20 @@ code {
         background-color: #BEADFF;
     }
 
+.secondaryButton {
+    background-color: white;
+    border-radius: 8px;
+    width: 100%;
+    height: 3em;
+    color: #633cff;
+    font-family: 'Instrument Sans';
+    font-weight: bold;
+    border-block-color: #633cff;
+}
+
+    .secondaryButton:hover {
+        background-color: #efebff;
+    }
 .headingM 
 {
     font-family: 'Instrument Sans';
