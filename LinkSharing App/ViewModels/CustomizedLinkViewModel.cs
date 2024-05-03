@@ -2,7 +2,11 @@
 
 public class CustomizedLinkViewModel
 {
-    public int PlatformLinkId { get; set; }    
+ 
     public String PlatformName { get; set; }
-    public String LinkUrl { get; set; } 
+    public String LinkUrl { get; set; }
+    public LinkPlatformViewModel Platform { get; set; }
+    public String SelectedPlatformName => Platform?.Name ?? "Select platform";
+
+    public int PlatformLinkId => Platform?.Id ?? 0;
 }

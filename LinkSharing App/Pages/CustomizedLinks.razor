@@ -20,24 +20,50 @@
                     
                     @foreach (var customLink in ViewModel.CustomLinks)
                     {
-                        <div class="container block-background my-4 p-4">
-                            <div class="row align-items-center justify-content-between">
-                                <div class="col-2  align-items-center">
+                        <div class="container block-background my-4 px-4 pb-4">
+
+                            <div class="navbar align-items-center justify-content-between">
+                                <div class="navbar-brand">
                                     <img src="/img/icon-drag-and-drop.svg" />
                                     <span class="headingS"> Link# @linkNo</span>
                                 </div>
-                                <div class="col-2">
-                                    <span class="BodyM">Remove</span>
-                                </div>
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <button type="button" @onclick="(e=>RemoveLink(customLink.PlatformLinkId))" class="remove-linkbutton">Remove</button></li>                                                                 
+                                </ul>
                             </div>
+
                             <div class="row mt-2 ">
                                 <label for="linkText" class="form-label bodyS">Platform</label>
-                                <InputSelect id="linkText" class="form-control" @bind-Value="customLink.PlatformLinkId">
+                                <div class="dropdown">
+                                    <button class="btn dropdown-toggle form-control" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        @customLink.SelectedPlatformName
+                                    </button>
+                                    <ul class="dropdown-menu form-control">
+                                        @foreach (var platform in Platforms)
+                                        {
+                                            <li class="dropdown-item">
+                                                <div>
+                                                    <img src="@platform.iconPath" />
+                                                    <a @onclick="(e=>OnPlatformSelected(platform.Id,customLink.PlatformLinkId))">@platform.Name</a>
+                                                </div>
+
+                                            </li>
+
+                                        }
+                                    </ul>
+                                </div>
+@*                                 <InputSelect id="linkText" class="form-control" @bind-Value="customLink.PlatformLinkId">
                                     @foreach (var platform in Platforms)
-                                    {
-                                        <option value="@platform.Id">@platform.Name</option>
+                                    {                      
+                                            <option value="@platform.Id">
+                                             <div>
+                                                <img src="@platform.iconPath" />
+                                                <span>@platform.Name</span>
+                                            </div>
+                                           </option>                                     
                                     }
-                                </InputSelect>
+                                </InputSelect> *@
                             </div>
                             <div class="row mt-2">
                                 <label for="platformSelection" class="form-label bodyS">Link</label>

@@ -1,3 +1,20 @@
+:root {
+    --font-family: "Instrument Sans";
+    --font-heading-m:32px;
+    --font-heading-s:16px;
+    --font-body-m:16px;
+    --font-body-s:12px;
+    --color-blue:#633cff;
+    --color-purple-dark: #beadff;
+    --color-puple-light: #efebff;
+    --color-black: #333333;
+    --color-grey: #737373;
+    --color-grey-light: #d9d9d9;
+    --color-cream: #fafafa;
+    --color-white: #ffffff;
+    --color-red: ff3939;
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -106,26 +123,25 @@ code {
 }
 
 .page-background {
-    background-color : #fafafa
+    background-color : var(--color-cream);
 }
 
 .block-background {
-    background-color: #fafafa;
-    border:2px;
-    border-radius:10px;
+    background-color: var(--color-cream);
+    border: 2px;
+    border-radius: 10px;
 }
 
 .primaryButton {
-    background-color: #633CFF;
-    border-radius:8px;
-    width:100%;
-    height:3em;
-    color:white;
-    
+    background-color: var(--color-blue);
+    border-radius: 8px;
+    width: 100%;
+    height: 3em;
+    color: white;
 }
 
     .primaryButton:hover {
-        background-color: #BEADFF;
+        background-color: var(--color-purple-dark);
     }
 
 .secondaryButton {
@@ -133,10 +149,11 @@ code {
     border-radius: 8px;
     width: 100%;
     height: 3em;
-    color: #633cff;
-    font-family: 'Instrument Sans';
+    color: var(--color-blue);
+    font-family: var(--font-family);
     font-weight: bold;
-    border-block-color: #633cff;
+    border-block-color: var(--color-blue);
+    
 }
 
     .secondaryButton:hover {
@@ -144,23 +161,33 @@ code {
     }
 .headingM 
 {
-    font-family: 'Instrument Sans';
-    font-size:32px;
+    font-family: var(--font-family);
+    font-size:var(--font-heading-m);
     font-weight:bold;
 }
 
 .headingS {
-    font-family: 'Instrument Sans';
-    font-size: 16px;
+    font-family: var(--font-family);
+    font-size: var(--font-heading-s);
     font-weight: bold;
 }
 
 .bodyM {
-    font-family: 'Instrument Sans';
-    font-size: 16px;
+    font-family: var(--font-family);
+    font-size: var(--font-body-m);
 }
 
 .bodyS {
-    font-family: 'Instrument Sans';
-    font-size: 12px;
+    font-family: var(--font-family);
+    font-size:  var(--font-body-s);
+}
+
+
+
+.remove-linkbutton {
+    background-color: var(--color-cream);
+    font: var(--font-family);
+    color:var(--color-grey);
+    font-size: var(--font-body-m);
+    border:none;
 }
