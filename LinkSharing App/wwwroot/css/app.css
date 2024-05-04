@@ -191,3 +191,21 @@ code {
     font-size: var(--font-body-m);
     border:none;
 }
+
+.profile-form-text {
+    font: var(--font-family);
+    font-size:var(--font-body-m);
+    color:var(--color-grey);
+
+}
+
+.profile-image-block {
+    background-color:var(--color-puple-light);
+}
+
+.upload-image-text {
+    font: var(--font-family);
+    font-size:var(--font-body-m);
+    font-weight:bold;
+    color:var(--color-blue);
+}

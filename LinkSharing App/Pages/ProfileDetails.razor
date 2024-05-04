@@ -1,0 +1,70 @@
+﻿@page "/ProfileDetails"
+
+<div class="container ">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-6">
+            <p class="headingM">Profile Details</p>
+            <p class="bodyM">Add your details to create a personal touch to your profile.</p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="block-background p-4" style="height:233px">
+                <div class="row align-items-center" style="height:100%">
+                    <div class="col-3">
+                        <span class="bodyM">Profile picture</span>
+                    </div>
+                    <div class="col-4" style="height:95%">
+                        <div class="row align-items-center text-center profile-image-block" style="height:100%">
+                            <div>
+                                <img src="/img/icon-upload-image.svg" height="40" width="40" />
+                                <p class="upload-image-text">+ Upload Image</p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-5">
+                        <p class="bodyS ms-4">Image must be below 1024x1024px<br/> Use PNG or JPG format</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row  justify-content-center my-4">
+        <div class="col-6">
+            <div class="block-background g-4 p-4" style="height:233px">
+                <div class="row my-4  align-items-center">
+                    <div class="col-4">
+                        <label for="inputFirstName" class="profile-form-text col-form-label">First name*</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" id="inputFirstName" class="form-control" aria-describedby="firstnameHelpInline">
+                    </div>
+                </div>
+                <div class="row my-4 align-items-center">
+                    <div class="col-4">
+                        <label for="inputLastName" class="profile-form-text col-form-label">Last name*</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" id="inputLastName" class="form-control" aria-describedby="lastNameHelpInline">
+                    </div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-4">
+                        <label for="inputEmail" class="profile-form-text col-form-label">Email</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="email" id="inputEmail" class="form-control" aria-describedby="emailHelpInline">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6 text-end">
+            <button type="submit" class="primaryButton" style="width:100px; height:50px">Save</button>
+        </div>
+    </div>
+</div>
+
