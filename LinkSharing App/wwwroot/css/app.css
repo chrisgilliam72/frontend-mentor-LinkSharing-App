@@ -157,8 +157,18 @@ code {
 }
 
     .secondaryButton:hover {
-        background-color: #efebff;
+        background-color: var(--color-purple-dark)
     }
+
+.navbar-button{
+
+    font:var(--font-family);
+    font-size:var(--font-body-m);
+    color:var(--color-grey);
+    font-weight:bold;
+    background-color:var(--color-white);
+    border:none;
+}
 .headingM 
 {
     font-family: var(--font-family);
