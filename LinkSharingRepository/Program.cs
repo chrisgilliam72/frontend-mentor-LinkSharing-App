@@ -1,5 +1,6 @@
 using LinkSharingRepository;
 using LinkSharingRepository.Interfaces;
+using LinkSharingRepository.Models;
 using LinkSharingRepository.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,15 +23,31 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/platforms", ([FromServices]ILinkSharingRepository linkSharingRepository) =>
+app.MapGet("/platforms", async ([FromServices]ILinkSharingRepository linkSharingRepository) =>
 {
-    return linkSharingRepository.GetPlatforms();
+    return await linkSharingRepository.GetPlatforms();
 
 }).WithName("GetPlatforms")
 .WithOpenApi();
 
+app.MapPost("/users/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] AddUserInfo user) =>
+{
+    var dbUser = await linkSharingRepository.CreateUser(user.firstName,user.surname,user.email, user.password);
+    return dbUser;
+}).WithName("AddUser")
+.WithOpenApi();
 
+app.MapDelete("/users/delete", async  ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody]DeleteUserInfo user) =>
+{
+    var result = await linkSharingRepository.RemoveUser(user.email, user.password);
+    return result;
+
+
+}).WithName("DeleteUser")
+.WithOpenApi();
 
 app.Run();
 
 
+record AddUserInfo(string firstName, string surname, string password, string email);
+record DeleteUserInfo(string email, String password);

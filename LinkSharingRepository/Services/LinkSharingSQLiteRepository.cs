@@ -44,7 +44,7 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
 
     public async Task<User?> CreateUser(String firstName, String lastName, String email, string password)
     {
-        if (GetUser(firstName, lastName, email) == null)
+        if (await GetUser(firstName, lastName, email) == null)
         {
             User user = new User()
             {
@@ -62,7 +62,7 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
     }
     public async Task<User?> GetUser(String firstName, String lastName, String email)
     {
-       return await _context.Users.FirstOrDefaultAsync(x=>x.FirstName==firstName && x.Surname==lastName && x.Email==email);
+        return await _context.Users.FirstOrDefaultAsync(x => x.FirstName == firstName && x.Surname == lastName && x.Email == email);
     }
     public async Task<User?> GetAuthenticatedUser(String email, String password)
     {
