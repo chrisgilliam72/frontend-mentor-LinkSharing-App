@@ -132,15 +132,15 @@ code {
     border-radius: 10px;
 }
 
-.primaryButton {
+.primary-button-blue {
     background-color: var(--color-blue);
     border-radius: 8px;
-    width: 100%;
-    height: 3em;
     color: white;
+    width:100px; 
+    height:50px;
 }
 
-    .primaryButton:hover {
+    .primary-button-blue:hover {
         background-color: var(--color-purple-dark);
     }
 

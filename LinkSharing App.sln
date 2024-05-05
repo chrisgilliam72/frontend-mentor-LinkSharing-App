@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkSharing App", "LinkSharing App\LinkSharing App.csproj", "{028EA3D2-2774-4748-8C2F-3374750EF2BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkSharingRepository", "LinkSharingRepository\LinkSharingRepository.csproj", "{F9A95BEB-56A5-4E34-AB15-C30B0D98A3DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkSharingRepository", "LinkSharingRepository\LinkSharingRepository.csproj", "{F9A95BEB-56A5-4E34-AB15-C30B0D98A3DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -15,16 +15,20 @@
                         <span class="bodyM">Profile picture</span>
                     </div>
                     <div class="col-4" style="height:95%">
-                        <div class="row align-items-center text-center profile-image-block" style="height:100%">
-                            <div>
-                                <img src="/img/icon-upload-image.svg" height="40" width="40" />
-                                <p class="upload-image-text">+ Upload Image</p>
-                            </div>
+                        <div class="row"  style="height:100%">
+                            <button type="button" class="profile-image-block" data-bs-toggle="modal" data-bs-target="#reg-modal">
+                                <div class="align-items-center">
+                                    <img src="/img/icon-upload-image.svg" height="40" width="40" />
+                                    <br/>
+                                    <span class="upload-image-text">+ Upload Image</span>
+                                </div>
+                            </button>
+  
                         </div>
 
                     </div>
                     <div class="col-5">
-                        <p class="bodyS ms-4">Image must be below 1024x1024px<br/> Use PNG or JPG format</p>
+                        <p class="bodyS ms-4">Image must be below 1024x1024px<br/> Use PNG or JPG format</p> 
                     </div>
                 </div>
             </div>
@@ -63,8 +67,26 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-6 text-end">
-            <button type="submit" class="primaryButton" style="width:100px; height:50px">Save</button>
+            <button type="submit" class="primary-button-blue" style="width:100px; height:50px">Save</button>
         </div>
     </div>
 </div>
 
+<div class="modal fade" id="reg-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title headingM">Upload your profile photo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <InputFile OnChange="@OnPhotoUploaded" />
+              
+            </div>
+            <div class="modal-footer text-end">
+                <button type="button" class="primary-button-blue" >Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
