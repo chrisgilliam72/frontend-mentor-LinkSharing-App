@@ -7,8 +7,11 @@
         public String EmailAddress { get; set; }
 
         public String Photo {  get; set; }
+
+        public String ImgSrc => $"data:{PhotoFormat};base64," + Photo;
+        public String ImgStyle => $"background-image:url('{ImgSrc}');background-size:100%;";
         public String PhotoFormat { get; set; }
 
-
+        public bool HasPhoto => !String.IsNullOrEmpty(Photo);   
     }
 }

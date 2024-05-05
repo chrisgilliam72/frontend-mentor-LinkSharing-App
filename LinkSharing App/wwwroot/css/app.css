@@ -126,6 +126,9 @@ code {
     background-color : var(--color-cream);
 }
 
+.section-background{
+    background-color:var(--color-white);
+}
 .block-background {
     background-color: var(--color-cream);
     border: 2px;
@@ -213,9 +216,16 @@ code {
     background-color:var(--color-puple-light);
 }
 
-.upload-image-text {
+.upload-image-text-blue {
     font: var(--font-family);
     font-size:var(--font-body-m);
     font-weight:bold;
     color:var(--color-blue);
+}
+
+.upload-image-text-white {
+    font: var(--font-family);
+    font-size: var(--font-body-m);
+    font-weight: bold;
+    color: var(--color-white);
 }

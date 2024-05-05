@@ -6,9 +6,9 @@ namespace LinkSharing_App.Pages
     partial class ProfileDetails
     {
         public ProfileDetailsViewModel ProfilePhotoViewModel { get; set; } = new ();
-        private String _photoString;
-        private String _photoFormat;
-        private byte[] _photoBytes;
+        private String _photoString = default!;
+        private String _photoFormat = default!;
+        private byte[] _photoBytes = null!;
         public async void OnPhotoUploaded(InputFileChangeEventArgs e)
         {
             if (e.File!=null)
@@ -22,5 +22,10 @@ namespace LinkSharing_App.Pages
          
         }
 
+        public void OnSubmit()
+        {
+            ProfilePhotoViewModel.Photo = _photoString;
+            ProfilePhotoViewModel.PhotoFormat = _photoFormat;
+        }
     }
 }
