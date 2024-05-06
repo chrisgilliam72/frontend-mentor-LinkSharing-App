@@ -140,7 +140,7 @@ code {
     border-radius: 8px;
     color: white;
     width:100px; 
-    height:50px;
+    height:2.5em;
 }
 
     .primary-button-blue:hover {
@@ -151,7 +151,7 @@ code {
     background-color: white;
     border-radius: 8px;
     width: 100%;
-    height: 3em;
+    height: 2.5em;
     color: var(--color-blue);
     font-family: var(--font-family);
     font-weight: bold;
@@ -163,15 +163,30 @@ code {
         background-color: var(--color-purple-dark)
     }
 
-.navbar-button{
-
-    font:var(--font-family);
-    font-size:var(--font-body-m);
-    color:var(--color-grey);
-    font-weight:bold;
-    background-color:var(--color-white);
-    border:none;
+.navbar-button {
+    font: var(--font-family);
+    font-size: var(--font-body-m);
+    color: var(--color-grey);
+    font-weight: bold;
+    height: 2.5em;
+    background-color: var(--color-white);
+    border: none;
+    width: 150px;
 }
+.navbar-button-selected {
+    background-color: white;
+    border-radius: 8px;
+    width: 100%;
+    height: 2.5em;
+    color: var(--color-blue);
+    font-family: var(--font-family);
+    font-weight: bold;
+    border-color:var(--color-purple-light);
+    border:none;
+    background-color: var(--color-purple-dark);
+    width: 150px;
+}
+
 .headingM 
 {
     font-family: var(--font-family);
@@ -229,3 +244,4 @@ code {
     font-weight: bold;
     color: var(--color-white);
 }
+

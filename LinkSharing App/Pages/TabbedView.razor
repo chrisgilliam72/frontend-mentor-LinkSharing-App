@@ -1,5 +1,84 @@
-﻿<h3>TabbedView</h3>
+﻿@page "/TabbedView"
 
-@code {
+<div class="container">
+    <div class="row p-1">
+        <div class="navbar navbar-expand-sm align-items-center section-background px-2">
+            <div class="navbar-brand">
+                <img src="/img/logo-devlinks-large.svg" />
+            </div>
+            <div class="nav justify-content-between align-items-center" style="width:100%;">
+                <div>
+                </div>
+                <div>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            @if (ShowCustomLinks)
+                            {
+                                <button class="ms-1 navbar-button-selected" @onclick="OnShowCustomLinks">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <img src="/img/icon-link-selected.svg" />
+                                        <span class ="ms-2">Links</span>
+                                    </div>
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="ms-1 navbar-button" @onclick="OnShowCustomLinks">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <img src="/img/icon-link.svg" />
+                                        <span class="ms-2">Links</span>
+                                    </div>
+                                </button>
+                            }
+                        </li>
+                        <li class="nav-item ms-2">
 
-}
+                            @if (ShowProfileDetails)
+                            {
+                                <button class="ms-1 navbar-button-selected" @onclick="OnShowProfileDetails">
+                                    <div class="d-flex align-items-center justify-content-around">
+                                        <img src="/img/icon-profile-details-header-selected.svg" />
+                                        <span>Profile Details</span>
+                                    </div>
+                                </button>
+                            }
+                            else
+                            {
+                                <button class="ms-1 navbar-button" @onclick="OnShowProfileDetails">
+                                    <div class="d-flex align-items-center justify-content-around">
+                                        <img src="/img/icon-profile-details-header.svg" />
+                                        <span>Profile Details</span>
+                                    </div>
+                                </button>
+                            }
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-button">
+                    <button type="button" class="secondaryButton">Preview</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-4 section-background">
+            <div class="card" style="border:none">
+                <div class="d-flex justify-content-center  align-items-center mt-4">
+                    <img src="/img/illustration-phone-mockup.svg" />
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            @if (ShowCustomLinks)
+            {
+                <CustomizedLinks />
+            }
+            else if (ShowProfileDetails)
+            {
+                <ProfileDetails />
+            }
+
+        </div>
+    </div>
+</div>

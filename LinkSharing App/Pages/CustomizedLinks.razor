@@ -1,85 +1,83 @@
-﻿@page "/CustomizedLinks"
+﻿
 <div class="container section-background">
-    <div class="row">
-        <div class="col-6">
-            <EditForm Model="@ViewModel">
-                <div class="card">
-                    <div class="card-body p-4">
-                        <div class="row">
-                            <span class="headingM">Customize your links</span>
-                            <span class="bodyS">Add/edit/remove links below and then share all your profile links with the world!</span>
-                        </div>
-                        <div class="row mt-4">
-                            <button class="secondaryButton" @onclick="AddNewLink">  + Add new link</button>
-                        </div>
-                        <div class="row">
 
-                            @if (!ViewModel.CustomLinks.Any())
-                            {
-                                <NoLinks />
-                            }
-                            else
-                            {
-                                int linkNo = 1;
-
-                                @foreach (var customLink in ViewModel.CustomLinks)
-                                {
-                                    <div class="container block-background my-4 px-4 pb-4">
-
-                                        <div class="navbar align-items-center justify-content-between">
-                                            <div class="navbar-brand">
-                                                <img src="/img/icon-drag-and-drop.svg" />
-                                                <span class="headingS"> Link# @linkNo</span>
-                                            </div>
-                                            <ul class="navbar-nav">
-                                                <li class="nav-item">
-                                                    <button type="button" @onclick="(e=>RemoveLink(customLink.PlatformLinkId))" class="remove-linkbutton">Remove</button>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="row mt-2 ">
-                                            <label for="linkText" class="form-label bodyS">Platform</label>
-                                            <div class="dropdown">
-                                                <button class="btn dropdown-toggle form-control" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    @customLink.SelectedPlatformName
-                                                </button>
-                                                <ul class="dropdown-menu form-control">
-                                                    @foreach (var platform in Platforms)
-                                                    {
-                                                        <li class="dropdown-item">
-                                                            <div>
-                                                                <img src="@platform.iconPath" />
-                                                                <a @onclick="(e=>OnPlatformSelected(platform.Id,customLink.PlatformLinkId))">@platform.Name</a>
-                                                            </div>
-
-                                                        </li>
-
-                                                    }
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <label for="platformSelection" class="form-label bodyS">Link</label>
-                                            <InputText type="text" id="platformSelection" @bind-Value="customLink.LinkUrl" class="form-control" />
-                                        </div>
-
-                                    </div>
-
-                                    linkNo++;
-                                }
-                            }
-                        </div>
-                    </div>
-                    <div class="card-footer section-background ">
-                        <div class="row mt-2 justify-content-end">
-                            <button type="submit" class="primary-button-blue" style="width:100px; height:50px">Save</button>
-                        </div>
-                    </div>
+    <EditForm Model="@ViewModel">
+        <div class="card" style="border:none;">
+            <div class="card-body p-4">
+                <div class="row">
+                    <span class="headingM">Customize your links</span>
+                    <span class="bodyS">Add/edit/remove links below and then share all your profile links with the world!</span>
                 </div>
-            </EditForm>
+                <div class="row mt-4">
+                    <button class="secondaryButton" @onclick="AddNewLink">  + Add new link</button>
+                </div>
+                <div class="row">
+
+                    @if (!ViewModel.CustomLinks.Any())
+                    {
+                        <NoLinks />
+                    }
+                    else
+                    {
+                        int linkNo = 1;
+
+                        @foreach (var customLink in ViewModel.CustomLinks)
+                        {
+                            <div class="container block-background my-4 px-4 pb-4">
+
+                                <div class="navbar align-items-center justify-content-between">
+                                    <div class="navbar-brand">
+                                        <img src="/img/icon-drag-and-drop.svg" />
+                                        <span class="headingS"> Link# @linkNo</span>
+                                    </div>
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item">
+                                            <button type="button" @onclick="(e=>RemoveLink(customLink.PlatformLinkId))" class="remove-linkbutton">Remove</button>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="row mt-2 ">
+                                    <label for="linkText" class="form-label bodyS">Platform</label>
+                                    <div class="dropdown">
+                                        <button class="btn dropdown-toggle form-control" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            @customLink.SelectedPlatformName
+                                        </button>
+                                        <ul class="dropdown-menu form-control">
+                                            @foreach (var platform in Platforms)
+                                            {
+                                                <li class="dropdown-item">
+                                                    <div>
+                                                        <img src="@platform.iconPath" />
+                                                        <a @onclick="(e=>OnPlatformSelected(platform.Id,customLink.PlatformLinkId))">@platform.Name</a>
+                                                    </div>
+
+                                                </li>
+
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <label for="platformSelection" class="form-label bodyS">Link</label>
+                                    <InputText type="text" id="platformSelection" @bind-Value="customLink.LinkUrl" class="form-control" />
+                                </div>
+
+                            </div>
+
+                            linkNo++;
+                        }
+                    }
+                </div>
+            </div>
+            <div class="card-footer section-background ">
+                <div class="row mt-2 justify-content-end">
+                    <button type="submit" class="primary-button-blue">Save</button>
+                </div>
+            </div>
         </div>
-    </div>
+    </EditForm>
+
   
 </div>
 
