@@ -56,7 +56,7 @@
                     </ul>
                 </div>
                 <div class="navbar-button">
-                    <button type="button" class="secondaryButton">Preview</button>
+                    <button type="button" class="secondaryButton" data-bs-toggle="modal" data-bs-target="#preview-modal">Preview</button>
                 </div>
             </div>
         </div>
@@ -76,9 +76,20 @@
             }
             else if (ShowProfileDetails)
             {
-                <ProfileDetails />
+                <ProfileDetails ProfileDetailsUpdated="OnProfileDetailsUpdated" />
             }
 
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="preview-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true" >
+    <div class="modal-dialog" >
+        <div class="modal-content" style="background-color:#633cff">
+            <div class="modal-body" style="background-color:#633cff">
+                <Preview ImageSrc="@ProfileDetailsViewModel.ImgSrc" FirstName="@ProfileDetailsViewModel.Name" 
+                 LastName="@ProfileDetailsViewModel.LastName" Email="@ProfileDetailsViewModel.EmailAddress"/>
+            </div>
         </div>
     </div>
 </div>

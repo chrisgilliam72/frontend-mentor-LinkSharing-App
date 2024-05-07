@@ -1,11 +1,14 @@
 ﻿using LinkSharing_App.ViewModels;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
 namespace LinkSharing_App.Pages
 {
     partial class ProfileDetails
     {
-        public ProfileDetailsViewModel ProfilePhotoViewModel { get; set; } = new ();
+        [Parameter]
+        public EventCallback<ProfileDetailsViewModel> ProfileDetailsUpdated { get; set; }
+        public ProfileDetailsViewModel ProfileDetailsViewModel { get; set; } = new ();
         private String _photoString = default!;
         private String _photoFormat = default!;
         private byte[] _photoBytes = null!;
@@ -23,14 +26,19 @@ namespace LinkSharing_App.Pages
                 _photoBytes = memoryStream.ToArray();
                 _photoString = Convert.ToBase64String(_photoBytes);
                 _photoFormat = e.File.ContentType;
+          
             }
          
         }
 
-        public void OnSubmit()
+        public async void OnSave()
         {
-            ProfilePhotoViewModel.Photo = _photoString;
-            ProfilePhotoViewModel.PhotoFormat = _photoFormat;
+            await ProfileDetailsUpdated.InvokeAsync(ProfileDetailsViewModel);
+        }
+        public void OnPhotoSubmit()
+        {
+            ProfileDetailsViewModel.Photo = _photoString;
+            ProfileDetailsViewModel.PhotoFormat = _photoFormat;
         }
     }
 }

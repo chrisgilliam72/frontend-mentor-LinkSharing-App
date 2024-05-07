@@ -122,6 +122,11 @@ code {
     color: #c02d76;
 }
 
+.round-image{
+    border-radius:50%;
+    border-color:var(--color-blue);
+}
+
 .page-background {
     background-color : var(--color-cream);
 }
@@ -271,8 +276,8 @@ code {
 .preview-card-container{
     height:600px;
     width:100%;
-    position:relative;
-    top:-20%
+/*    position:relative;
+    top:-20%*/
 }
 
 .preview-card {
