@@ -270,7 +270,6 @@ code {
 
 .preview-nav {
     background-color: var(--color-white);
-   
     height:50px;
     border-radius:8px;
 }
@@ -278,8 +277,8 @@ code {
 .preview-card-container{
     height:600px;
     width:100%;
-/*    position:relative;
-    top:-20%*/
+    position:relative;
+    top:-100px
 }
 
 .preview-card {
