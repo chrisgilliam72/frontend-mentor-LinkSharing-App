@@ -4,6 +4,7 @@ namespace LinkSharing_App.Pages;
 
 partial class TabbedView
 {
+    public CustomizeLinksViewModel CustomizeLinksViewModel { get; set; } = new();
     public ProfileDetailsViewModel ProfileDetailsViewModel { get; set; } =  new ();
     public bool ShowProfileDetails { get; set; }
     public bool ShowCustomLinks {  get; set; }
