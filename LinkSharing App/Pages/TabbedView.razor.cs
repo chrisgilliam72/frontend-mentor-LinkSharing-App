@@ -1,9 +1,13 @@
-﻿using LinkSharing_App.ViewModels;
+﻿using LinkSharing_App.Services;
+using LinkSharing_App.ViewModels;
+using Microsoft.AspNetCore.Components;
 
 namespace LinkSharing_App.Pages;
 
 partial class TabbedView
 {
+    [Inject]
+    public IPlatformService PlatformService { get; set; }
     public CustomizeLinksViewModel CustomizeLinksViewModel { get; set; } = new();
     public ProfileDetailsViewModel ProfileDetailsViewModel { get; set; } =  new ();
     public bool ShowProfileDetails { get; set; }
@@ -29,5 +33,10 @@ partial class TabbedView
     public void OnProfileDetailsUpdated(ProfileDetailsViewModel profileImageViewModel)
     {
         ProfileDetailsViewModel=profileImageViewModel;
+    }
+
+    public void OnCustomLinksUpdated(CustomizeLinksViewModel customizeLinksViewModel)
+    {
+        CustomizeLinksViewModel=customizeLinksViewModel;
     }
 }

@@ -20,21 +20,41 @@
 
     <div class="d-flex justify-content-center preview-card-container">
         <div class="card preview-card center-text">
-            <div class="card-body">
+            <div class="card-body d-flex align-items-center">
                 <div class="row justify-content-center">
                     <div class="col-auto">
-                        <img class="round-image" src="@ImageSrc" height="80px" width="80px" />
+                        <img class="round-image mb-2" src="@ImageSrc" height="100px" width="100px" />
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-auto">
                             <span class="headingM">@FirstName @LastName</span>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center mb-5">
                         <div class="col-auto">
                             <span class="bodyM">@Email</span>
                         </div>
                     </div>
+                    @if (CustomLinks != null)
+                    {
+                        foreach (var customLink in CustomLinks.CustomLinks)
+                        {
+                            <div class="row justify-content-center mt-4">
+                                <div class="col-auto ">
+                                    <button class="preview-platform-button" style="background-color:@customLink.Platform.BrandingColor">
+                                        <div class="d-flex justify-content-between" style="width:100%;">
+                                            <div>
+                                                <img src="@customLink.Platform.IconPath"/>
+                                                <span class="ms-1">@customLink.SelectedPlatformName </span> 
+                                            </div>
+       
+                                          <img src="/img/icon-arrow-right.svg" />
+                                        </div>                      
+                                    </button>
+                                </div
+                            </div>
+                        }
+                    }
                 </div>
 
             </div>

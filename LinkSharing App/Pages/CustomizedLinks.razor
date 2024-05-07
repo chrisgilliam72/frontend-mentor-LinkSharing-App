@@ -48,7 +48,7 @@
                                             {
                                                 <li class="dropdown-item">
                                                     <div>
-                                                        <img src="@platform.iconPath"/>
+                                                        <img src="@platform.IconPath"/>
                                                         <a @onclick="(e=>OnPlatformSelected(platform.Id,customLink.PlatformLinkId))">@platform.Name</a>
                                                     </div>
 
@@ -72,7 +72,7 @@
             </div>
             <div class="card-footer section-background ">
                 <div class="row mt-2 justify-content-end">
-                    <button type="submit" class="primary-button-blue">Save</button>
+                    <button type="submit" class="primary-button-blue" @onclick="OnSave">Save</button>
                 </div>
             </div>
         </div>

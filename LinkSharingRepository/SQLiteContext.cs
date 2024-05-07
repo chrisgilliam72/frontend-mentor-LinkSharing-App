@@ -23,6 +23,6 @@ public class SQLiteContext : DbContext
                                                 new Platform { Id = 4, Name = "Facebook", Icon = "icon-facebook.svg",BrandingColor= "#4267B2" },
                                                 new Platform { Id = 5, Name = "Twitter", Icon = "icon-twitter.svg", BrandingColor = "#1DA1F2" },
                                                 new Platform { Id = 7, Name = "Twitch", Icon = "icon-twitch.svg",BrandingColor = "#9146ff" },
-                                                new Platform { Id = 7, Name = "LinkedIn", Icon = "icon-twitch.svg",BrandingColor = "#0a66c2" });
+                                                new Platform { Id = 8, Name = "LinkedIn", Icon = "icon-LinkedIn.svg",BrandingColor = "#0a66c2" });
     }
 }

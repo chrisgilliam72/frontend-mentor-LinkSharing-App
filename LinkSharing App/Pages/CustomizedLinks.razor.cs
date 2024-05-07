@@ -1,25 +1,26 @@
 ﻿
+using LinkSharing_App.Services;
 using LinkSharing_App.ViewModels;
+using LinkSharingRepository.Models;
+using Microsoft.AspNetCore.Components;
 using System;
 
 namespace LinkSharing_App.Pages;
 
 partial class CustomizedLinks
 {
+    [Inject]
+    public IPlatformService PlatformService { get; set; }
 
-    public List<LinkPlatformViewModel> Platforms = new();
+    public List<Platform> Platforms = new();
     public CustomizeLinksViewModel ViewModel { get; set; } = new();
+    [Parameter]
+    public EventCallback<CustomizeLinksViewModel> LinksUpdated {  get; set; }
    
     protected override Task OnInitializedAsync()
     {
         Platforms.Clear();
-        Platforms.Add(new LinkPlatformViewModel(1, "Github", "/img/icon-github.svg"));
-        Platforms.Add(new LinkPlatformViewModel(2, "YouTube", "/img/icon-youtube.svg"));
-        Platforms.Add(new LinkPlatformViewModel(3, "LinkedIn", "/img/icon-linkedin.svg"));
-        Platforms.Add(new LinkPlatformViewModel(4, "Dev.to", "/img/icon-devto.svg"));
-        Platforms.Add(new LinkPlatformViewModel(6, "FreeCodeCamp", "/img/icon-freecodecamp.svg"));
-        Platforms.Add(new LinkPlatformViewModel(7, "FaceBook", "/img/icon-facebook.svg"));
-        Platforms = Platforms.OrderBy(x=>x.Name).ToList();
+        Platforms= PlatformService.GetPlatforms().OrderBy(x => x.Name).ToList();
         return base.OnInitializedAsync();
     }
 
@@ -40,5 +41,10 @@ partial class CustomizedLinks
     {
         var customLinkVM = ViewModel.CustomLinks.First(x => x.PlatformLinkId == linkId);
         customLinkVM.Platform= Platforms.First(x =>x.Id == platformId); 
+    }
+
+    public void OnSave()
+    {
+        LinksUpdated.InvokeAsync(ViewModel);
     }
 }

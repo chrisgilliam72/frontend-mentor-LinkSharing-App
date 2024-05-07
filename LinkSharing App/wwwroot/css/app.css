@@ -122,9 +122,11 @@ code {
     color: #c02d76;
 }
 
-.round-image{
-    border-radius:50%;
-    border-color:var(--color-blue);
+.round-image {
+    border-radius: 50%;
+    border-color: var(--color-blue);
+    border: 100px;
+    object-fit: cover;
 }
 
 .page-background {
@@ -284,4 +286,14 @@ code {
     height: 570px;
     width: 350px;
     background-color: var(--color-white);
+}
+.preview-platform-button {
+    border-radius: 8px;
+    height: 2.5em;
+    color: var(--color-white);
+    font-family: var(--font-family);
+    font-size:var(--font-body-m);
+    width:200px;
+    text-align:start;
+    border:none;
 }
