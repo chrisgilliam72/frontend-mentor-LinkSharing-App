@@ -261,9 +261,9 @@ code {
 
 .preview-header{
     background-color:var(--color-blue);
-    border-bottom-left-radius:10px;
-    border-bottom-right-radius:10px;
-    height:300px;
+    border-bottom-left-radius:20px;
+    border-bottom-right-radius:20px;
+    height:100%;
     width:100%;
 
 }
@@ -274,25 +274,44 @@ code {
     border-radius:8px;
 }
 
-.preview-card-container{
-    height:600px;
-    width:100%;
-    position:relative;
-    top:-100px
+.preview-phone-container {
+    position: relative;
+    top: -100px;
+    left: 25%;
+    background-image: url('/img/profile-outline-2.svg');
+    background-repeat: no-repeat;
+    min-height: 650px;
+    border:hidden;
+    width:320px;
+    border-radius:20px;
+    border-block-color:var(--color-blue);
+    background-color:var(--color-white);
 }
 
-.preview-card {
-    height: 570px;
-    width: 350px;
-    background-color: var(--color-white);
-}
 .preview-platform-button {
     border-radius: 8px;
     height: 2.5em;
     color: var(--color-white);
     font-family: var(--font-family);
-    font-size:var(--font-body-m);
-    width:200px;
-    text-align:start;
-    border:none;
+    font-size: var(--font-body-m);
+    width: 200px;
+    text-align: start;
+    border: none;
 }
+
+.preview-card-container{
+    height:700px;
+    width:350px;
+    position:relative;
+    top:-100px;
+    left:25%;
+    background-color:var(--color-white);
+
+}
+
+.preview-card {
+    height: 600px;
+    width: 350px;
+    background-color: var(--color-white);
+}
+

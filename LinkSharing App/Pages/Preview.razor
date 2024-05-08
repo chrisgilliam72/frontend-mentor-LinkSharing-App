@@ -1,61 +1,51 @@
 ﻿@page "/preview"
-<div class="container page-background">
-    <div class="row preview-header justify-content-center p-4">
-        <div class="col-12 ">
-            <div class="d-flex flex-column justify-content-between" style="height:100%">
-                <div class="row preview-nav justify-content-between align-items-center">
-                    <div class="col-auto">
-                         <button class="secondary-button-blue" data-bs-dismiss="modal" aria-label="Close">Back to editor</button>
-                    </div>
-                    <div class="col-auto">
-                        <button class="primary-button-blue">Copy link</button>
-                    </div>
-               </div>
-           </div>
-        </div>
-   </div>
-  
-    <div class="d-flex justify-content-center preview-card-container">
-        <div class="card preview-card center-text">
-            <div class="card-body d-flex align-items-center">
-                <div class="row justify-content-center">
-                    <div class="col-auto">
-                        <img class="round-image mb-2" src="@ImageSrc" height="100px" width="100px" />
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-auto">
-                            <span class="headingM">@FirstName @LastName</span>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center mb-5">
-                        <div class="col-auto">
-                            <span class="bodyM">@Email</span>
-                        </div>
-                    </div>
-                    @if (CustomLinks != null)
-                    {
-                        foreach (var customLink in CustomLinks.CustomLinks)
-                        {
-                            <div class="row justify-content-center mt-4">
-                                <div class="col-auto ">
-                                    <button class="preview-platform-button" style="background-color:@customLink.Platform.BrandingColor">
-                                        <div class="d-flex justify-content-between" style="width:100%;">
-                                            <div>
-                                                <img src="@customLink.Platform.IconPath"/>
-                                                <span class="ms-1">@customLink.SelectedPlatformName </span> 
-                                            </div>
-       
-                                          <img src="/img/icon-arrow-right.svg" />
-                                        </div>                      
-                                    </button>
-                                </div>
-                            </div>
-                        }
-                    }
-                </div>
+<div class="page-background justify-content-center" >
+    <div class="preview-phone-container">
+        @if (!String.IsNullOrEmpty(ImageSrc))
+        {
+            <img class="round-image mb-2" src="@ImageSrc" height="100px" width="100px" style="position:relative; top:60px; left:100px;" />
+        }
 
-            </div>
+        <span class="headingM" style="position:relative; top:140px;right:50px;background-color:white">@FirstName @LastName</span>
+        <span class="bodyM" style="position:relative; top:100px;left:50px;background-color:white">@Email</span>
+
+        @*                         <div class="row justify-content-center">
+        <div class="col-auto">
+
         </div>
+        </div>
+        <div class="row justify-content-center mb-5">
+        <div class="col-auto">
+
+        </div>
+        </div>
+        @if (CustomLinks != null)
+        {
+        foreach (var customLink in CustomLinks.CustomLinks)
+        {
+        <div class="row justify-content-center mt-4">
+        <div class="col-auto ">
+        <button class="preview-platform-button" style="background-color:@customLink.Platform.BrandingColor">
+        <div class="d-flex justify-content-between" style="width:100%;">
+        <div>
+        <img src="@customLink.Platform.IconPath" />
+        <span class="ms-1">@customLink.SelectedPlatformName </span>
+        </div>
+
+        <img src="/img/icon-arrow-right.svg" />
+        </div>
+        </button>
+        </div>
+        </div>
+        }
+        } *@
     </div>
 </div>
+
+
+
+
+
+
+
 

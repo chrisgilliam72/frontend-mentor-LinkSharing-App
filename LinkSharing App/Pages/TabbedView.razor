@@ -86,6 +86,22 @@
 <div class="modal fade" id="preview-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true" >
     <div class="modal-dialog modal-lg" >
         <div class="modal-content" >
+            <div class="modal-header preview-header align-items-start"  style="padding:0px; height:200px;">
+                <div class="row  justify-content-center p-4" style="width:100%">
+                    <div class="col-12 ">
+                        <div class="d-flex flex-column justify-content-between" style="height:100%">
+                            <div class="row preview-nav justify-content-between align-items-center">
+                                <div class="col-auto">
+                                    <button class="secondary-button-blue" data-bs-dismiss="modal" aria-label="Close">Back to editor</button>
+                                </div>
+                                <div class="col-auto">
+                                    <button class="primary-button-blue">Copy link</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               </div
+            </div>
             <div class="modal-body">
                 <Preview ImageSrc="@ProfileDetailsViewModel.ImgSrc" FirstName="@ProfileDetailsViewModel.Name" 
                  LastName="@ProfileDetailsViewModel.LastName" Email="@ProfileDetailsViewModel.EmailAddress"
