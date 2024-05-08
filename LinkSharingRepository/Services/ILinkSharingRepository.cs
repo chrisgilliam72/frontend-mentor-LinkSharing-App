@@ -5,6 +5,8 @@ namespace LinkSharingRepository.Interfaces;
 public interface ILinkSharingRepository
 {
     public  Task<IEnumerable<Platform>> GetPlatforms();
+    public Task<Platform> AddPlatform(Platform platform);
+    public Task<Platform> UpdatePlatform(Platform platform);
     public Task<CustomLink> CreateCustomLink(Platform platform, User user, string url);
     public Task<bool> RemoveCustomLink(int customLinkId);
     public Task<IEnumerable<CustomLink>> GetCustomLinks(User user);

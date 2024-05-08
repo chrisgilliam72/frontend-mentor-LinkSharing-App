@@ -290,11 +290,11 @@ code {
 
 .preview-platform-button {
     border-radius: 8px;
-    height: 2.5em;
+    height: 3em;
     color: var(--color-white);
     font-family: var(--font-family);
     font-size: var(--font-body-m);
-    width: 200px;
+    width: 230px;
     text-align: start;
     border: none;
 }

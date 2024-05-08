@@ -5,6 +5,17 @@ GET {{LinkSharingRepository_HostAddress}}/platforms/
 Accept: application/json
 
 ###
+PUT {{LinkSharingRepository_HostAddress}}/platforms/update/
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "You Tube",
+  "icon": "icon-youtube.svg",
+  "brandingColor": "#FF0000"
+}
+
+###
 POST {{LinkSharingRepository_HostAddress}}/users/add
 Content-Type: application/json
 

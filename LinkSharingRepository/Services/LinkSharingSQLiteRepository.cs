@@ -16,6 +16,26 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
     {
         return await _context.Platforms.ToListAsync();
     }
+    public async Task<Platform> AddPlatform(Platform platform)
+    {
+        await _context.Platforms.AddAsync(platform);
+        await _context.SaveChangesAsync();
+        return platform;
+    }
+    public async Task<Platform> UpdatePlatform(Platform platform)
+    {
+        var dbPlatfrm= await _context.Platforms.FirstAsync(x=>x.Id==platform.Id);
+        if (dbPlatfrm!=null) 
+        {
+            dbPlatfrm.BrandingColor = platform.BrandingColor;
+            dbPlatfrm.Name = platform.Name;
+            dbPlatfrm.Icon = platform.Icon;
+            await _context.SaveChangesAsync();
+        }
+
+        return platform;
+    }
+
     public async Task<CustomLink> CreateCustomLink(Platform platform, User user, string url)
     {
         CustomLink customLink = new()

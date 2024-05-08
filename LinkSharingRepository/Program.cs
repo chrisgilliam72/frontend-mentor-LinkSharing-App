@@ -30,6 +30,18 @@ app.MapGet("/platforms", async ([FromServices]ILinkSharingRepository linkSharing
 }).WithName("GetPlatforms")
 .WithOpenApi();
 
+app.MapPost("/platforms/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] Platform platform) =>
+{
+    return linkSharingRepository.AddPlatform(platform);
+});
+
+app.MapPut("/platforms/update", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] Platform platform) =>
+{
+    var updatedPlatfrm = await linkSharingRepository.UpdatePlatform(platform);
+    return updatedPlatfrm;
+}).WithName("UpdatePlatform")
+.WithOpenApi();
+
 app.MapPost("/users/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] AddUserInfo user) =>
 {
     var dbUser = await linkSharingRepository.CreateUser(user.firstName,user.surname,user.email, user.password);
