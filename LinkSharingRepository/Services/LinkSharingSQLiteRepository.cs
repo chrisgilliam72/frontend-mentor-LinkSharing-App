@@ -36,18 +36,25 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
         return platform;
     }
 
-    public async Task<CustomLink> CreateCustomLink(Platform platform, User user, string url)
+    public async Task<CustomLink?> CreateCustomLink(int platformId, int userId, string url)
     {
-        CustomLink customLink = new()
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+        var platform = await _context.Platforms.FirstOrDefaultAsync(x => x.Id == platformId);
+        if (user != null && platform!=null) 
         {
-            User = user,
-            Platform = platform,
-            URL = url
-        };
+            CustomLink customLink = new()
+            {
+                User = user,
+                Platform = platform,
+                URL = url
+            };
 
-        await _context.CustomLinks.AddAsync(customLink);
-        await _context.SaveChangesAsync();
-        return customLink;
+            await _context.CustomLinks.AddAsync(customLink);
+            await _context.SaveChangesAsync();
+            return customLink;
+        }
+
+        return null;
     }
 
     public async Task<bool> RemoveCustomLink(int customLinkId)
@@ -57,9 +64,10 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
         return await _context.SaveChangesAsync() > 0;
     }
 
-    public async Task<IEnumerable<CustomLink>> GetCustomLinks(User user)
+    public async Task<IEnumerable<CustomLink>> GetCustomLinks(int userId)
     {
-      return await _context.CustomLinks.Where(x => x.User == user).ToListAsync();
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+        return user!=null ? await _context.CustomLinks.Where(x => x.User == user).ToListAsync() : new List<CustomLink>();
     }
 
     public async Task<User?> CreateUser(String firstName, String lastName, String email, string password)
@@ -84,6 +92,11 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
     {
         return await _context.Users.FirstOrDefaultAsync(x => x.FirstName == firstName && x.Surname == lastName && x.Email == email);
     }
+    public async Task<IEnumerable<User>> GetAllUsers()
+    {
+        return await _context.Users.ToListAsync();
+    }
+
     public async Task<User?> GetAuthenticatedUser(String email, String password)
     {
         return await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);

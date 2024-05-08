@@ -7,11 +7,12 @@ public interface ILinkSharingRepository
     public  Task<IEnumerable<Platform>> GetPlatforms();
     public Task<Platform> AddPlatform(Platform platform);
     public Task<Platform> UpdatePlatform(Platform platform);
-    public Task<CustomLink> CreateCustomLink(Platform platform, User user, string url);
+    public Task<CustomLink?> CreateCustomLink(int platformId, int userId, string url);
     public Task<bool> RemoveCustomLink(int customLinkId);
-    public Task<IEnumerable<CustomLink>> GetCustomLinks(User user);
+    public Task<IEnumerable<CustomLink>> GetCustomLinks(int userId);
     public Task<User?> CreateUser(string firstName, string lastName, string email, string password);
     public Task<User?> GetUser(string firstName, string lastName, string email);
+    public Task<IEnumerable<User>> GetAllUsers();
     public Task<User?> GetAuthenticatedUser(string email, string password);
     public Task<bool> RemoveUser(string email, string password);
 }

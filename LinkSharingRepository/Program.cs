@@ -23,6 +23,20 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapPost("customlinks/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] LinkInfo link) =>
+{
+    return await linkSharingRepository.CreateCustomLink(link.PlatformId, link.UserId, link.LinkUrl);
+
+}).WithName("AddCustomLink")
+.WithOpenApi();
+
+app.MapGet("/customlinks/{userId}", async (int userId,[FromServices] ILinkSharingRepository linkSharingRepository) =>
+{
+    return await linkSharingRepository.GetCustomLinks(userId);
+
+}).WithName("GetLinks")
+.WithOpenApi();
+
 app.MapGet("/platforms", async ([FromServices]ILinkSharingRepository linkSharingRepository) =>
 {
     return await linkSharingRepository.GetPlatforms();
@@ -58,8 +72,16 @@ app.MapDelete("/users/delete", async  ([FromServices] ILinkSharingRepository lin
 }).WithName("DeleteUser")
 .WithOpenApi();
 
+app.MapGet("/Users", async ([FromServices] ILinkSharingRepository linkSharingRepository) =>
+{
+    return await linkSharingRepository.GetAllUsers();
+
+}).WithName("GetAllUsers")
+.WithOpenApi();
+
 app.Run();
 
 
 record AddUserInfo(string firstName, string surname, string password, string email);
 record DeleteUserInfo(string email, String password);
+record LinkInfo (int PlatformId, int UserId,string LinkUrl);

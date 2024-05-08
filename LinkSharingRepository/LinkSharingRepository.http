@@ -20,10 +20,10 @@ POST {{LinkSharingRepository_HostAddress}}/users/add
 Content-Type: application/json
 
 {
-  "firstName": "Chris",
-  "surname": "Gilliam",
-  "password": "passowrd",
-  "email": "chrisg@home.com"
+  "firstName": "Bill",
+  "surname": "Gates",
+  "password": "password1",
+  "email": "bill@microsoft.com"
 }
 
 ###
@@ -35,3 +35,18 @@ Content-Type: application/json
   "password": "passowrd"
 }
 ###
+GET {{LinkSharingRepository_HostAddress}}/users/
+Accept: application/json
+###
+Post {{LinkSharingRepository_HostAddress}}/customlinks/add
+Content-Type: application/json
+
+{
+  "platformId": 1,
+  "userId": 4,
+  "linkUrl": "www.mylink.com"
+}
+
+###
+GET {{LinkSharingRepository_HostAddress}}/customlinks/4
+Accept: application/json
