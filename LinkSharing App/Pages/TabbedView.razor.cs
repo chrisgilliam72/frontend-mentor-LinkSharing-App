@@ -8,6 +8,9 @@ partial class TabbedView
 {
     [Inject]
     public IPlatformService PlatformService { get; set; }
+
+    [Parameter]
+    public int UserId { get; set; }
     public CustomizeLinks CustomizeLinksViewModel { get; set; } = new();
     public ViewModels.ProfileDetails ProfileDetailsViewModel { get; set; } =  new ();
     public bool ShowProfileDetails { get; set; }

@@ -50,3 +50,8 @@ Content-Type: application/json
 ###
 GET {{LinkSharingRepository_HostAddress}}/customlinks/4
 Accept: application/json
+
+###
+Get {{LinkSharingRepository_HostAddress}}/users/getauthenticateduser?username=chrisg@home.com&password=passowrd
+Accept: application/json
+

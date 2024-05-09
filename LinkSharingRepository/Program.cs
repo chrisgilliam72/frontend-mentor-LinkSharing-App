@@ -3,6 +3,7 @@ using LinkSharingRepository.Interfaces;
 using LinkSharingRepository.Models;
 using LinkSharingRepository.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -84,16 +85,24 @@ app.MapDelete("/users/delete", async  ([FromServices] ILinkSharingRepository lin
 }).WithName("DeleteUser")
 .WithOpenApi();
 
-app.MapGet("/Users", async ([FromServices] ILinkSharingRepository linkSharingRepository) =>
+app.MapGet("/users", async ([FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
     return await linkSharingRepository.GetAllUsers();
 
 }).WithName("GetAllUsers")
 .WithOpenApi();
 
+app.MapGet("/users/getauthenticateduser", async ([FromServices] ILinkSharingRepository linkSharingRepository,
+                                               String? username, String? password) =>
+{
+    return await linkSharingRepository.GetAuthenticatedUser(username,password);
+
+}).WithName("GetAuthenticatedUser")
+.WithOpenApi();
+
 app.Run();
 
-
+record UserAuthDetails (string username, String password);
 record AddUserInfo(string firstName, string surname, string password, string email);
 record DeleteUserInfo(string email, String password);
 record LinkInfo (int PlatformId, int UserId,string LinkUrl);
