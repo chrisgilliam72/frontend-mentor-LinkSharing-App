@@ -21,7 +21,7 @@ partial class Preview
     public List<String> Links { get; set; } = new();
 
     [Parameter]
-    public CustomizeLinksViewModel CustomLinks { get; set; } = null!;
+    public CustomizeLinks CustomLinks { get; set; } = null!;
 
     protected override void OnInitialized()
     {

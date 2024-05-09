@@ -13,6 +13,6 @@ public class User
     [Required]
     public String Email { get; set; } = default!;
     [Required]
-    public String Password { get; set; } = default;
+    public String Password { get; set; } = default!;
 
 }

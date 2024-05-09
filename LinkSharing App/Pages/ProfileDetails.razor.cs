@@ -7,8 +7,8 @@ namespace LinkSharing_App.Pages
     partial class ProfileDetails
     {
         [Parameter]
-        public EventCallback<ProfileDetailsViewModel> ProfileDetailsUpdated { get; set; }
-        public ProfileDetailsViewModel ProfileDetailsViewModel { get; set; } = new ();
+        public EventCallback<ViewModels.ProfileDetails> ProfileDetailsUpdated { get; set; }
+        public ViewModels.ProfileDetails ProfileDetailsViewModel { get; set; } = new ();
         private String _photoString = default!;
         private String _photoFormat = default!;
         private byte[] _photoBytes = null!;

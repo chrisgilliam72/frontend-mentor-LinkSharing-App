@@ -2,10 +2,10 @@
 
 namespace LinkSharing_App.ViewModels;
 
-public class CustomizedLinkViewModel
+public class CustomizedLink
 {
- 
-    public String LinkUrl { get; set; }
+
+    public String LinkUrl { get; set; } = default!;
     public Platform Platform { get; set; }
     public String SelectedPlatformName => Platform?.Name ?? "Select platform";
 

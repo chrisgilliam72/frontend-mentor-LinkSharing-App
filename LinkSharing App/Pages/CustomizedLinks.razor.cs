@@ -13,21 +13,20 @@ partial class CustomizedLinks
     public IPlatformService PlatformService { get; set; }
 
     public List<Platform> Platforms = new();
-    public CustomizeLinksViewModel ViewModel { get; set; } = new();
+    public CustomizeLinks ViewModel { get; set; } = new();
     [Parameter]
-    public EventCallback<CustomizeLinksViewModel> LinksUpdated {  get; set; }
+    public EventCallback<CustomizeLinks> LinksUpdated {  get; set; }
    
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         Platforms.Clear();
-        Platforms= PlatformService.GetPlatforms().OrderBy(x => x.Name).ToList();
-        return base.OnInitializedAsync();
+        Platforms= (await PlatformService.GetPlatforms()).OrderBy(x => x.Name).ToList();
     }
 
 
     public void AddNewLink()
     {
-        CustomizedLinkViewModel customLink = new();
+        CustomizedLink customLink = new();
         ViewModel.CustomLinks.Add(customLink);
 
     }

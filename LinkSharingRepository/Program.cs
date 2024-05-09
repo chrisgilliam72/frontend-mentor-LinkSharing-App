@@ -12,7 +12,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SQLiteContext>();
 builder.Services.AddScoped<ILinkSharingRepository, LinkSharingSQLiteRepository>();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.AllowAnyOrigin();
+        });
+});
+
 var app = builder.Build();
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -46,7 +56,7 @@ app.MapGet("/platforms", async ([FromServices]ILinkSharingRepository linkSharing
 
 app.MapPost("/platforms/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] Platform platform) =>
 {
-    return linkSharingRepository.AddPlatform(platform);
+    return await linkSharingRepository.AddPlatform(platform);
 });
 
 app.MapPut("/platforms/update", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] Platform platform) =>

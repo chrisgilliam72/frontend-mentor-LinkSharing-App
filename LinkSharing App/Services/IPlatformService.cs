@@ -4,6 +4,6 @@ namespace LinkSharing_App.Services
 {
     public interface IPlatformService
     {
-        public IEnumerable<Platform> GetPlatforms();
+        public Task<IEnumerable<Platform>> GetPlatforms();
     }
 }

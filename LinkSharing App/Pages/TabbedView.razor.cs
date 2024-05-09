@@ -8,8 +8,8 @@ partial class TabbedView
 {
     [Inject]
     public IPlatformService PlatformService { get; set; }
-    public CustomizeLinksViewModel CustomizeLinksViewModel { get; set; } = new();
-    public ProfileDetailsViewModel ProfileDetailsViewModel { get; set; } =  new ();
+    public CustomizeLinks CustomizeLinksViewModel { get; set; } = new();
+    public ViewModels.ProfileDetails ProfileDetailsViewModel { get; set; } =  new ();
     public bool ShowProfileDetails { get; set; }
     public bool ShowCustomLinks {  get; set; }
 
@@ -30,12 +30,12 @@ partial class TabbedView
         ShowCustomLinks = true;
     }
 
-    public void OnProfileDetailsUpdated(ProfileDetailsViewModel profileImageViewModel)
+    public void OnProfileDetailsUpdated(ViewModels.ProfileDetails profileImageViewModel)
     {
         ProfileDetailsViewModel=profileImageViewModel;
     }
 
-    public void OnCustomLinksUpdated(CustomizeLinksViewModel customizeLinksViewModel)
+    public void OnCustomLinksUpdated(CustomizeLinks customizeLinksViewModel)
     {
         CustomizeLinksViewModel=customizeLinksViewModel;
     }
