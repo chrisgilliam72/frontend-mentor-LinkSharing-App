@@ -11,5 +11,7 @@ namespace LinkSharing_App.Services
             var platforms = await httpClient.GetFromJsonAsync<List<Platform>>("platforms/");
             return platforms;
         }
+
+
     }
 }

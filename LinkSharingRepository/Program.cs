@@ -2,6 +2,7 @@ using LinkSharingRepository;
 using LinkSharingRepository.Interfaces;
 using LinkSharingRepository.Models;
 using LinkSharingRepository.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 
@@ -35,6 +36,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapDelete("/customlinks/delete/{linkId:int}", async (int linkId, [FromServices] ILinkSharingRepository linkSharingRepository) =>
+{
+    var result = await linkSharingRepository.RemoveCustomLink(linkId);
+    return result ? Results.Ok(true) : Results.NotFound(false);
+  
+}).WithName("DeleteUser")
+.WithOpenApi();
 
 app.MapPost("customlinks/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] LinkInfo link) =>
 {
@@ -79,8 +88,7 @@ app.MapPost("/users/add", async ([FromServices] ILinkSharingRepository linkShari
 app.MapDelete("/users/delete", async  ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody]DeleteUserInfo user) =>
 {
     var result = await linkSharingRepository.RemoveUser(user.email, user.password);
-    return result;
-
+    return result ? Results.Ok(true) : Results.NotFound(false);
 
 }).WithName("DeleteUser")
 .WithOpenApi();
@@ -98,7 +106,7 @@ app.MapGet("/users/getauthenticateduser", async ([FromServices] ILinkSharingRepo
     return await linkSharingRepository.GetAuthenticatedUser(username,password);
 
 }).WithName("GetAuthenticatedUser")
-.WithOpenApi();
+.WithOpenApi().Produces(200);
 
 app.Run();
 
