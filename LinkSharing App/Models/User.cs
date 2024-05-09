@@ -5,15 +5,15 @@ namespace LinkSharingRepository.Models;
 
 public class User
 {
-    [JsonIgnore]
+
     public int Id { get; set; }
 
-    public String FirstName { get; set; } = default!;
+    public String FirstName { get; set; } = "";
  
-    public String Surname { get; set; } = default!;
+    public String Surname { get; set; } = "";
     [Required]
-    public String Email { get; set; } = default!;
+    public String Email { get; set; } = "";
     [Required]
-    public String Password { get; set; } = default!;
+    public String Password { get; set; } = "";
 
 }

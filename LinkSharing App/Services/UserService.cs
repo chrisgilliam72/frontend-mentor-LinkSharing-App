@@ -12,9 +12,23 @@ namespace LinkSharing_App.Services
             User user = new()
             {
                 Password = password,
-                Email = userName
+                Email = userName,
+                Id = -1
             };
-            var response = await httpClient.PostAsJsonAsync<User>("/users/add", user);
+            try
+            {
+                var response = await httpClient.PostAsJsonAsync("/users/add", user);
+                if (response != null && response.StatusCode==System.Net.HttpStatusCode.OK) 
+                {
+                    user = await response.Content.ReadFromJsonAsync<User>();
+                }
+               
+            }
+            catch (Exception ex)
+            {
+
+            }
+    
             return user;
         }
     }

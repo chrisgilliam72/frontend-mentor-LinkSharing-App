@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 const string baseAddress = @"https://cg-frontendmentor-link-sharing.azurewebsites.net/";
+//const string baseAddress = @" http://localhost:5095/";
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
