@@ -1,4 +1,4 @@
-This is a WIP project which I am currently busy with.I hope to be done with it by the 17/05/2024 . Front End is done using Blazor WASM and Bootstrap. Backend is C# API and SQLite database hosted on Azure . 
+This is a WIP project which I am currently busy with.I hope to be done with it by the 17/05/2024 . Front End is done using Blazor WASM ,HTML5, CDSS  and Bootstrap. Backend is C# API and SQLite database hosted on Azure . 
 
 
 https://www.frontendmentor.io/challenges/linksharing-app-Fbt7yweGsT
