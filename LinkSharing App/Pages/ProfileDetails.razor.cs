@@ -21,6 +21,14 @@ namespace LinkSharing_App.Pages
         protected override async Task OnInitializedAsync()
         {
             var user= await UserService.GetUser(UserId);
+            if (user != null) 
+            {
+                ProfileDetailsViewModel.Name = user.FirstName;
+                ProfileDetailsViewModel.LastName = user.Surname;
+                ProfileDetailsViewModel.EmailAddress = user.Email;
+                ProfileDetailsViewModel.Photo = user.Photo;
+                ProfileDetailsViewModel.PhotoFormat=user.PhotoFormat;
+            }
         }
         public async void OnPhotoUploaded(InputFileChangeEventArgs e)
         {
