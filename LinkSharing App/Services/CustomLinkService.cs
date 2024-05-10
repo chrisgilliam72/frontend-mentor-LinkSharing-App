@@ -35,7 +35,7 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
     public async Task<bool> RemoveCustomLink(int linkId)
     {
         var response = await httpClient.DeleteAsync("/customlinks/delete/{linkId}");
-        return (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+        return (response != null && response.StatusCode == System.Net.HttpStatusCode.OK);
     }
 
     public Task<CustomLink> UpdateCustomLink(int linkId, string linkURL)

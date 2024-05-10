@@ -10,7 +10,7 @@ partial class TabbedView
     public IPlatformService PlatformService { get; set; }
 
     [Parameter]
-    public int UserId { get; set; }
+    public String UserId { get; set; }
     public CustomizeLinks CustomizeLinksViewModel { get; set; } = new();
     public ViewModels.ProfileDetails ProfileDetailsViewModel { get; set; } =  new ();
     public bool ShowProfileDetails { get; set; }

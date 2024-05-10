@@ -7,12 +7,18 @@ namespace LinkSharing_App.Pages
     partial class Login
     {
         [Inject]
-        public IUserService UserService { get; set; } 
+        public IUserService UserService { get; set; }
+        [Inject]
+        NavigationManager NavigationManager { get; set; }
         public LoginDetails Details { get; set; } = new();
 
         public async Task OnLogin()
         {
             var user= await UserService.GetAuthenticateUser(Details.Username, Details.Password);
+            if (user != null)
+            {
+                NavigationManager.NavigateTo($"/TabbedView/{user.Id}");
+            }
         }
     }
 }

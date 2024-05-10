@@ -12,7 +12,8 @@ public class UserService(HttpClient httpClient) : IUserService
         try
         {
 
-            var response = await httpClient.GetFromJsonAsync<User?>($"/users/getauthenticateduser?username={userName}&password={password}");
+            user = await httpClient.GetFromJsonAsync<User?>($"/users/getauthenticateduser?username={userName}&password={password}");
+         
 
         }
         catch (Exception ex)
