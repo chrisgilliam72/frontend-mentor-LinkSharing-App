@@ -2,6 +2,7 @@
 {
     public class ProfileDetails
     {
+        public int Id { get; set; }
         public String Name { get; set; } = default!;
         public String LastName { get; set; } = default!;    
         public String EmailAddress { get; set; } = default!;

@@ -5,6 +5,27 @@ namespace LinkSharing_App.Services;
 
 public class UserService(HttpClient httpClient) : IUserService
 {
+    public async Task<User> UpdateUser(User user)
+    {
+        try
+        {
+            var response = await httpClient.PutAsJsonAsync("/users/update", user);
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                user = await response.Content.ReadFromJsonAsync<User>();
+            }
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+        return user;
+
+     
+    }
+
     public async Task<User> GetUser(int userId)
     {
         User user = null;

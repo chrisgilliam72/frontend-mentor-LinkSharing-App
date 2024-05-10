@@ -1,5 +1,6 @@
 ﻿using LinkSharing_App.Services;
 using LinkSharing_App.ViewModels;
+using LinkSharingRepository.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -23,6 +24,7 @@ namespace LinkSharing_App.Pages
             var user= await UserService.GetUser(UserId);
             if (user != null) 
             {
+                ProfileDetailsViewModel.Id = user.Id;
                 ProfileDetailsViewModel.Name = user.FirstName;
                 ProfileDetailsViewModel.LastName = user.Surname;
                 ProfileDetailsViewModel.EmailAddress = user.Email;
@@ -46,6 +48,16 @@ namespace LinkSharing_App.Pages
 
         public async void OnSave()
         {
+            User user = new()
+            {
+                Id= ProfileDetailsViewModel.Id,
+                FirstName = ProfileDetailsViewModel.Name,
+                Surname = ProfileDetailsViewModel.LastName,
+                Email = ProfileDetailsViewModel.EmailAddress,
+                Photo = ProfileDetailsViewModel.Photo,
+                PhotoFormat = ProfileDetailsViewModel.PhotoFormat
+            };
+            user = await UserService.UpdateUser(user);
             await ProfileDetailsUpdated.InvokeAsync(ProfileDetailsViewModel);
         }
         public void OnPhotoSubmit()
