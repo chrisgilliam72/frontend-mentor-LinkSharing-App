@@ -15,4 +15,7 @@ public class User
     [Required]
     public String Password { get; set; } = "";
 
+    public String Photo { get; set; } = default!;
+    public String PhotoFormat { get; set; } = "";
+
 }

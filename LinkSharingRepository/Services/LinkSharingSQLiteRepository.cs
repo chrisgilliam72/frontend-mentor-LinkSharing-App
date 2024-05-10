@@ -97,21 +97,46 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
         return await _context.Users.ToListAsync();
     }
 
+    public async Task<User?> GetUser(int userId)
+    {
+        return  await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+    }
+
     public async Task<User?> GetAuthenticatedUser(String email, String password)
     {
         return await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
     }
 
-    public async Task<bool> RemoveUser(String email, String password)
+    public async Task<User?> UpdateUser(int userId, string firstName, string lastName, string email, string photo, string photoFormat)
     {
-        var user = await GetAuthenticatedUser(email, password);
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
         if (user != null)
         {
-             _context.Users.Remove(user);
+            user.FirstName = firstName;
+            user.Surname = lastName;
+            user.Email = email;
+            user.Photo = photo; 
+            user.PhotoFormat = photoFormat;
+            await _context.SaveChangesAsync();
+        }
+
+        return user;
+    }
+    public async Task<bool> RemoveUser(int userId)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+        if (user != null)
+        {
+             var userLinks=await _context.CustomLinks.Where(x => x.User.Id == userId).ToListAsync();
+            _context.CustomLinks.RemoveRange(userLinks);
+            await _context.SaveChangesAsync();
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return true;
         }
 
         return false;
     }
+
+
 }

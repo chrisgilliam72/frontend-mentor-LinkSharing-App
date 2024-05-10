@@ -42,7 +42,7 @@ app.MapDelete("/customlinks/delete/{linkId:int}", async (int linkId, [FromServic
     var result = await linkSharingRepository.RemoveCustomLink(linkId);
     return result ? Results.Ok(true) : Results.NotFound(false);
   
-}).WithName("DeleteUser")
+}).WithName("DeleteCustomLink")
 .WithOpenApi();
 
 app.MapPost("customlinks/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] LinkInfo link) =>
@@ -85,9 +85,16 @@ app.MapPost("/users/add", async ([FromServices] ILinkSharingRepository linkShari
 }).WithName("AddUser")
 .WithOpenApi();
 
-app.MapDelete("/users/delete", async  ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody]DeleteUserInfo user) =>
+app.MapPut("/users/update", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] User user) =>
 {
-    var result = await linkSharingRepository.RemoveUser(user.email, user.password);
+    var updatedUser = await linkSharingRepository.UpdateUser(user.Id,user.FirstName,user.Surname,user.Email,user.Photo,user.PhotoFormat);
+    return updatedUser!=null ? Results.Ok(updatedUser) : Results.NotFound(null);
+}).WithName("UpdateUser")
+.WithOpenApi();
+
+app.MapDelete("/users/delete/{linkId:int}", async (int linkId, [FromServices] ILinkSharingRepository linkSharingRepository) =>
+{
+    var result = await linkSharingRepository.RemoveUser(linkId);
     return result ? Results.Ok(true) : Results.NotFound(false);
 
 }).WithName("DeleteUser")
@@ -99,6 +106,16 @@ app.MapGet("/users", async ([FromServices] ILinkSharingRepository linkSharingRep
 
 }).WithName("GetAllUsers")
 .WithOpenApi();
+
+app.MapGet("/users/user/{userId}", async ([FromServices] ILinkSharingRepository linkSharingRepository,
+                                              int userId) =>
+{
+    var user = await linkSharingRepository.GetUser(userId);
+    return user != null ? Results.Ok(user) : Results.NotFound(user);
+
+}).WithName("GetUser")
+
+.WithOpenApi().Produces(200);
 
 app.MapGet("/users/getauthenticateduser", async ([FromServices] ILinkSharingRepository linkSharingRepository,
                                                String? username, String? password) =>

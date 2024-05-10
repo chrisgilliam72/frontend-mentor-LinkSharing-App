@@ -5,6 +5,23 @@ namespace LinkSharing_App.Services;
 
 public class UserService(HttpClient httpClient) : IUserService
 {
+    public async Task<User> GetUser(int userId)
+    {
+        User user = null;
+        try
+        {
+
+            user =  await httpClient.GetFromJsonAsync<User?>($"/users/user/{userId}");
+
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+
+        return user;
+    }
 
     public async Task<User?> GetAuthenticateUser(String userName, String password)
     {
@@ -48,5 +65,6 @@ public class UserService(HttpClient httpClient) : IUserService
 
         return user;
     }
+
 
 }
