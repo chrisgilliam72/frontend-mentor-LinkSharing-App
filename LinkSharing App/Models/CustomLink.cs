@@ -4,7 +4,7 @@ namespace LinkSharingRepository.Models;
 
 public class CustomLink
 {
-    [Key]
+
     public int Id { get; set; }
 
     public String URL { get; set; } = default!;

@@ -274,6 +274,13 @@ code {
     border-radius:8px;
 }
 
+.preview-phone-tabbed-container {
+    background-image: url('/img/illustration-phone-mockup.svg');
+    background-repeat: no-repeat;
+    height: 650px;
+    width: 320px;
+}
+
 .preview-phone-container {
     position: relative;
     top: -100px;

@@ -6,8 +6,22 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
 {
     public async Task<IEnumerable<CustomLink>> GetCustomLinks(int userId)
     {
-        var links = await httpClient.GetFromJsonAsync<List<CustomLink>>($"platforms/{userId}");
-        return links;
+        List<CustomLink> customLinks = null;
+        try
+        {
+            var response = await httpClient.GetAsync($"/customlinks/{userId}");
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                customLinks = await response.Content.ReadFromJsonAsync<List<CustomLink>>();
+            }
+               
+        }
+        catch (Exception ex)
+        {
+            customLinks = new();
+        }
+
+        return customLinks;
     }
 
     public async Task<CustomLink> AddCustomLink(int platformId, int userId, string linkURL)
@@ -15,7 +29,7 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
         CustomLink customLink = null;
         try
         {
-            var response = await httpClient.PostAsJsonAsync("/customlinks/add", new { platformId=platformId,userId=userId,linkUrl=linkURL});
+            var response = await httpClient.PostAsJsonAsync($"/customlinks/add", new { platformId=platformId,userId=userId,linkUrl=linkURL});
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 customLink = await response.Content.ReadFromJsonAsync<CustomLink>();

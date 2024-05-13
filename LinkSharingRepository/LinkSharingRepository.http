@@ -58,7 +58,9 @@ Content-Type: application/json
   "userId": 4,
   "linkUrl": "www.mylink.com"
 }
-
+###
+DELETE {{LinkSharingRepository_HostAddress}}/customlinks/delete/1
+Accept: application/json
 ###
 GET {{LinkSharingRepository_HostAddress}}/customlinks/4
 Accept: application/json

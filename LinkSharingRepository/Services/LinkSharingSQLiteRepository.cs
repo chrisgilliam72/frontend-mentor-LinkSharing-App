@@ -67,7 +67,7 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
     public async Task<IEnumerable<CustomLink>> GetCustomLinks(int userId)
     {
         var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
-        return user!=null ? await _context.CustomLinks.Where(x => x.User == user).ToListAsync() : new List<CustomLink>();
+        return user!=null ? await _context.CustomLinks.Include(x=>x.Platform).Where(x => x.User == user).ToListAsync() : new List<CustomLink>();
     }
 
     public async Task<User?> CreateUser(String firstName, String lastName, String email, string password)
