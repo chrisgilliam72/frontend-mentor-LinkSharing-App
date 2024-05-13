@@ -54,6 +54,6 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
 
     public Task<CustomLink> UpdateCustomLink(int linkId, string linkURL)
     {
-        throw new NotImplementedException();
+        return null;
     }
 }

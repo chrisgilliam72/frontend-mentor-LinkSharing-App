@@ -13,12 +13,12 @@
 
             @if (CustomLinks != null)
             {
-                <div style="position:absolute; top:272px;height:350px; left:132px">
+                <div style="position:absolute; top:272px;height:350px; left:140px">
                     @foreach (var customLink in CustomLinks.CustomLinks)
                     {
                         <div class="row mt-4" >
                             <div class="col-auto">
-                                `   <button class="preview-platform-button" style="background-color:@customLink.Platform.BrandingColor; height:40px">
+                                   <button class="preview-platform-button" style="background-color:@customLink.Platform.BrandingColor; height:40px">
                                     <div class="d-flex justify-content-between" style="width:100%;">
                                         <div>
                                             <img src="@customLink.Platform.IconPath" />

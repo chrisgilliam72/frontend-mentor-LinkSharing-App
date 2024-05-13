@@ -39,24 +39,35 @@
 
                                 <div class="row mt-2 ">
                                     <label for="linkText" class="form-label bodyS">Platform</label>
-                                    <div class="dropdown">
-                                        <button class="btn dropdown-toggle form-control" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            @customLink.SelectedPlatformName
-                                        </button>
-                                        <ul class="dropdown-menu form-control">
-                                            @foreach (var platform in Platforms)
-                                            {
-                                                <li class="dropdown-item">
-                                                    <div>
-                                                        <img src="@platform.IconPath"/>
-                                                        <a @onclick="(e=>OnPlatformSelected(platform.Id,customLink.PlatformLinkId))">@platform.Name</a>
-                                                    </div>
+                                    @if (customLink.PlatformLinkId !=0)
+                                    {
+                                        <div class="d-flex align-items-center">
+                                            <img src="@customLink.Platform.IconPath" />
+                                            <span class="ms-1">@customLink.Platform.Name</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="dropdown">
+                                            <button class="btn dropdown-toggle form-control" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                @customLink.SelectedPlatformName
+                                            </button>
+                                            <ul class="dropdown-menu form-control">
+                                                @foreach (var platform in Platforms)
+                                                {
+                                                    <li class="dropdown-item">
+                                                        <div>
+                                                            <img src="@platform.IconPath" />
+                                                            <a @onclick="(e=>OnPlatformSelected(platform.Id,customLink.PlatformLinkId))">@platform.Name</a>
+                                                        </div>
 
-                                                </li>
+                                                    </li>
 
-                                            }
-                                        </ul>
-                                    </div>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+
                                 </div>
                                 <div class="row mt-2">
                                     <label for="platformSelection" class="form-label bodyS">Link</label>
