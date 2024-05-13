@@ -38,7 +38,9 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
     }
     public async Task<CustomLink> UpdateCustomLink(int customLinkId, string customLinkUrl)
     {
-        var dbCustomLink= await _context.CustomLinks.FirstOrDefaultAsync(x=>x.Id == customLinkId);
+        var dbCustomLink= await _context.CustomLinks.Include(x=>x.Platform)
+                                                    .Include(x=>x.User)
+                                                    .FirstOrDefaultAsync(x=>x.Id == customLinkId);
         if (dbCustomLink!=null)
         {
             dbCustomLink.URL = customLinkUrl;

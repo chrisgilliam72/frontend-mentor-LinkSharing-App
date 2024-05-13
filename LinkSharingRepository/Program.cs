@@ -52,9 +52,9 @@ app.MapPost("customlinks/add", async ([FromServices] ILinkSharingRepository link
 }).WithName("AddCustomLink")
 .WithOpenApi().Produces(200);
 
-app.MapPut("customlinks/update/{linkId:int}", async (int linkId,[FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] String linkUrl) =>
+app.MapPut("customlinks/update/{linkId:int}", async (int linkId,[FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] CustomLinkUrl linkUrl) =>
 {
-    var updateLink= await linkSharingRepository.UpdateCustomLink(linkId, linkUrl);
+    var updateLink= await linkSharingRepository.UpdateCustomLink(linkId, linkUrl.linkUrl);
     return updateLink != null ? Results.Ok(updateLink) : Results.NotFound(null);
 
 }).WithName("UpdateCustomLink")
@@ -135,6 +135,7 @@ app.MapGet("/users/getauthenticateduser", async ([FromServices] ILinkSharingRepo
 
 app.Run();
 
+record CustomLinkUrl (string linkUrl);
 record UserAuthDetails (string username, String password);
 record AddUserInfo(string firstName, string surname, string password, string email);
 record DeleteUserInfo(string email, String password);

@@ -14,7 +14,13 @@ Content-Type: application/json
   "icon": "icon-youtube.svg",
   "brandingColor": "#FF0000"
 }
+###
+PUT {{LinkSharingRepository_HostAddress}}/customlinks/update/1
+Content-Type: application/json
 
+{
+  "linkUrl":"www.stackoverflow.com/hello"
+}
 ###
 POST {{LinkSharingRepository_HostAddress}}/users/add
 Content-Type: application/json
