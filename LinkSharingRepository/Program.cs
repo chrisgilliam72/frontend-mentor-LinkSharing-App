@@ -43,54 +43,62 @@ app.MapDelete("/customlinks/delete/{linkId:int}", async (int linkId, [FromServic
     return result ? Results.Ok(true) : Results.NotFound(false);
   
 }).WithName("DeleteCustomLink")
-.WithOpenApi();
+.WithOpenApi().Produces(200).Produces(404);
 
 app.MapPost("customlinks/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] LinkInfo link) =>
 {
     return await linkSharingRepository.CreateCustomLink(link.PlatformId, link.UserId, link.LinkUrl);
 
 }).WithName("AddCustomLink")
-.WithOpenApi();
+.WithOpenApi().Produces(200);
+
+app.MapPut("customlinks/update/{linkId:int}", async (int linkId,[FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] String linkUrl) =>
+{
+    var updateLink= await linkSharingRepository.UpdateCustomLink(linkId, linkUrl);
+    return updateLink != null ? Results.Ok(updateLink) : Results.NotFound(null);
+
+}).WithName("UpdateCustomLink")
+.WithOpenApi().Produces(200).Produces(404); 
 
 app.MapGet("/customlinks/{userId}", async (int userId,[FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
     return await linkSharingRepository.GetCustomLinks(userId);
 
 }).WithName("GetLinks")
-.WithOpenApi();
+.WithOpenApi().Produces(200);
 
 app.MapGet("/platforms", async ([FromServices]ILinkSharingRepository linkSharingRepository) =>
 {
     return await linkSharingRepository.GetPlatforms();
 
 }).WithName("GetPlatforms")
-.WithOpenApi();
+.WithOpenApi().Produces(200);
 
 app.MapPost("/platforms/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] Platform platform) =>
 {
     return await linkSharingRepository.AddPlatform(platform);
-});
+}).Produces(200);
 
 app.MapPut("/platforms/update", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] Platform platform) =>
 {
     var updatedPlatfrm = await linkSharingRepository.UpdatePlatform(platform);
     return updatedPlatfrm;
 }).WithName("UpdatePlatform")
-.WithOpenApi();
+.WithOpenApi().Produces(200);
 
 app.MapPost("/users/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] AddUserInfo user) =>
 {
     var dbUser = await linkSharingRepository.CreateUser(user.firstName,user.surname,user.email, user.password);
     return dbUser;
 }).WithName("AddUser")
-.WithOpenApi();
+.WithOpenApi().Produces(200);
 
 app.MapPut("/users/update", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] User user) =>
 {
     var updatedUser = await linkSharingRepository.UpdateUser(user.Id,user.FirstName,user.Surname,user.Email,user.Photo,user.PhotoFormat);
     return updatedUser!=null ? Results.Ok(updatedUser) : Results.NotFound(null);
 }).WithName("UpdateUser")
-.WithOpenApi();
+.WithOpenApi().Produces(200).Produces(404); 
 
 app.MapDelete("/users/delete/{linkId:int}", async (int linkId, [FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
@@ -98,14 +106,14 @@ app.MapDelete("/users/delete/{linkId:int}", async (int linkId, [FromServices] IL
     return result ? Results.Ok(true) : Results.NotFound(false);
 
 }).WithName("DeleteUser")
-.WithOpenApi();
+.WithOpenApi().Produces(200).Produces(404); 
 
 app.MapGet("/users", async ([FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
     return await linkSharingRepository.GetAllUsers();
 
 }).WithName("GetAllUsers")
-.WithOpenApi();
+.WithOpenApi().Produces(200);
 
 app.MapGet("/users/user/{userId}", async ([FromServices] ILinkSharingRepository linkSharingRepository,
                                               int userId) =>
@@ -115,7 +123,7 @@ app.MapGet("/users/user/{userId}", async ([FromServices] ILinkSharingRepository 
 
 }).WithName("GetUser")
 
-.WithOpenApi().Produces(200);
+.WithOpenApi().Produces(200).Produces(404);
 
 app.MapGet("/users/getauthenticateduser", async ([FromServices] ILinkSharingRepository linkSharingRepository,
                                                String? username, String? password) =>

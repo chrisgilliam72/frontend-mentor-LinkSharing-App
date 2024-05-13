@@ -1,6 +1,7 @@
 ﻿using LinkSharingRepository.Interfaces;
 using LinkSharingRepository.Models;
 using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
 
 namespace LinkSharingRepository.Services;
 
@@ -24,7 +25,7 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
     }
     public async Task<Platform> UpdatePlatform(Platform platform)
     {
-        var dbPlatfrm= await _context.Platforms.FirstAsync(x=>x.Id==platform.Id);
+        var dbPlatfrm= await _context.Platforms.FirstOrDefaultAsync(x=>x.Id==platform.Id);
         if (dbPlatfrm!=null) 
         {
             dbPlatfrm.BrandingColor = platform.BrandingColor;
@@ -35,7 +36,16 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
 
         return platform;
     }
-
+    public async Task<CustomLink> UpdateCustomLink(int customLinkId, string customLinkUrl)
+    {
+        var dbCustomLink= await _context.CustomLinks.FirstOrDefaultAsync(x=>x.Id == customLinkId);
+        if (dbCustomLink!=null)
+        {
+            dbCustomLink.URL = customLinkUrl;
+        
+        }
+        return dbCustomLink!;
+    }
     public async Task<CustomLink?> CreateCustomLink(int platformId, int userId, string url)
     {
         var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
@@ -122,6 +132,7 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
 
         return user;
     }
+
     public async Task<bool> RemoveUser(int userId)
     {
         var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);

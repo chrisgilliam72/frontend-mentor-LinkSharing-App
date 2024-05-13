@@ -90,6 +90,11 @@ partial class TabbedView
             if (link.Id==0) 
             {
                 var dbLinkl = await CustomLinkService.AddCustomLink(link.PlatformLinkId, Convert.ToInt32(UserId), link.LinkUrl);
+                link.Id = dbLinkl.Id;
+            }
+            else
+            {
+                await CustomLinkService.UpdateCustomLink(link.Id, link.LinkUrl);
             }
         }
    
