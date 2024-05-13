@@ -62,16 +62,13 @@
         </div>
     </div>
     <div class="row mt-2">
-        <div class="col-4 section-background">
-            <div class="card" style="border:none">
-                <div class="d-flex justify-content-center  align-items-center mt-4">
-                    <Phone ImageSrc="@ProfileDetailsViewModel.ImgSrc" FirstName="@ProfileDetailsViewModel.Name"
-                             LastName="@ProfileDetailsViewModel.LastName" Email="@ProfileDetailsViewModel.EmailAddress"
-                             CustomLinks="@CustomizeLinksViewModel" />
-                </div>
-            </div>
+        <div class="col-5 section-background">                  
+        <Phone ImageSrc="@ProfileDetailsViewModel.ImgSrc" FirstName="@ProfileDetailsViewModel.Name"
+                LastName="@ProfileDetailsViewModel.LastName" Email="@ProfileDetailsViewModel.EmailAddress"
+                CustomLinks="@CustomizeLinksViewModel" />
+                   
         </div>
-        <div class="col-8">
+        <div class="col-7">
             @if (ShowCustomLinks)
             {
                 <CustomizedLinks LinksUpdated="OnCustomLinksUpdated" />

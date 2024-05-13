@@ -1,35 +1,40 @@
 ﻿
-    <div class="d-flex justify-content-center preview-phone-tabbed-container" >
+<div class="card">
+    <div class="card-body">
+        <div class=" container d-flex justify-content-center preview-phone-tabbed-container">
 
-        @if (!String.IsNullOrEmpty(ImageSrc))
-        {
-            <img class="round-image mb-2" src="@ImageSrc" height=100 width="100" style="position:absolute; top:90px; left:150px;" />
-        }
+            @if (!String.IsNullOrEmpty(ImageSrc))
+            {
+                <img class="round-image mb-2" src="@ImageSrc" height=100 width="100" style="position:absolute; top:80px;" />
+            }
 
-        <span class="headingM" style="position:absolute; top:190px;left:110px;background-color:white">@FirstName @LastName</span>
-        <span class="bodyM" style="position:absolute; top:230px;left:120px;background-color:white">@Email</span>
+            <p class="headingS" style="position:absolute; top:195px; ">@FirstName @LastName</p>
+            <p class="bodyS" style="position:absolute; top:231px;background-color:white">@Email</p>
 
-@*         @if (CustomLinks != null)
-        {
-            <div style="position:absolute; top:255px; width:80%; height:350px;">
-                @foreach (var customLink in CustomLinks.CustomLinks)
-                {
-                    <div class="row justify-content-center mt-3" style="background-color:white;height:50px">
-                        <div class="col-auto ">
-                            <button class="preview-platform-button" style="background-color:@customLink.Platform.BrandingColor">
-                                <div class="d-flex justify-content-between" style="width:100%;">
-                                    <div>
-                                        <img src="@customLink.Platform.IconPath" />
-                                        <span class="ms-1">@customLink.SelectedPlatformName </span>
+            @if (CustomLinks != null)
+            {
+                <div style="position:absolute; top:272px;height:350px; left:132px">
+                    @foreach (var customLink in CustomLinks.CustomLinks)
+                    {
+                        <div class="row mt-4" >
+                            <div class="col-auto">
+                                `   <button class="preview-platform-button" style="background-color:@customLink.Platform.BrandingColor; height:40px">
+                                    <div class="d-flex justify-content-between" style="width:100%;">
+                                        <div>
+                                            <img src="@customLink.Platform.IconPath" />
+                                            <span class="ms-1">@customLink.SelectedPlatformName </span>
+                                        </div>
+
+                                        <img src="/img/icon-arrow-right.svg" />
                                     </div>
-
-                                    <img src="/img/icon-arrow-right.svg" />
-                                </div>
-                            </button>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                }
-            </div>
+                    }
+                </div>
 
-        } *@
+            }
+        </div>
     </div>
+</div>
+
