@@ -71,11 +71,11 @@
         <div class="col-7">
             @if (ShowCustomLinks)
             {
-                <CustomizedLinks LinksUpdated="OnCustomLinksUpdated" />
+                <CustomizedLinks Platforms="@Platforms" LinksUpdated="OnCustomLinksUpdated" CustomLinksViewModel="@CustomizeLinksViewModel"/>
             }
             else if (ShowProfileDetails)
             {
-                <ProfileDetails UserId=4 ProfileDetailsUpdated="OnProfileDetailsUpdated" />
+                <ProfileDetails  ProfileDetailsViewModel="@ProfileDetailsViewModel" ProfileDetailsUpdated="OnProfileDetailsUpdated" />
             }
 
         </div>

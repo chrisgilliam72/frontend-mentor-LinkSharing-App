@@ -29,7 +29,7 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
         CustomLink customLink = null;
         try
         {
-            var response = await httpClient.PostAsJsonAsync($"/customlinks/add", new { platformId=platformId,userId=userId,linkUrl=linkURL});
+            var response = await httpClient.PostAsJsonAsync("/customlinks/add", new { platformId=platformId,userId=userId,linkUrl=linkURL});
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 customLink = await response.Content.ReadFromJsonAsync<CustomLink>();

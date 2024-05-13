@@ -59,7 +59,7 @@ Content-Type: application/json
   "linkUrl": "www.mylink.com"
 }
 ###
-DELETE {{LinkSharingRepository_HostAddress}}/customlinks/delete/1
+DELETE {{LinkSharingRepository_HostAddress}}/customlinks/delete/2
 Accept: application/json
 ###
 GET {{LinkSharingRepository_HostAddress}}/customlinks/4
