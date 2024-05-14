@@ -2,9 +2,12 @@ using LinkSharingRepository;
 using LinkSharingRepository.Interfaces;
 using LinkSharingRepository.Models;
 using LinkSharingRepository.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +28,12 @@ builder.Services.AddCors(options =>
         });
 });
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie();
+
 var app = builder.Build();
 app.UseCors();
 
@@ -36,6 +45,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
+
 
 app.MapDelete("/customlinks/delete/{linkId:int}", async (int linkId, [FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
@@ -122,19 +133,46 @@ app.MapGet("/users/user/{userId}", async ([FromServices] ILinkSharingRepository 
     return user != null ? Results.Ok(user) : Results.NotFound(user);
 
 }).WithName("GetUser")
-
 .WithOpenApi().Produces(200).Produces(404);
 
-app.MapGet("/users/getauthenticateduser", async ([FromServices] ILinkSharingRepository linkSharingRepository,
-                                               String? username, String? password) =>
+app.MapGet("/users/getauthenticateduser", async (HttpContext httpContext,[FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
-    return await linkSharingRepository.GetAuthenticatedUser(username,password);
+    if (httpContext.User.Identity.IsAuthenticated)
+    {
+        var email = httpContext.User.FindFirstValue(ClaimTypes.Name);
+        var user = await linkSharingRepository.GetUser(email);
+        return user != null ? Results.Ok(user) : Results.NotFound(httpContext.User);
+    }
+    return Results.Unauthorized();
 
 }).WithName("GetAuthenticatedUser")
+.WithOpenApi().Produces(200).Produces(401).Produces(404);
+
+app.MapPost("/users/login", async (HttpContext httpContext,[FromServices] ILinkSharingRepository linkSharingRepository,
+                                               String? username, String? password) =>
+{
+    var user = await linkSharingRepository.GetAuthenticatedUser(username, password);
+    if (user != null)
+    {
+        var claim = new Claim(ClaimTypes.Name, user.Email);
+        var claimsIdentity = new ClaimsIdentity(new[] { claim }, "serverAuth");
+        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+        await httpContext.SignInAsync(claimsPrincipal);
+        return Results.Ok(user);
+    }
+
+    return Results.Unauthorized();
+}).WithName("UserLogin")
+.WithOpenApi().Produces(200).Produces(401);
+
+app.MapGet("/users/logout", async (HttpContext httpContext) =>
+{
+    await httpContext.SignOutAsync();
+    return Results.Ok();
+}).WithName("UserLogout")
 .WithOpenApi().Produces(200);
 
 app.Run();
-
 record CustomLinkUrl (string linkUrl);
 record UserAuthDetails (string username, String password);
 record AddUserInfo(string firstName, string surname, string password, string email);

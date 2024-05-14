@@ -1,5 +1,6 @@
 using LinkSharing_App;
 using LinkSharing_App.Services;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -23,4 +24,8 @@ builder.Services.AddHttpClient<ICustomLinkService, CustomLinkService>(client =>
 {
     client.BaseAddress = new Uri(baseAddress);
 });
+
+builder.Services.AddOptions();
+builder.Services.AddAuthorizationCore();
+builder.Services.AddScoped<AuthenticationStateProvider,CustomAuthenticationStateProvider>();
 await builder.Build().RunAsync();

@@ -1,5 +1,5 @@
-# @LinkSharingRepository_HostAddress = http://localhost:5095
-@LinkSharingRepository_HostAddress =https://cg-frontendmentor-link-sharing.azurewebsites.net/
+@LinkSharingRepository_HostAddress = http://localhost:5095
+# @LinkSharingRepository_HostAddress =https://cg-frontendmentor-link-sharing.azurewebsites.net/
 ###
 GET {{LinkSharingRepository_HostAddress}}/platforms/
 Accept: application/json
@@ -26,10 +26,12 @@ POST {{LinkSharingRepository_HostAddress}}/users/add
 Content-Type: application/json
 
 {
-  "firstName": "Bill",
-  "surname": "Gates",
-  "password": "password1",
-  "email": "bill@microsoft.com"
+  "firstName": "chris",
+  "surname": "gilliam",
+  "password": "passowrd",
+  "email": "chrisg@home.com",
+  "photo":"",
+  "photoFormat":""
 }
 ###
 PUT {{LinkSharingRepository_HostAddress}}/users/update
@@ -72,6 +74,12 @@ GET {{LinkSharingRepository_HostAddress}}/customlinks/4
 Accept: application/json
 
 ###
-Get {{LinkSharingRepository_HostAddress}}/users/getauthenticateduser?username=chrisg@home.com&password=passowrd
+GET {{LinkSharingRepository_HostAddress}}/users/getauthenticateduser
 Accept: application/json
 
+###
+POST  {{LinkSharingRepository_HostAddress}}/users/login?username=chrisg@home.com&password=passowrd
+Accept: application/json
+###
+GET  {{LinkSharingRepository_HostAddress}}/users/logout
+Accept: application/json

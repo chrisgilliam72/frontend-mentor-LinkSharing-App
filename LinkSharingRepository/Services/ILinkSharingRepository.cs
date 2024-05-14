@@ -15,6 +15,7 @@ public interface ILinkSharingRepository
 
     public Task<User?> UpdateUser(int userId,string firstName, string lastName, string email, string photo, string photoFormat);
     public Task<User?> GetUser(int userId);
+    public Task<User?> GetUser(string email);
     public Task<User?> GetUser(string firstName, string lastName, string email);
     public Task<IEnumerable<User>> GetAllUsers();
     public Task<User?> GetAuthenticatedUser(string email, string password);

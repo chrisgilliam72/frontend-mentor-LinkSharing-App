@@ -91,7 +91,9 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
                 FirstName = firstName,
                 Surname = lastName,
                 Email = email,
-                Password = password
+                Password = password,
+                Photo="",
+                PhotoFormat=""
             };
 
             await _context.Users.AddAsync(user);
@@ -103,6 +105,10 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
     public async Task<User?> GetUser(String firstName, String lastName, String email)
     {
         return await _context.Users.FirstOrDefaultAsync(x => x.FirstName == firstName && x.Surname == lastName && x.Email == email);
+    }
+    public async Task<User?> GetUser(string email)
+    {
+        return await _context.Users.FirstOrDefaultAsync(x=>x.Email == email);
     }
     public async Task<IEnumerable<User>> GetAllUsers()
     {
