@@ -1,5 +1,5 @@
-# @LinkSharingRepository_HostAddress = http://localhost:5095
-@LinkSharingRepository_HostAddress =https://cg-frontendmentor-link-sharing.azurewebsites.net/
+@LinkSharingRepository_HostAddress = https://localhost:7035
+# @LinkSharingRepository_HostAddress =https://cg-frontendmentor-link-sharing.azurewebsites.net/
 ###
 GET {{LinkSharingRepository_HostAddress}}/platforms/
 Accept: application/json
@@ -71,6 +71,8 @@ DELETE {{LinkSharingRepository_HostAddress}}/customlinks/delete/2
 Accept: application/json
 ###
 GET {{LinkSharingRepository_HostAddress}}/customlinks/4
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNocmlzZ0Bob21lLmNvbSIsIm5hbWVpZCI6IjQiLCJuYmYiOjE3MTU3NjY4NzUsImV4cCI6MTcxNjM3MTY3NSwiaWF0IjoxNzE1NzY2ODc1fQ.d3dw9JI2aCmJ6QmCEUdNwG_Y91ex3cJM7FhwOn6-uX4
 Accept: application/json
 
 ###

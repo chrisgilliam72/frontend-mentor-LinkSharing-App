@@ -4,6 +4,7 @@ using LinkSharingRepository.Models;
 using LinkSharingRepository.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -34,12 +35,29 @@ builder.Services.AddCors(options =>
         .AllowCredentials());
 });
 
+
+
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-}).AddCookie();
-
+    //options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+//.AddCookie(options => { options.LoginPath = "/user/notauthorized"; })
+.AddJwtBearer(jwtBearerOptions =>
+{
+    jwtBearerOptions.RequireHttpsMetadata = true;
+    jwtBearerOptions.SaveToken = true;
+    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JWTSettings:SecretKey"])),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+builder.Services.AddAuthorization();
 var app = builder.Build();
 app.UseCors();
 
@@ -51,40 +69,42 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
 app.UseAuthentication();
+app.UseAuthorization();
 
 
 app.MapDelete("/customlinks/delete/{linkId:int}", async (int linkId, [FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
     var result = await linkSharingRepository.RemoveCustomLink(linkId);
     return result ? Results.Ok(true) : Results.NotFound(false);
-  
+
 }).WithName("DeleteCustomLink")
-.WithOpenApi().Produces(200).Produces(404);
+.WithOpenApi().Produces(200).Produces(404).RequireAuthorization();
 
 app.MapPost("customlinks/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] LinkInfo link) =>
 {
     return await linkSharingRepository.CreateCustomLink(link.PlatformId, link.UserId, link.LinkUrl);
 
 }).WithName("AddCustomLink")
-.WithOpenApi().Produces(200);
+.WithOpenApi().Produces(200).RequireAuthorization();
 
-app.MapPut("customlinks/update/{linkId:int}", async (int linkId,[FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] CustomLinkUrl linkUrl) =>
+app.MapPut("customlinks/update/{linkId:int}", async (int linkId, [FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] CustomLinkUrl linkUrl) =>
 {
-    var updateLink= await linkSharingRepository.UpdateCustomLink(linkId, linkUrl.linkUrl);
+    var updateLink = await linkSharingRepository.UpdateCustomLink(linkId, linkUrl.linkUrl);
     return updateLink != null ? Results.Ok(updateLink) : Results.NotFound(null);
 
 }).WithName("UpdateCustomLink")
-.WithOpenApi().Produces(200).Produces(404); 
+.WithOpenApi().Produces(200).Produces(404);
 
-app.MapGet("/customlinks/{userId}", async (int userId,[FromServices] ILinkSharingRepository linkSharingRepository) =>
+app.MapGet("/customlinks/{userId}", async (int userId, [FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
     return await linkSharingRepository.GetCustomLinks(userId);
 
 }).WithName("GetLinks")
-.WithOpenApi().Produces(200);
+.WithOpenApi().Produces(200).RequireAuthorization();
 
-app.MapGet("/platforms", async ([FromServices]ILinkSharingRepository linkSharingRepository) =>
+app.MapGet("/platforms", async ([FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
     return await linkSharingRepository.GetPlatforms();
 
@@ -105,17 +125,17 @@ app.MapPut("/platforms/update", async ([FromServices] ILinkSharingRepository lin
 
 app.MapPost("/users/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] AddUserInfo user) =>
 {
-    var dbUser = await linkSharingRepository.CreateUser(user.firstName,user.surname,user.email, user.password);
+    var dbUser = await linkSharingRepository.CreateUser(user.firstName, user.surname, user.email, user.password);
     return dbUser;
 }).WithName("AddUser")
-.WithOpenApi().Produces(200);
+.WithOpenApi().Produces(200).RequireAuthorization();
 
 app.MapPut("/users/update", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] User user) =>
 {
-    var updatedUser = await linkSharingRepository.UpdateUser(user.Id,user.FirstName,user.Surname,user.Email,user.Photo,user.PhotoFormat);
-    return updatedUser!=null ? Results.Ok(updatedUser) : Results.NotFound(null);
+    var updatedUser = await linkSharingRepository.UpdateUser(user.Id, user.FirstName, user.Surname, user.Email, user.Photo, user.PhotoFormat);
+    return updatedUser != null ? Results.Ok(updatedUser) : Results.NotFound(null);
 }).WithName("UpdateUser")
-.WithOpenApi().Produces(200).Produces(404); 
+.WithOpenApi().Produces(200).Produces(404);
 
 app.MapDelete("/users/delete/{linkId:int}", async (int linkId, [FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
@@ -123,7 +143,7 @@ app.MapDelete("/users/delete/{linkId:int}", async (int linkId, [FromServices] IL
     return result ? Results.Ok(true) : Results.NotFound(false);
 
 }).WithName("DeleteUser")
-.WithOpenApi().Produces(200).Produces(404); 
+.WithOpenApi().Produces(200).Produces(404).RequireAuthorization();
 
 app.MapGet("/users", async ([FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
@@ -159,14 +179,14 @@ app.MapPost("/users/getauthenticateduser", async ([FromServices] ILinkSharingRep
 }).WithName("GetAuthenticatedUser")
 .WithOpenApi().Produces(200).Produces(401).Produces(404);
 
-app.MapPost("/users/login", async (HttpContext httpContext,[FromServices] ILinkSharingRepository linkSharingRepository, 
+app.MapPost("/users/login", async (HttpContext httpContext, [FromServices] ILinkSharingRepository linkSharingRepository,
                                                             [FromServices] ITokenService tokenService,
                                                             [FromBody] UserAuthDetails userAuthDetails) =>
 {
     var user = await linkSharingRepository.GetAuthenticatedUser(userAuthDetails.username, userAuthDetails.password);
     if (user != null)
     {
-        var authDetails = new UserAuthDetailsResponse (tokenService.GenerateToken(user),user);
+        var authDetails = new UserAuthDetailsResponse(tokenService.GenerateToken(user), user);
         return Results.Ok(authDetails);
     }
 
@@ -183,11 +203,11 @@ app.MapGet("/users/logout", async (HttpContext httpContext) =>
 
 app.Run();
 
-record CustomLinkUrl (string linkUrl);
-record UserAuthDetailsResponse (string jwtoken, User user);
-record UserAuthDetails (string username, String password);
-record AuthRequest (String jwtoken);
+record CustomLinkUrl(string linkUrl);
+record UserAuthDetailsResponse(string jwtoken, User user);
+record UserAuthDetails(string username, String password);
+record AuthRequest(String jwtoken);
 
 record AddUserInfo(string firstName, string surname, string password, string email);
 record DeleteUserInfo(string email, String password);
-record LinkInfo (int PlatformId, int UserId,string LinkUrl);
+record LinkInfo(int PlatformId, int UserId, string LinkUrl);
