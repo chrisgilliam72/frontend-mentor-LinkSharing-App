@@ -13,22 +13,22 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-builder.Services.AddTransient<CookieHandler>();
+builder.Services.AddTransient<CustomAuthorizationHandler>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddScoped<IlocalStorageService, localStorageService>();
 
 builder.Services.AddHttpClient<IUserService, UserService>(client =>
 {
     client.BaseAddress = new Uri(baseAddress);
-}).AddHttpMessageHandler<CookieHandler>(); ;
+}).AddHttpMessageHandler<CustomAuthorizationHandler>(); ;
 builder.Services.AddHttpClient<IPlatformService, PlatformService>(client =>
 {
     client.BaseAddress= new Uri(baseAddress);
-}).AddHttpMessageHandler<CookieHandler>(); ;
+}).AddHttpMessageHandler<CustomAuthorizationHandler>(); ;
 builder.Services.AddHttpClient<ICustomLinkService, CustomLinkService>(client =>
 {
     client.BaseAddress = new Uri(baseAddress);
-}).AddHttpMessageHandler<CookieHandler>(); ;
+}).AddHttpMessageHandler<CustomAuthorizationHandler>(); ;
 
 
 builder.Services.AddScoped<AuthenticationStateProvider,CustomAuthenticationStateProvider>();
