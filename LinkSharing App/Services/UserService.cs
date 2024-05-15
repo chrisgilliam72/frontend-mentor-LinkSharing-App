@@ -1,18 +1,22 @@
-﻿using LinkSharingRepository.Models;
+﻿using LinkSharing_App.Models;
+using LinkSharingRepository.Models;
 using System.Net.Http.Json;
 
 namespace LinkSharing_App.Services;
 
 public class UserService(HttpClient httpClient) : IUserService
 {
+
+
     public async Task<User> UpdateUser(User user)
     {
+        User? updatedUser = null;
         try
         {
             var response = await httpClient.PutAsJsonAsync("/users/update", user);
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                user = await response.Content.ReadFromJsonAsync<User>();
+                updatedUser = await response.Content.ReadFromJsonAsync<User>();
             }
 
         }
@@ -21,14 +25,14 @@ public class UserService(HttpClient httpClient) : IUserService
 
         }
 
-        return user;
+        return updatedUser!;
 
      
     }
 
     public async Task<User> GetUser(int userId)
     {
-        User user = null;
+        User? user = null;
         try
         {
 
@@ -41,17 +45,22 @@ public class UserService(HttpClient httpClient) : IUserService
 
         }
 
-        return user;
+        return user!;
     }
 
-    public async Task<User?> GetAuthenticateUser(String userName, String password)
+    public async Task<UserAuthDetailsResponse> LoginUser(String userName, String userPassword)
     {
-        User user = null;
+
         try
         {
 
-            user = await httpClient.GetFromJsonAsync<User?>($"/users/getauthenticateduser?username={userName}&password={password}");
-         
+            var response = await httpClient.PostAsJsonAsync($"/users/login",new {username=userName,password= userPassword });
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var token = (await response.Content.ReadFromJsonAsync<UserAuthDetailsResponse>());
+                return token;
+            }
+
 
         }
         catch (Exception ex)
@@ -59,12 +68,12 @@ public class UserService(HttpClient httpClient) : IUserService
 
         }
 
-        return user;
+        return null;
     }
 
     public async Task<User> CreateUser(string userName, string password)
     {
-        User user = new()
+        User? user = new()
         {
             Password = password,
             Email = userName,
@@ -84,8 +93,29 @@ public class UserService(HttpClient httpClient) : IUserService
 
         }
 
-        return user;
+        return user!;
     }
 
+    public async Task<User> GetAuthenticatedUser(string jwToken)
+    {
+        User? user = null;
+        try
+        {
 
+            var response = await httpClient.PostAsJsonAsync("/users/getauthenticateduser",new {jwtoken= jwToken });
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                user = await response.Content.ReadFromJsonAsync<User>();
+            }
+               
+
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+
+        return user!;
+    }
 }

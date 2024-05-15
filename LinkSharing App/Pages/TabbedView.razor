@@ -1,111 +1,117 @@
 ﻿@page "/TabbedView/{userId}"
+<AuthorizeView>
+    <Authorized>
+        <div class="container">
+            <div class="row p-1">
+                <div class="navbar navbar-expand-sm align-items-center section-background px-2">
+                    <div class="navbar-brand">
+                        <img src="/img/logo-devlinks-large.svg" />
+                    </div>
+                    <div class="nav justify-content-between align-items-center" style="width:100%;">
+                        <div>
+                        </div>
+                        <div>
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    @if (ShowCustomLinks)
+                                    {
+                                        <button class="ms-1 navbar-button-selected" @onclick="OnShowCustomLinks">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <img src="/img/icon-link-selected.svg" />
+                                                <span class="ms-2">Links</span>
+                                            </div>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class="ms-1 navbar-button" @onclick="OnShowCustomLinks">
+                                            <div class="d-flex align-items-center justify-content-center">
+                                                <img src="/img/icon-link.svg" />
+                                                <span class="ms-2">Links</span>
+                                            </div>
+                                        </button>
+                                    }
+                                </li>
+                                <li class="nav-item ms-2">
 
-<div class="container">
-    <div class="row p-1">
-        <div class="navbar navbar-expand-sm align-items-center section-background px-2">
-            <div class="navbar-brand">
-                <img src="/img/logo-devlinks-large.svg" />
+                                    @if (ShowProfileDetails)
+                                    {
+                                        <button class="ms-1 navbar-button-selected" @onclick="OnShowProfileDetails">
+                                            <div class="d-flex align-items-center justify-content-around">
+                                                <img src="/img/icon-profile-details-header-selected.svg" />
+                                                <span>Profile Details</span>
+                                            </div>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class="ms-1 navbar-button" @onclick="OnShowProfileDetails">
+                                            <div class="d-flex align-items-center justify-content-around">
+                                                <img src="/img/icon-profile-details-header.svg" />
+                                                <span>Profile Details</span>
+                                            </div>
+                                        </button>
+                                    }
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="navbar-button">
+                            <button type="button" class="secondaryButton" data-bs-toggle="modal" data-bs-target="#preview-modal">Preview</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="nav justify-content-between align-items-center" style="width:100%;">
-                <div>
-                </div>
-                <div>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            @if (ShowCustomLinks)
-                            {
-                                <button class="ms-1 navbar-button-selected" @onclick="OnShowCustomLinks">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="/img/icon-link-selected.svg" />
-                                        <span class ="ms-2">Links</span>
-                                    </div>
-                                </button>
-                            }
-                            else
-                            {
-                                <button class="ms-1 navbar-button" @onclick="OnShowCustomLinks">
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="/img/icon-link.svg" />
-                                        <span class="ms-2">Links</span>
-                                    </div>
-                                </button>
-                            }
-                        </li>
-                        <li class="nav-item ms-2">
+            <div class="row mt-2">
+                <div class="col-5 section-background">
+                    <Phone ImageSrc="@ProfileDetailsViewModel.ImgSrc" FirstName="@ProfileDetailsViewModel.Name"
+                           LastName="@ProfileDetailsViewModel.LastName" Email="@ProfileDetailsViewModel.EmailAddress"
+                           CustomLinks="@CustomizeLinksViewModel" />
 
-                            @if (ShowProfileDetails)
-                            {
-                                <button class="ms-1 navbar-button-selected" @onclick="OnShowProfileDetails">
-                                    <div class="d-flex align-items-center justify-content-around">
-                                        <img src="/img/icon-profile-details-header-selected.svg" />
-                                        <span>Profile Details</span>
-                                    </div>
-                                </button>
-                            }
-                            else
-                            {
-                                <button class="ms-1 navbar-button" @onclick="OnShowProfileDetails">
-                                    <div class="d-flex align-items-center justify-content-around">
-                                        <img src="/img/icon-profile-details-header.svg" />
-                                        <span>Profile Details</span>
-                                    </div>
-                                </button>
-                            }
-
-                        </li>
-                    </ul>
                 </div>
-                <div class="navbar-button">
-                    <button type="button" class="secondaryButton" data-bs-toggle="modal" data-bs-target="#preview-modal">Preview</button>
+                <div class="col-7">
+                    @if (ShowCustomLinks)
+                    {
+                        <CustomizedLinks Platforms="@Platforms" LinksUpdated="OnCustomLinksUpdated" CustomLinksViewModel="@CustomizeLinksViewModel" />
+                    }
+                    else if (ShowProfileDetails)
+                    {
+                        <ProfileDetails ProfileDetailsViewModel="@ProfileDetailsViewModel" ProfileDetailsUpdated="OnProfileDetailsUpdated" />
+                    }
+
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row mt-2">
-        <div class="col-5 section-background">                  
-        <Phone ImageSrc="@ProfileDetailsViewModel.ImgSrc" FirstName="@ProfileDetailsViewModel.Name"
-                LastName="@ProfileDetailsViewModel.LastName" Email="@ProfileDetailsViewModel.EmailAddress"
-                CustomLinks="@CustomizeLinksViewModel" />
-                   
-        </div>
-        <div class="col-7">
-            @if (ShowCustomLinks)
-            {
-                <CustomizedLinks Platforms="@Platforms" LinksUpdated="OnCustomLinksUpdated" CustomLinksViewModel="@CustomizeLinksViewModel"/>
-            }
-            else if (ShowProfileDetails)
-            {
-                <ProfileDetails  ProfileDetailsViewModel="@ProfileDetailsViewModel" ProfileDetailsUpdated="OnProfileDetailsUpdated" />
-            }
 
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="preview-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true" >
-    <div class="modal-dialog modal-lg" >
-        <div class="modal-content" >
-            <div class="modal-header preview-header align-items-start"  style="padding:0px; height:200px;">
-                <div class="row  justify-content-center p-4" style="width:100%">
-                    <div class="col-12 ">
-                        <div class="d-flex flex-column justify-content-between" style="height:100%">
-                            <div class="row preview-nav justify-content-between align-items-center">
-                                <div class="col-auto">
-                                    <button class="secondary-button-blue" data-bs-dismiss="modal" aria-label="Close">Back to editor</button>
-                                </div>
-                                <div class="col-auto">
-                                    <button class="primary-button-blue">Copy link</button>
+        <div class="modal fade" id="preview-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header preview-header align-items-start" style="padding:0px; height:200px;">
+                        <div class="row  justify-content-center p-4" style="width:100%">
+                            <div class="col-12 ">
+                                <div class="d-flex flex-column justify-content-between" style="height:100%">
+                                    <div class="row preview-nav justify-content-between align-items-center">
+                                        <div class="col-auto">
+                                            <button class="secondary-button-blue" data-bs-dismiss="modal" aria-label="Close">Back to editor</button>
+                                        </div>
+                                        <div class="col-auto">
+                                            <button class="primary-button-blue">Copy link</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-               </div>
-            </div>
-            <div class="modal-body">
-                <Preview ImageSrc="@ProfileDetailsViewModel.ImgSrc" FirstName="@ProfileDetailsViewModel.Name" 
-                 LastName="@ProfileDetailsViewModel.LastName" Email="@ProfileDetailsViewModel.EmailAddress"
-                 CustomLinks="@CustomizeLinksViewModel"/>
+                    <div class="modal-body">
+                        <Preview ImageSrc="@ProfileDetailsViewModel.ImgSrc" FirstName="@ProfileDetailsViewModel.Name"
+                                 LastName="@ProfileDetailsViewModel.LastName" Email="@ProfileDetailsViewModel.EmailAddress"
+                                 CustomLinks="@CustomizeLinksViewModel" />
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </Authorized>
+    <NotAuthorized>
+        <h1>Unauthorized!</h1>
+    </NotAuthorized>
+</AuthorizeView>

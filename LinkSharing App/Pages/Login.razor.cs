@@ -10,15 +10,19 @@ namespace LinkSharing_App.Pages
         public IUserService UserService { get; set; }
         [Inject]
         NavigationManager NavigationManager { get; set; }
+        [Inject]
+        IlocalStorageService StorageService { get; set; }
         public LoginDetails Details { get; set; } = new();
 
         public async Task OnLogin()
         {
-            var user= await UserService.GetAuthenticateUser(Details.Username, Details.Password);
-            if (user != null)
+            var authResult= await UserService.LoginUser(Details.Username, Details.Password);
+            if (authResult != null && authResult.user!=null)
             {
-                NavigationManager.NavigateTo($"/TabbedView/{user.Id}");
-            }
+                await StorageService.Write("authtoken", authResult.jwtoken);
+                NavigationManager.NavigateTo($"/TabbedView/{authResult.user.Id}");
+          
+             }
         }
     }
 }

@@ -6,7 +6,7 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
 {
     public async Task<IEnumerable<CustomLink>> GetCustomLinks(int userId)
     {
-        List<CustomLink> customLinks = null;
+        List<CustomLink>? customLinks = null;
         try
         {
             var response = await httpClient.GetAsync($"/customlinks/{userId}");
@@ -21,16 +21,16 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
             customLinks = new();
         }
 
-        return customLinks;
+        return customLinks!;
     }
 
     public async Task<CustomLink> AddCustomLink(int platformId, int userId, string linkURL)
     {
-        CustomLink customLink = null;
+        CustomLink? customLink = null;
         try
         {
             var response = await httpClient.PostAsJsonAsync("/customlinks/add", new { platformId=platformId,userId=userId,linkUrl=linkURL});
-            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response != null && response.Content!=null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 customLink = await response.Content.ReadFromJsonAsync<CustomLink>();
             }
@@ -41,7 +41,7 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
 
         }
 
-        return customLink;
+        return customLink!;
     }
 
 

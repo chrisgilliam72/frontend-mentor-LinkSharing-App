@@ -1,5 +1,5 @@
-@LinkSharingRepository_HostAddress = http://localhost:5095
-# @LinkSharingRepository_HostAddress =https://cg-frontendmentor-link-sharing.azurewebsites.net/
+# @LinkSharingRepository_HostAddress = http://localhost:5095
+@LinkSharingRepository_HostAddress =https://cg-frontendmentor-link-sharing.azurewebsites.net/
 ###
 GET {{LinkSharingRepository_HostAddress}}/platforms/
 Accept: application/json
@@ -74,12 +74,20 @@ GET {{LinkSharingRepository_HostAddress}}/customlinks/4
 Accept: application/json
 
 ###
-GET {{LinkSharingRepository_HostAddress}}/users/getauthenticateduser
-Accept: application/json
+Post {{LinkSharingRepository_HostAddress}}/users/getauthenticateduser
+Content-Type: application/json
 
+{
+  "jwtoken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNocmlzZ0Bob21lLmNvbSIsIm5hbWVpZCI6IjQiLCJuYmYiOjE3MTU3NjY4NzUsImV4cCI6MTcxNjM3MTY3NSwiaWF0IjoxNzE1NzY2ODc1fQ.d3dw9JI2aCmJ6QmCEUdNwG_Y91ex3cJM7FhwOn6-uX4"
+}
 ###
-POST  {{LinkSharingRepository_HostAddress}}/users/login?username=chrisg@home.com&password=passowrd
-Accept: application/json
+POST  {{LinkSharingRepository_HostAddress}}/users/login
+Content-Type: application/json
+
+{
+  "username":"chrisg@home.com",
+  "password":"passowrd"
+}
 ###
 GET  {{LinkSharingRepository_HostAddress}}/users/logout
 Accept: application/json

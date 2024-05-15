@@ -4,35 +4,37 @@ using LinkSharingRepository.Models;
 using LinkSharingRepository.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    // Add other configuration sources if needed
+    .Build();
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SQLiteContext>();
 builder.Services.AddScoped<ILinkSharingRepository, LinkSharingSQLiteRepository>();
+builder.Services.AddScoped<ITokenService, JWTokenService>();
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(
-        policy =>
-        {
-            policy.AllowAnyOrigin();
-            policy.AllowAnyMethod();
-            policy.AllowAnyHeader();
-        });
+    options.AddDefaultPolicy(builder =>
+        builder.SetIsOriginAllowed(_ => true)
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials());
 });
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-}).AddCookie();
+
 
 var app = builder.Build();
 app.UseCors();
@@ -135,30 +137,33 @@ app.MapGet("/users/user/{userId}", async ([FromServices] ILinkSharingRepository 
 }).WithName("GetUser")
 .WithOpenApi().Produces(200).Produces(404);
 
-app.MapGet("/users/getauthenticateduser", async (HttpContext httpContext,[FromServices] ILinkSharingRepository linkSharingRepository) =>
+app.MapPost("/users/getauthenticateduser", async ([FromServices] ILinkSharingRepository linkSharingRepository,
+                                                [FromServices] ITokenService tokenService,
+                                                 [FromBody] AuthRequest authRequest) =>
 {
-    if (httpContext.User.Identity.IsAuthenticated)
+    if (!String.IsNullOrEmpty(authRequest.jwtoken))
     {
-        var email = httpContext.User.FindFirstValue(ClaimTypes.Name);
-        var user = await linkSharingRepository.GetUser(email);
-        return user != null ? Results.Ok(user) : Results.NotFound(httpContext.User);
+        string userId = await tokenService.GetUserIdFromJWT(authRequest.jwtoken);
+
+        var user = await linkSharingRepository.GetUser(Convert.ToInt32(userId));
+        return user != null ? Results.Ok(user) : Results.NotFound(userId);
+
     }
+
     return Results.Unauthorized();
 
 }).WithName("GetAuthenticatedUser")
 .WithOpenApi().Produces(200).Produces(401).Produces(404);
 
-app.MapPost("/users/login", async (HttpContext httpContext,[FromServices] ILinkSharingRepository linkSharingRepository,
-                                               String? username, String? password) =>
+app.MapPost("/users/login", async (HttpContext httpContext,[FromServices] ILinkSharingRepository linkSharingRepository, 
+                                                            [FromServices] ITokenService tokenService,
+                                                            [FromBody] UserAuthDetails userAuthDetails) =>
 {
-    var user = await linkSharingRepository.GetAuthenticatedUser(username, password);
+    var user = await linkSharingRepository.GetAuthenticatedUser(userAuthDetails.username, userAuthDetails.password);
     if (user != null)
     {
-        var claim = new Claim(ClaimTypes.Name, user.Email);
-        var claimsIdentity = new ClaimsIdentity(new[] { claim }, "serverAuth");
-        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-        await httpContext.SignInAsync(claimsPrincipal);
-        return Results.Ok(user);
+        var authDetails = new UserAuthDetailsResponse (tokenService.GenerateToken(user),user);
+        return Results.Ok(authDetails);
     }
 
     return Results.Unauthorized();
@@ -167,14 +172,18 @@ app.MapPost("/users/login", async (HttpContext httpContext,[FromServices] ILinkS
 
 app.MapGet("/users/logout", async (HttpContext httpContext) =>
 {
-    await httpContext.SignOutAsync();
+
     return Results.Ok();
 }).WithName("UserLogout")
 .WithOpenApi().Produces(200);
 
 app.Run();
+
 record CustomLinkUrl (string linkUrl);
+record UserAuthDetailsResponse (string jwtoken, User user);
 record UserAuthDetails (string username, String password);
+record AuthRequest (String jwtoken);
+
 record AddUserInfo(string firstName, string surname, string password, string email);
 record DeleteUserInfo(string email, String password);
 record LinkInfo (int PlatformId, int UserId,string LinkUrl);
