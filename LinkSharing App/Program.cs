@@ -10,10 +10,13 @@ const string baseAddress = @"https://cg-frontendmentor-link-sharing.azurewebsite
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
-builder.Services.AddScoped<CookieHandler>();
+builder.Services.AddOptions();
+builder.Services.AddAuthorizationCore();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+builder.Services.AddTransient<CookieHandler>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-//builder.Services.AddScoped<IlocalStorageService, localStorageService>();
-//builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+builder.Services.AddScoped<IlocalStorageService, localStorageService>();
+
 builder.Services.AddHttpClient<IUserService, UserService>(client =>
 {
     client.BaseAddress = new Uri(baseAddress);
@@ -27,7 +30,6 @@ builder.Services.AddHttpClient<ICustomLinkService, CustomLinkService>(client =>
     client.BaseAddress = new Uri(baseAddress);
 }).AddHttpMessageHandler<CookieHandler>(); ;
 
-builder.Services.AddOptions();
-builder.Services.AddAuthorizationCore();
+
 builder.Services.AddScoped<AuthenticationStateProvider,CustomAuthenticationStateProvider>();
 await builder.Build().RunAsync();
