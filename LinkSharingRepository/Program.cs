@@ -73,6 +73,12 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapGet("/{publicProfileURL}", async (string publicProfileURL, [FromServices] ILinkSharingRepository linkSharingRepository) =>
+{
+    var profileDetails = await linkSharingRepository.GetPublicProfile(publicProfileURL);
+    return profileDetails!=null ? Results.Ok(profileDetails) : Results.NotFound(false);
+
+}).WithName("GetPublicProfile").Produces(200).Produces(404);
 
 app.MapDelete("/customlinks/delete/{linkId:int}", async (int linkId, [FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
@@ -128,7 +134,7 @@ app.MapPost("/users/add", async ([FromServices] ILinkSharingRepository linkShari
     var dbUser = await linkSharingRepository.CreateUser(user.firstName, user.surname, user.email, user.password);
     return dbUser;
 }).WithName("AddUser")
-.WithOpenApi().Produces(200).RequireAuthorization();
+.WithOpenApi().Produces(200);
 
 app.MapPut("/users/update", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] User user) =>
 {

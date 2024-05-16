@@ -18,4 +18,7 @@ public class User
     public String Photo { get; set; } = default!;
     public String PhotoFormat { get; set; } = "";
 
+    public String PublicURl { get; set; } = "";
+
+
 }

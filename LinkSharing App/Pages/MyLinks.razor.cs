@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace LinkSharing_App.Pages;
 
-partial class Preview
+partial class MyLinks
 {
     [Parameter]
     public String ImageSrc { get; set; } = default!;

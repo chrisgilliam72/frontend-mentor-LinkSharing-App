@@ -5,13 +5,8 @@ using SQLitePCL;
 
 namespace LinkSharingRepository.Services;
 
-public class LinkSharingSQLiteRepository  : ILinkSharingRepository
+public class LinkSharingSQLiteRepository(SQLiteContext _context)  : ILinkSharingRepository
 {
-    private readonly SQLiteContext _context;
-    public LinkSharingSQLiteRepository(SQLiteContext context)
-    {
-        _context=context;
-    }
 
     public async Task<IEnumerable<Platform>> GetPlatforms()
     {
@@ -86,6 +81,8 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
     {
         if (await GetUser(firstName, lastName, email) == null)
         {
+
+
             User user = new User()
             {
                 FirstName = firstName,
@@ -93,7 +90,8 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
                 Email = email,
                 Password = password,
                 Photo="",
-                PhotoFormat=""
+                PhotoFormat="",
+                PublicURl= await GeneratePublicUrl(firstName, lastName)
             };
 
             await _context.Users.AddAsync(user);
@@ -157,5 +155,36 @@ public class LinkSharingSQLiteRepository  : ILinkSharingRepository
         return false;
     }
 
+    public async Task<PublicProfile> GetPublicProfile(string publicUrl)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.PublicURl == publicUrl);
+        if (user != null)
+        {
+            var customLinks = _context.CustomLinks.Where(x => x.User.Id == user.Id).Select(x=>x.URL).ToList();
+            PublicProfile publicProfile = new()
+            {
+                Name = $"{user.FirstName} {user.Surname}",
+                Email = user.Email,
+                PublicUrl = user.PublicURl,
+                CustomLinks = customLinks
 
+            };
+            return publicProfile;   
+        }
+
+        return null;
+    }
+
+    private async Task<String> GeneratePublicUrl(String firstname, string lastname)
+    {
+        Random random = new Random();
+        string publicLinkUrl = "";
+        do
+        {
+            var rnd = random.Next(100000, 200000);
+            publicLinkUrl = $"{firstname}.{lastname}{rnd.ToString()}";
+        } while (await _context.Users.FirstOrDefaultAsync(x => x.PublicURl == publicLinkUrl) != null);
+        return publicLinkUrl;
+
+    }
 }
