@@ -103,9 +103,13 @@
                         </div>
                     </div>
                     <div class="modal-body">
-                        <MyLinks ImageSrc="@ProfileDetailsViewModel.ImgSrc" FirstName="@ProfileDetailsViewModel.Name"
-                                 LastName="@ProfileDetailsViewModel.LastName" Email="@ProfileDetailsViewModel.EmailAddress"
-                                 CustomLinks="@CustomizeLinksViewModel" />
+                       <div class="page-background justify-content-center" >
+                            <div style="position: relative; top: -100px;left: 25%;">
+                                <MyLinks ImageSrc="@ProfileDetailsViewModel.ImgSrc" FirstName="@ProfileDetailsViewModel.Name"
+                                         LastName="@ProfileDetailsViewModel.LastName" Email="@ProfileDetailsViewModel.EmailAddress"
+                                         CustomLinks="@CustomizeLinksViewModel" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,13 +1,18 @@
 ﻿@page "/preview"
-<div class="page-background justify-content-center" >
+
     <div class="d-flex justify-content-center preview-phone-container">
         @if (!String.IsNullOrEmpty(ImageSrc))
         {
             <img class="round-image mb-2" src="@ImageSrc" height="100px" width="100px" style="position:absolute; top:60px; left:100px;" />
         }
 
-        <span class="headingM" style="position:absolute; top:155px;left:50px;background-color:white">@FirstName @LastName</span>
-        <span class="bodyM" style="position:absolute; top:200px;left:50px;background-color:white">@Email</span>
+    <div class="d-flex justify-content-center px-1" style="position:absolute; top:160px;background-color:white;width:100%">
+            <span class="headingM" >@FirstName @LastName</span>
+    </div>
+    <div class="d-flex justify-content-center px-1" style="position:absolute; top:210px;background-color:white;width:100%">
+        <span class="bodyM">@Email</span>
+    </div>
+
 
         @if (CustomLinks != null)
         {
@@ -33,7 +38,7 @@
 
         }
     </div>
-</div>
+
 
 
 

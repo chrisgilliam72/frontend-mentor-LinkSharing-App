@@ -282,9 +282,8 @@ code {
 }
 
 .preview-phone-container {
-    position: relative;
-    top: -100px;
-    left: 25%;
+    position:relative;
+
     background-image: url('/img/profile-outline-2.svg');
     background-repeat: no-repeat;
     min-height: 650px;

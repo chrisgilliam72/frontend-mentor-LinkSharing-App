@@ -19,7 +19,7 @@ partial class TabbedView
     public String UserId { get; set; }
 
     public List<Platform> Platforms = new();
-    public CustomizeLinks CustomizeLinksViewModel { get; set; } = new();
+    public CustomizeLinks? CustomizeLinksViewModel { get; set; } = null;
     public ViewModels.ProfileDetails ProfileDetailsViewModel { get; set; } =  new ();
     public bool ShowProfileDetails { get; set; }
     public bool ShowCustomLinks {  get; set; }
@@ -41,17 +41,8 @@ partial class TabbedView
             ProfileDetailsViewModel.PhotoFormat = user.PhotoFormat;
         }
         var listLinks = (await CustomLinkService.GetCustomLinks(userId)).ToList();
-        foreach (var link in listLinks)
-        {
-            CustomizedLink customizedLink = new()
-            {
-                Id = link.Id,
-                Platform = link.Platform,
-                LinkUrl = link.URL
-            };
-            CustomizeLinksViewModel.CustomLinks.Add(customizedLink);
-        }
-      
+        CustomizeLinksViewModel = new CustomizeLinks(listLinks);
+
         ShowProfileDetails = true;
     }
 
