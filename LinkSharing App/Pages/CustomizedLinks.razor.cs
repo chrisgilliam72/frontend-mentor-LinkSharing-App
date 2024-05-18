@@ -21,18 +21,18 @@ partial class CustomizedLinks
     public void AddNewLink()
     {
         CustomizedLink customLink = new();
-        CustomLinksViewModel?.CustomLinks.Add(customLink);
+        CustomLinksViewModel?.AddLink(customLink);
 
     }
 
     public void RemoveLink(int linkId)
     {
-        CustomLinksViewModel?.CustomLinks.Remove(CustomLinksViewModel.CustomLinks.First(x => x.PlatformLinkId == linkId));
+        CustomLinksViewModel?.RemoveLink(linkId);
     }
 
     public void OnPlatformSelected(int platformId, int linkId)
     {
-        var customLinkVM = CustomLinksViewModel?.CustomLinks.First(x => x.PlatformLinkId == linkId);
+        var customLinkVM = CustomLinksViewModel?.CustomLinks.First(x => x.DisplayIndex == linkId);
         if (customLinkVM != null && Platforms!=null)
         {
             customLinkVM.Platform = Platforms.First(x => x.Id == platformId);
@@ -40,6 +40,14 @@ partial class CustomizedLinks
 
     }
 
+    public void SortList((int oldIndex, int newIndex) indices)
+    {
+        // deconstruct the tuple
+        var (oldIndex, newIndex) = indices;
+
+        CustomLinksViewModel?.MoveLink(oldIndex, newIndex);
+        StateHasChanged();
+    }
     public void OnSave()
     {
         LinksUpdated.InvokeAsync(CustomLinksViewModel);

@@ -19,64 +19,67 @@
                     }
                     else
                     {
-                        int linkNo = 1;
 
-                        @foreach (var customLink in CustomLinksViewModel.CustomLinks)
-                        {
-                            <div class="container block-background my-4 px-4 pb-4">
+                        <LinkSharing_App.Utility.SortableList id="linksList" Items="@CustomLinksViewModel.CustomLinks" 
+                                                    OnUpdate="@SortList" Context="customLink">
+                            <SortableItemTemplate>
+                                <div class="container block-background my-4 px-4 pb-4">
 
-                                <div class="navbar align-items-center justify-content-between">
-                                    <div class="navbar-brand">
-                                        <img src="/img/icon-drag-and-drop.svg" />
-                                        <span class="headingS"> Link# @linkNo</span>
+                                    <div class="navbar align-items-center justify-content-between">
+                                        <div class="navbar-brand">
+                                            <img src="/img/icon-drag-and-drop.svg" />
+                                            <span class="headingS"> Link# @customLink.DisplayIndex</span>
+                                        </div>
+                                        <ul class="navbar-nav">
+                                            <li class="nav-item">
+                                                <button type="button" @onclick="(e=>RemoveLink(customLink.DisplayIndex))" class="remove-linkbutton">Remove</button>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <ul class="navbar-nav">
-                                        <li class="nav-item">
-                                            <button type="button" @onclick="(e=>RemoveLink(customLink.PlatformLinkId))" class="remove-linkbutton">Remove</button>
-                                        </li>
-                                    </ul>
+
+                                    <div class="row mt-2 ">
+                                        <label for="linkText" class="form-label bodyS">Platform</label>
+                                        @if (customLink.Platform !=null)
+                                        {
+                                            <div class="d-flex align-items-center">
+                                                <img src="@customLink.Platform.IconPath" />
+                                                <span class="ms-1">@customLink.Platform.Name</span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="dropdown">
+                                                <button class="btn dropdown-toggle form-control" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    @customLink.SelectedPlatformName
+                                                </button>
+                                                <ul class="dropdown-menu form-control">
+                                                    @foreach (var platform in Platforms)
+                                                    {
+                                                        <li class="dropdown-item">
+                                                            <div>
+                                                                <img src="@platform.IconPath" />
+                                                                <a @onclick="(e=>OnPlatformSelected(platform.Id,customLink.DisplayIndex))">@platform.Name</a>
+                                                            </div>
+
+                                                        </li>
+
+                                                    }
+                                                </ul>
+                                            </div>
+                                        }
+
+                                    </div>
+                                    <div class="row mt-2">
+                                        <label for="@customLink.HTMLId" class="form-label bodyS">Link</label>
+                                        <InputText type="text" id="@customLink.HTMLId" @bind-Value="customLink.LinkUrl" class="form-control" />
+                                    </div>
+
                                 </div>
+                            </SortableItemTemplate>
+                        </LinkSharing_App.Utility.SortableList>
+                        {
 
-                                <div class="row mt-2 ">
-                                    <label for="linkText" class="form-label bodyS">Platform</label>
-                                    @if (customLink.PlatformLinkId !=0)
-                                    {
-                                        <div class="d-flex align-items-center">
-                                            <img src="@customLink.Platform.IconPath" />
-                                            <span class="ms-1">@customLink.Platform.Name</span>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="dropdown">
-                                            <button class="btn dropdown-toggle form-control" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                @customLink.SelectedPlatformName
-                                            </button>
-                                            <ul class="dropdown-menu form-control">
-                                                @foreach (var platform in Platforms)
-                                                {
-                                                    <li class="dropdown-item">
-                                                        <div>
-                                                            <img src="@platform.IconPath" />
-                                                            <a @onclick="(e=>OnPlatformSelected(platform.Id,customLink.PlatformLinkId))">@platform.Name</a>
-                                                        </div>
 
-                                                    </li>
-
-                                                }
-                                            </ul>
-                                        </div>
-                                    }
-
-                                </div>
-                                <div class="row mt-2">
-                                    <label for="platformSelection" class="form-label bodyS">Link</label>
-                                    <InputText type="text" id="platformSelection" @bind-Value="customLink.LinkUrl" class="form-control" />
-                                </div>
-
-                            </div>
-
-                            linkNo++;
                         }
                     }
                 </div>
@@ -89,7 +92,7 @@
         </div>
     </EditForm>
 
-  
+
 </div>
 
 
