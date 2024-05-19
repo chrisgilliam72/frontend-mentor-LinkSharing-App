@@ -7,16 +7,24 @@
             {
                 <img class="round-image mb-2" src="@ImageSrc" height=100 width="100" style="position:absolute; top:80px;" />
             }
+            <div class="d-flex flex-column align-items-center" style="position:absolute; top:195px;width:100%">
+                <span class="headingS text-center" style="background-color:white; width:170px">@FirstName @LastName</span>
+                <span class="bodyS mt-1 text-center" style="background-color:white; width:120px">@Email</span>
+            </div>
 
-            <p class="headingS" style="position:absolute; top:195px; ">@FirstName @LastName</p>
-            <p class="bodyS" style="position:absolute; top:231px;background-color:white">@Email</p>
+@*             <div class="d-flex justify-content-center px-1" style="position:absolute; top:160px;background-color:white;width:100%">
+                <span class="headingS">@FirstName @LastName</span>
+            </div>
+            <div class="d-flex justify-content-center px-1" style="position:absolute; top:210px;background-color:white;width:100%">
+                <span class="bodyS">@Email</span>
+            </div> *@
 
             @if (CustomLinks != null)
             {
-                <div style="position:absolute; top:272px;height:350px; left:140px">
+                <div style="position:absolute; top:272px;height:350px;">
                     @foreach (var customLink in CustomLinks.CustomLinks)
                     {
-                        <div class="row mt-4" >
+                        <div class="row justify-content-center mt-3" style="background-color:white;height:50px">
                             <div class="col-auto">
                                    <button class="preview-platform-button" style="background-color:@customLink.Platform.BrandingColor; height:40px">
                                     <div class="d-flex justify-content-between" style="width:100%;">

@@ -276,6 +276,7 @@ code {
 
 .preview-phone-tabbed-container {
     background-image: url('/img/illustration-phone-mockup.svg');
+    position:relative;
     background-repeat: no-repeat;
     height: 650px;
     width: 320px;
@@ -283,7 +284,6 @@ code {
 
 .preview-phone-container {
     position:relative;
-
     background-image: url('/img/profile-outline-2.svg');
     background-repeat: no-repeat;
     min-height: 650px;
