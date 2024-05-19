@@ -173,6 +173,16 @@ code {
     
 }
 
+.secondaryButton-small {
+    background-color: white;
+    border-radius: 8px;
+    height: 2em;
+    color: var(--color-blue);
+    font-family: var(--font-family);
+    font-weight: bold;
+    border-block-color: var(--color-blue);
+}
+
     .secondaryButton:hover {
         background-color: var(--color-purple-dark)
     }
