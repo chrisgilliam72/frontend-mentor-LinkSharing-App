@@ -4,8 +4,8 @@ namespace LinkSharing_App.ViewModels;
 public class CustomizeLinks
 {
     private List<CustomizedLink> _linksList = new();
-    public List<CustomizedLink> CustomLinks => _linksList.OrderBy(x => x.DisplayIndex).ToList();
-    private int nextDisplayIndex => CustomLinks.Max(x => x.DisplayIndex) + 1;
+    public List<CustomizedLink> CustomLinks =>  _linksList.OrderBy(x => x.DisplayIndex).ToList();
+    private int nextDisplayIndex => _linksList.Any() ? _linksList.Max(x => x.DisplayIndex) + 1: 1;
 
     public CustomizeLinks(IEnumerable<CustomLink> customLinks)
     {

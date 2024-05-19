@@ -90,14 +90,14 @@ app.MapDelete("/customlinks/delete/{linkId:int}", async (int linkId, [FromServic
 
 app.MapPost("customlinks/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] LinkInfo link) =>
 {
-    return await linkSharingRepository.CreateCustomLink(link.PlatformId, link.UserId, link.LinkUrl);
+    return await linkSharingRepository.CreateCustomLink(link.platformId, link.userId, link.linkURL,link.displayIndex);
 
 }).WithName("AddCustomLink")
 .WithOpenApi().Produces(200).RequireAuthorization();
 
 app.MapPut("customlinks/update/{linkId:int}", async (int linkId, [FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] CustomLinkUrl linkUrl) =>
 {
-    var updateLink = await linkSharingRepository.UpdateCustomLink(linkId, linkUrl.linkUrl);
+    var updateLink = await linkSharingRepository.UpdateCustomLink(linkId, linkUrl.linkUrl,linkUrl.displayIndex);
     return updateLink != null ? Results.Ok(updateLink) : Results.NotFound(null);
 
 }).WithName("UpdateCustomLink")
@@ -105,10 +105,11 @@ app.MapPut("customlinks/update/{linkId:int}", async (int linkId, [FromServices] 
 
 app.MapGet("/customlinks/{userId}", async (int userId, [FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
-    return await linkSharingRepository.GetCustomLinks(userId);
+    var links = await linkSharingRepository.GetCustomLinks(userId);
+    return links != null ? Results.Ok(links) : Results.NotFound(null);
 
 }).WithName("GetLinks")
-.WithOpenApi().Produces(200).RequireAuthorization();
+.WithOpenApi().Produces(200).Produces(404).RequireAuthorization();
 
 app.MapGet("/platforms", async ([FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
@@ -209,11 +210,11 @@ app.MapGet("/users/logout", async (HttpContext httpContext) =>
 
 app.Run();
 
-record CustomLinkUrl(string linkUrl);
+record CustomLinkUrl(string linkUrl, int displayIndex);
 record UserAuthDetailsResponse(string jwtoken, User user);
 record UserAuthDetails(string username, String password);
 record AuthRequest(String jwtoken);
 
 record AddUserInfo(string firstName, string surname, string password, string email);
 record DeleteUserInfo(string email, String password);
-record LinkInfo(int PlatformId, int UserId, string LinkUrl);
+record LinkInfo(int platformId, int userId, string linkURL, int displayIndex);

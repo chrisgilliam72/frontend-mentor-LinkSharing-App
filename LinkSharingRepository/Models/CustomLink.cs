@@ -11,5 +11,6 @@ public class CustomLink
 
     public Platform Platform { get; set; } = default!;
     public User User { get; set; } = default!;
+    public int DisplayIndex { get; set; } = default!;   
 
 }

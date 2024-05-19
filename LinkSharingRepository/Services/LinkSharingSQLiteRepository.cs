@@ -31,7 +31,7 @@ public class LinkSharingSQLiteRepository(SQLiteContext _context)  : ILinkSharing
 
         return platform;
     }
-    public async Task<CustomLink> UpdateCustomLink(int customLinkId, string customLinkUrl)
+    public async Task<CustomLink> UpdateCustomLink(int customLinkId, string customLinkUrl, int displayIndex)
     {
         var dbCustomLink= await _context.CustomLinks.Include(x=>x.Platform)
                                                     .Include(x=>x.User)
@@ -39,11 +39,12 @@ public class LinkSharingSQLiteRepository(SQLiteContext _context)  : ILinkSharing
         if (dbCustomLink!=null)
         {
             dbCustomLink.URL = customLinkUrl;
-        
+            dbCustomLink.DisplayIndex = displayIndex;
+            await _context.SaveChangesAsync();
         }
         return dbCustomLink!;
     }
-    public async Task<CustomLink?> CreateCustomLink(int platformId, int userId, string url)
+    public async Task<CustomLink?> CreateCustomLink(int platformId, int userId, string url, int displayIndex)
     {
         var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
         var platform = await _context.Platforms.FirstOrDefaultAsync(x => x.Id == platformId);
@@ -53,7 +54,8 @@ public class LinkSharingSQLiteRepository(SQLiteContext _context)  : ILinkSharing
             {
                 User = user,
                 Platform = platform,
-                URL = url
+                URL = url,
+                DisplayIndex = displayIndex
             };
 
             await _context.CustomLinks.AddAsync(customLink);

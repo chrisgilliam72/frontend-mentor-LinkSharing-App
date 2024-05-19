@@ -24,12 +24,12 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
         return customLinks!;
     }
 
-    public async Task<CustomLink> AddCustomLink(int platformId, int userId, string linkURL)
+    public async Task<CustomLink> AddCustomLink(int platformId, int userId, string linkURL, int displayIndex)
     {
         CustomLink? customLink = null;
         try
         {
-            var response = await httpClient.PostAsJsonAsync("/customlinks/add", new { platformId=platformId,userId=userId,linkUrl=linkURL});
+            var response = await httpClient.PostAsJsonAsync("/customlinks/add", new { platformId=platformId,userId=userId,linkUrl=linkURL, displayIndex=displayIndex});
             if (response != null && response.Content!=null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 customLink = await response.Content.ReadFromJsonAsync<CustomLink>();
@@ -48,12 +48,35 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
 
     public async Task<bool> RemoveCustomLink(int linkId)
     {
-        var response = await httpClient.DeleteAsync("/customlinks/delete/{linkId}");
-        return (response != null && response.StatusCode == System.Net.HttpStatusCode.OK);
+        try
+        {
+            var response = await httpClient.DeleteAsync("/customlinks/delete/{linkId}");
+            return (response != null && response.StatusCode == System.Net.HttpStatusCode.OK);
+        }
+        catch 
+        {
+            
+            return false; 
+        }
     }
 
-    public Task<CustomLink> UpdateCustomLink(int linkId, string linkURL)
+    public async Task<CustomLink> UpdateCustomLink(int linkId, string linkURL,int displayIndex)
     {
-        return null;
+        CustomLink updatedLink = null;
+        try
+        {
+            
+            var response = await httpClient.PutAsJsonAsync($"/customlinks/update/{linkId}", new {linkURL=linkURL, displayIndex=displayIndex});
+            if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                updatedLink = await response.Content.ReadFromJsonAsync<CustomLink>();
+            }
+        }
+        catch (Exception)
+        {
+
+           return null;
+        }
+        return updatedLink;
     }
 }
