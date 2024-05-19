@@ -1,6 +1,7 @@
 ﻿using LinkSharing_App.Services;
 using LinkSharing_App.ViewModels;
 using Microsoft.AspNetCore.Components;
+using System.Xml.Linq;
 
 namespace LinkSharing_App.Pages
 {
@@ -14,8 +15,13 @@ namespace LinkSharing_App.Pages
         IlocalStorageService StorageService { get; set; }
         public LoginDetails Details { get; set; } = new();
 
+        public bool HasErrors = false;
+        public bool LoginSuccessful { get; set; } = true;
+        public String EmailPlaceHolderText { get; set; } = "name@example.com";
+        public String PasswordPlaceHolderText = "";
         public async Task OnLogin()
         {
+            HasErrors = false;
             var authResult= await UserService.LoginUser(Details.Username, Details.Password);
             if (authResult != null && authResult.user!=null)
             {
@@ -23,6 +29,15 @@ namespace LinkSharing_App.Pages
                 NavigationManager.NavigateTo($"/TabbedView/{authResult.user.Id}", true);
           
              }
+            LoginSuccessful = false;
+            EmailPlaceHolderText = "name@example.com";
+        }
+
+        public void OnErrors()
+        {
+            LoginSuccessful = true;
+            EmailPlaceHolderText = "Please enter your email";
+            PasswordPlaceHolderText = "Please enter your password";
         }
     }
 }

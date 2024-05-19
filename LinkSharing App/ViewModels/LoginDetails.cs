@@ -9,5 +9,6 @@ namespace LinkSharing_App.ViewModels
         [Required]
         public String Password { get; set; } = "";
 
+
     }
 }
