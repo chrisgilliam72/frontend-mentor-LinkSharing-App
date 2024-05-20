@@ -119,7 +119,7 @@
                                             <button class="secondary-button-blue" data-bs-dismiss="modal" aria-label="Close">Back to editor</button>
                                         </div>
                                         <div class="col-auto">
-                                            <button class="primary-button-blue">Copy link</button>
+                                            <button class="primary-button-blue" @onclick="OnCopyLink">Copy link</button>
                                         </div>
                                     </div>
                                 </div>
@@ -134,6 +134,10 @@
                                          CustomLinks="@CustomizeLinksViewModel" />
                             </div>
                         </div>
+                        @if (ShowToast)
+                            {
+                               <LinkSharing_App.Utility.Toast Title="Link Copied" IsError=@false ToastMessage="Link copied to clipboard" ></LinkSharing_App.Utility.Toast>
+                            }
                     </div>
                 </div>
             </div>

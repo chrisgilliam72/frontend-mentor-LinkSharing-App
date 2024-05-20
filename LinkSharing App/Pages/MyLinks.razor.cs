@@ -2,6 +2,7 @@
 using LinkSharing_App.ViewModels;
 using LinkSharingRepository.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace LinkSharing_App.Pages;
 
@@ -28,4 +29,5 @@ partial class MyLinks
         
         base.OnInitialized();
     }
+
 }

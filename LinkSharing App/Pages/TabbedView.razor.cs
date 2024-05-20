@@ -2,6 +2,7 @@
 using LinkSharing_App.ViewModels;
 using LinkSharingRepository.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 
@@ -15,6 +16,7 @@ partial class TabbedView
     public IUserService UserService { get; set; }
     [Inject]
     public ICustomLinkService CustomLinkService { get; set; }
+
     [Parameter]
     public String UserId { get; set; }
 
@@ -23,6 +25,10 @@ partial class TabbedView
     public ViewModels.ProfileDetails ProfileDetailsViewModel { get; set; } =  new ();
     public bool ShowProfileDetails { get; set; }
     public bool ShowCustomLinks {  get; set; }
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; }
+
+    public bool ShowToast { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -46,6 +52,15 @@ partial class TabbedView
         ShowProfileDetails = true;
     }
 
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.InvokeAsync<object>("showToast");
+        ShowToast = false;
+    }
+    public void OnCopyLink()
+    {
+        ShowToast = true;
+    }
     public void OnShowProfileDetails()
     {
         ShowProfileDetails = true;
