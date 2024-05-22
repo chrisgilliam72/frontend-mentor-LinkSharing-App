@@ -18,7 +18,7 @@ partial class TabbedView
     public ICustomLinkService CustomLinkService { get; set; }
 
     [Parameter]
-    public String UserId { get; set; }
+    public String UserId { get; set; } = "";
 
     public List<Platform> Platforms = new();
     public CustomizeLinks? CustomizeLinksViewModel { get; set; } = null;
@@ -28,7 +28,9 @@ partial class TabbedView
     [Inject]
     public IJSRuntime JSRuntime { get; set; }
 
-    public bool ShowToast { get; set; } = false;
+    public bool ShowCustomlinkToast { get; set; } = false;
+    public bool ShowProfileDetailsToast { get; set; } = false;
+    public bool ShowPreviewToast { get; set; } = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -55,11 +57,13 @@ partial class TabbedView
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
         await JSRuntime.InvokeAsync<object>("showToast");
-        ShowToast = false;
+        ShowCustomlinkToast = false;
+        ShowProfileDetailsToast = false;
+        ShowPreviewToast = false;
     }
     public void OnCopyLink()
     {
-        ShowToast = true;
+        ShowPreviewToast = true;
     }
     public void OnShowProfileDetails()
     {
@@ -86,6 +90,7 @@ partial class TabbedView
             PhotoFormat = ProfileDetailsViewModel.PhotoFormat
         };
         user = await UserService.UpdateUser(user);
+        ShowProfileDetailsToast = true;
     }
 
     public async Task OnCustomLinksUpdated(CustomizeLinks customizeLinksViewModel)
@@ -103,6 +108,6 @@ partial class TabbedView
                 await CustomLinkService.UpdateCustomLink(link.Id, link.LinkUrl,link.DisplayIndex);
             }
         }
-   
+        ShowCustomlinkToast = true;
     }
 }

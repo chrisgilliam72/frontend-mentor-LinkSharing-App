@@ -1,10 +1,14 @@
-﻿namespace LinkSharing_App.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LinkSharing_App.ViewModels
 {
     public class ProfileDetails
     {
         public int Id { get; set; }
+        [Required]
         public String Name { get; set; } = default!;
-        public String LastName { get; set; } = default!;    
+        [Required]
+        public String LastName { get; set; } = default!;
         public String EmailAddress { get; set; } = default!;
 
         public String Photo { get; set; } = default!;

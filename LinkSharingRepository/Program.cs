@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel;
 using System.IdentityModel.Tokens.Jwt;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Text;
 
@@ -90,10 +91,11 @@ app.MapDelete("/customlinks/delete/{linkId:int}", async (int linkId, [FromServic
 
 app.MapPost("customlinks/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] LinkInfo link) =>
 {
-    return await linkSharingRepository.CreateCustomLink(link.platformId, link.userId, link.linkURL,link.displayIndex);
+    var result = await linkSharingRepository.CreateCustomLink(link.platformId, link.userId, link.linkURL, link.displayIndex);
+    return result != null ? Results.Created($"customlinks/{result.Id}", result) :Results.BadRequest(result);
 
 }).WithName("AddCustomLink")
-.WithOpenApi().Produces(200).RequireAuthorization();
+.WithOpenApi().Produces(201).Produces(400).RequireAuthorization();
 
 app.MapPut("customlinks/update/{linkId:int}", async (int linkId, [FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] CustomLinkUrl linkUrl) =>
 {
@@ -120,8 +122,9 @@ app.MapGet("/platforms", async ([FromServices] ILinkSharingRepository linkSharin
 
 app.MapPost("/platforms/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] Platform platform) =>
 {
-    return await linkSharingRepository.AddPlatform(platform);
-}).Produces(200);
+    var dbPlatform = await linkSharingRepository.AddPlatform(platform);
+    return dbPlatform!=null ? Results.Created($"platforms/{dbPlatform.Id}", dbPlatform) :Results.BadRequest() ;
+}).Produces(201).Produces(400);
 
 app.MapPut("/platforms/update", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] Platform platform) =>
 {
@@ -133,9 +136,9 @@ app.MapPut("/platforms/update", async ([FromServices] ILinkSharingRepository lin
 app.MapPost("/users/add", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] AddUserInfo user) =>
 {
     var dbUser = await linkSharingRepository.CreateUser(user.firstName, user.surname, user.email, user.password);
-    return dbUser;
+    return dbUser != null ? Results.Created($"platforms/{dbUser.Id}", dbUser) : Results.BadRequest();
 }).WithName("AddUser")
-.WithOpenApi().Produces(200);
+.WithOpenApi().Produces(201).Produces(400);
 
 app.MapPut("/users/update", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] User user) =>
 {
@@ -147,10 +150,10 @@ app.MapPut("/users/update", async ([FromServices] ILinkSharingRepository linkSha
 app.MapDelete("/users/delete/{linkId:int}", async (int linkId, [FromServices] ILinkSharingRepository linkSharingRepository) =>
 {
     var result = await linkSharingRepository.RemoveUser(linkId);
-    return result ? Results.Ok(true) : Results.NotFound(false);
+    return result ? Results.NoContent() : Results.NotFound(false);
 
 }).WithName("DeleteUser")
-.WithOpenApi().Produces(200).Produces(404).RequireAuthorization();
+.WithOpenApi().Produces(204).Produces(404).RequireAuthorization();
 
 app.MapGet("/users", async ([FromServices] ILinkSharingRepository linkSharingRepository) =>
 {

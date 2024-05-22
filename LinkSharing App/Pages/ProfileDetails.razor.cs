@@ -17,10 +17,6 @@ namespace LinkSharing_App.Pages
         private String _photoFormat = default!;
         private byte[] _photoBytes = null!;
 
-        protected override async Task OnInitializedAsync()
-        {
-
-        }
         public async void OnPhotoUploaded(InputFileChangeEventArgs e)
         {
             if (e.File!=null)

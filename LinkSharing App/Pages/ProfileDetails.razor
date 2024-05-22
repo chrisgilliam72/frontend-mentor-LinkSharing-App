@@ -1,6 +1,7 @@
 ﻿
 
-<EditForm Model="@ProfileDetailsViewModel" OnSubmit="OnSave">
+<EditForm Model="@ProfileDetailsViewModel" OnValidSubmit="OnSave">
+    <DataAnnotationsValidator />
     <div class="card p-2 section-background" style="border:none;">
         <div class="card-body">
             <div class="row justify-content-start align-items-center ">
