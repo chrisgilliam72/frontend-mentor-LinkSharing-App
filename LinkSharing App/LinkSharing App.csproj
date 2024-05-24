@@ -31,4 +31,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\LinkSharing Models\LinkSharing Models.csproj" />
+  </ItemGroup>
+
 </Project>

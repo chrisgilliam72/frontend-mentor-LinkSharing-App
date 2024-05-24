@@ -18,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LinkSharing Models\LinkSharing Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="LinkSharing.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

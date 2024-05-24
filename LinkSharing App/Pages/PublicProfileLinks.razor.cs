@@ -16,7 +16,7 @@ namespace LinkSharing_App.Pages
 
         public LinkSharing_App.ViewModels.ProfileDetails ProfileDetails { get; set; } = new();
 
-        public CustomizeLinks? CustomizedLinks = null;
+        public CustomizeLinksViewModel? CustomizedLinks = null;
 
         protected override async Task OnInitializedAsync()
         {
@@ -33,7 +33,7 @@ namespace LinkSharing_App.Pages
                     ProfileDetails.Photo = currentUser.Photo;
                     ProfileDetails.PhotoFormat = currentUser.PhotoFormat;
                     var customLinks = await customLinkService.GetCustomLinks(userId);
-                    CustomizedLinks = new CustomizeLinks(customLinks);
+                    CustomizedLinks = new CustomizeLinksViewModel(customLinks);
 
                 }
 

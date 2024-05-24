@@ -1,4 +1,5 @@
-﻿using LinkSharing_App.Models;
+﻿
+using LinkSharing_App.DTO;
 using LinkSharingRepository.Models;
 
 namespace LinkSharing_App.Services

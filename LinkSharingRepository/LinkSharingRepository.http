@@ -69,12 +69,14 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNocmlzZz
   "displayIndex":1
 }
 ###
-DELETE {{LinkSharingRepository_HostAddress}}/customlinks/delete/2
-Accept: application/json
+DELETE {{LinkSharingRepository_HostAddress}}/customlinks/delete/7
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNocmlzZ0Bob21lLmNvbSIsIm5hbWVpZCI6IjYiLCJuYmYiOjE3MTY1NDkxNDEsImV4cCI6MTcxNzE1Mzk0MSwiaWF0IjoxNzE2NTQ5MTQxfQ.uaQ1mScyAt_OSotuUm5OPagWYWhWMzYJVyMUoOmDkSs
+
 ###
 GET {{LinkSharingRepository_HostAddress}}/customlinks/6
 Content-Type: application/json
-Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNocmlzZ0Bob21lLmNvbSIsIm5hbWVpZCI6IjYiLCJuYmYiOjE3MTYxMDI4MTQsImV4cCI6MTcxNjcwNzYxNCwiaWF0IjoxNzE2MTAyODE0fQ.3rEhOYg3u3U9EdEEME-nUm46L4NUyGFQbRwhIGKZtgE
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNocmlzZ0Bob21lLmNvbSIsIm5hbWVpZCI6IjYiLCJuYmYiOjE3MTY1NDkxNDEsImV4cCI6MTcxNzE1Mzk0MSwiaWF0IjoxNzE2NTQ5MTQxfQ.uaQ1mScyAt_OSotuUm5OPagWYWhWMzYJVyMUoOmDkSs
 Accept: application/json
 
 ###

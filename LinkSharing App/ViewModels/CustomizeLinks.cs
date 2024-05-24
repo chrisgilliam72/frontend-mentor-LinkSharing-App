@@ -1,21 +1,39 @@
 ﻿using LinkSharingRepository.Models;
 namespace LinkSharing_App.ViewModels;
 
-public class CustomizeLinks
+public class CustomizeLinksViewModel
 {
-    private List<CustomizedLink> _linksList = new();
-    public List<CustomizedLink> CustomLinks =>  _linksList.OrderBy(x => x.DisplayIndex).ToList();
+    private List<CustomLinkViewModel> _linksList = new();
+    private List<CustomLinkViewModel> _removeList = new();
+    public List<CustomLinkViewModel> CustomLinks =>  _linksList.OrderBy(x => x.DisplayIndex).ToList();
     private int nextDisplayIndex => _linksList.Any() ? _linksList.Max(x => x.DisplayIndex) + 1: 1;
 
-    public CustomizeLinks(IEnumerable<CustomLink> customLinks)
+    public CustomLinkViewModel GetNextLinktoToDelete()
+    {
+        if (_removeList.Any())
+        {
+            var removeLink = _removeList[0];
+            _removeList.Remove(removeLink);
+            return removeLink;
+        }
+
+        return null;
+    }
+
+    public bool HasLinksToDelete => _removeList.Any();
+    public CustomizeLinksViewModel(IEnumerable<CustomLink> customLinks)
     {
         int index = 1;
         foreach (var link in customLinks)
         {
-            CustomizedLink customizedLink = new()
+            CustomLinkViewModel customizedLink = new()
             {
                 Id = link.Id,
-                Platform = link.Platform,
+                PlatformId = link.Platform.Id,
+                PlatformIconPath= @"/img/"+link.Platform.Icon,
+                PlatformName = link.Platform.Name,
+                PlatformURL = link.Platform.URL,
+                PlatformBrandingColor = link.Platform.BrandingColor,
                 LinkUrl = link.URL,
                 DisplayIndex = index++,
             };
@@ -41,15 +59,18 @@ public class CustomizeLinks
         ReIndex();
     }
 
-    public void AddLink(CustomizedLink customizedLink)
+    public void AddLink(CustomLinkViewModel customizedLink)
     {
         customizedLink.DisplayIndex = nextDisplayIndex;
         _linksList.Add(customizedLink);
+ 
     }
 
     public void RemoveLink(int displayIndex)
     {
-        _linksList.Remove(CustomLinks.First(x => x.DisplayIndex == displayIndex));
+        var link = CustomLinks.First(x => x.DisplayIndex == displayIndex);
+        _linksList.Remove(link);
+        _removeList.Add(link);
         ReIndex();
     }
 

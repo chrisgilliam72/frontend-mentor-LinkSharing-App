@@ -17,20 +17,24 @@
                 <div style="position:absolute; top:260px;height:350px;">
                     @foreach (var customLink in CustomLinks.CustomLinks)
                     {
-                        <div class="row justify-content-center mt-3" style="background-color:white;height:50px">
-                            <div class="col-auto">
-                                   <button class="preview-platform-button" style="background-color:@customLink.Platform.BrandingColor; height:40px">
-                                    <div class="d-flex justify-content-between" style="width:100%;">
-                                        <div>
-                                            <img src="@customLink.Platform.IconPath" />
-                                            <span class="ms-1">@customLink.SelectedPlatformName </span>
-                                        </div>
+                        if (!String.IsNullOrEmpty(customLink.PlatformName))
+                        {
+                            <div class="row justify-content-center mt-3" style="background-color:white;height:50px">
+                                <div class="col-auto">
+                                    <button class="preview-platform-button" style="background-color:@customLink.PlatformBrandingColor; height:40px">
+                                        <div class="d-flex justify-content-between" style="width:100%;">
+                                            <div>
+                                                <img src="@customLink.PlatformIconPath" />
+                                                <span class="ms-1">@customLink.SelectedPlatformName </span>
+                                            </div>
 
-                                        <img src="/img/icon-arrow-right.svg" />
-                                    </div>
-                                </button>
+                                            <img src="/img/icon-arrow-right.svg" />
+                                        </div>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
+                        }
+
                     }
                 </div>
 

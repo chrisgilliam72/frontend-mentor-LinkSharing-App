@@ -21,7 +21,7 @@ partial class TabbedView
     public String UserId { get; set; } = "";
 
     public List<Platform> Platforms = new();
-    public CustomizeLinks? CustomizeLinksViewModel { get; set; } = null;
+    public CustomizeLinksViewModel? CustomizeLinksViewModel { get; set; } = null;
     public ViewModels.ProfileDetails ProfileDetailsViewModel { get; set; } =  new ();
     public bool ShowProfileDetails { get; set; }
     public bool ShowCustomLinks {  get; set; }
@@ -49,7 +49,7 @@ partial class TabbedView
             ProfileDetailsViewModel.PhotoFormat = user.PhotoFormat;
         }
         var listLinks = (await CustomLinkService.GetCustomLinks(userId)).ToList();
-        CustomizeLinksViewModel = new CustomizeLinks(listLinks);
+        CustomizeLinksViewModel = new CustomizeLinksViewModel(listLinks);
 
         ShowProfileDetails = true;
     }
@@ -93,14 +93,14 @@ partial class TabbedView
         ShowProfileDetailsToast = true;
     }
 
-    public async Task OnCustomLinksUpdated(CustomizeLinks customizeLinksViewModel)
+    public async Task OnCustomLinksUpdated(CustomizeLinksViewModel customizeLinks)
     {
-        CustomizeLinksViewModel=customizeLinksViewModel;
-        foreach (var link in CustomizeLinksViewModel.CustomLinks)
+        CustomizeLinksViewModel= customizeLinks;
+        foreach (var link in customizeLinks.CustomLinks)
         {
             if (link.Id==0) 
             {
-                var dbLinkl = await CustomLinkService.AddCustomLink(link.Platform.Id, Convert.ToInt32(UserId), link.LinkUrl, link.DisplayIndex);
+                var dbLinkl = await CustomLinkService.AddCustomLink(link.PlatformId, Convert.ToInt32(UserId), link.LinkUrl, link.DisplayIndex);
                 link.Id = dbLinkl.Id;
             }
             else
@@ -108,6 +108,16 @@ partial class TabbedView
                 await CustomLinkService.UpdateCustomLink(link.Id, link.LinkUrl,link.DisplayIndex);
             }
         }
+        while (customizeLinks.HasLinksToDelete)
+        {
+            var deleteLink= customizeLinks.GetNextLinktoToDelete();
+            if (deleteLink != null)
+            {
+                await CustomLinkService.RemoveCustomLink(deleteLink.Id);
+            }
+        }
         ShowCustomlinkToast = true;
+
+       
     }
 }

@@ -10,11 +10,11 @@
                     <span class="bodyS">Add/edit/remove links below and then share all your profile links with the world!</span>
                 </div>
                 <div class="row mt-4">
-                    <button class="secondaryButton" @onclick="AddNewLink">  + Add new link</button>
+                    <button type="button" class="secondaryButton" @onclick="AddNewLink">  + Add new link</button>
                 </div>
                 <div class="row">
 
-                    @if (!CustomLinksViewModel.CustomLinks.Any())
+                    @if (CustomLinksViewModel==null || !CustomLinksViewModel.CustomLinks.Any())
                     {
                         <NoLinks />
                     }
@@ -40,11 +40,11 @@
 
                                     <div class="row mt-2 ">
                                         <label for="linkText" class="form-label bodyS">Platform</label>
-                                        @if (customLink.Platform !=null)
+                                        @if (!String.IsNullOrEmpty(customLink.PlatformURL))
                                         {
                                             <div class="d-flex align-items-center">
-                                                <img src="@customLink.Platform.IconPath" />
-                                                <span class="ms-1">@customLink.Platform.Name</span>
+                                                <img src="@customLink.PlatformIconPath" />
+                                                <span class="ms-1">@customLink.PlatformName</span>
                                             </div>
                                         }
                                         else
@@ -54,16 +54,19 @@
                                                     @customLink.SelectedPlatformName
                                                 </button>
                                                 <ul class="dropdown-menu form-control">
-                                                    @foreach (var platform in Platforms)
+                                                    @if (Platforms!=null)
                                                     {
-                                                        <li class="dropdown-item">
-                                                            <div>
-                                                                <img src="@platform.IconPath" />
-                                                                <a @onclick="(e=>OnPlatformSelected(platform.Id,customLink.DisplayIndex))">@platform.Name</a>
-                                                            </div>
+                                                        foreach (var platform in Platforms)
+                                                        {
+                                                            <li class="dropdown-item">
+                                                                <div>
+                                                                    <img src="@platform.Icon" />
+                                                                    <a @onclick="(e=>OnPlatformSelected(platform.Id,customLink.DisplayIndex))">@platform.Name</a>
+                                                                </div>
 
-                                                        </li>
+                                                            </li>
 
+                                                        }
                                                     }
                                                 </ul>
                                             </div>
@@ -71,17 +74,13 @@
 
                                     </div>
                                     <div class="row mt-2">
-                                        <label for="@customLink.HTMLId" class="form-label bodyS">Link</label>
-                                        <InputText type="text" id="@customLink.HTMLId" @bind-Value="customLink.LinkUrl" class="form-control" />
+                                        <label class="form-label bodyS">Link</label>
+                                        <InputText type="text" @bind-Value="customLink.LinkUrl" class="form-control" />
                                     </div>
 
                                 </div>
                             </SortableItemTemplate>
                         </LinkSharing_App.Utility.SortableList>
-                        {
-
-
-                        }
                     }
                 </div>
             </div>

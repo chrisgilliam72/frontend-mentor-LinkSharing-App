@@ -12,15 +12,16 @@ partial class CustomizedLinks
     [Parameter]
     public List<Platform>? Platforms { get; set; } = null;
     [Parameter]
-    public CustomizeLinks? CustomLinksViewModel { get; set; } = null;
+    public CustomizeLinksViewModel? CustomLinksViewModel { get; set; } = null;
     [Parameter]
-    public EventCallback<CustomizeLinks> LinksUpdated {  get; set; }
+    public EventCallback<CustomizeLinksViewModel> LinksUpdated {  get; set; }
    
 
 
     public void AddNewLink()
     {
-        CustomizedLink customLink = new();
+        CustomLinkViewModel customLink = new();
+        customLink.LinkUrl = "";
         CustomLinksViewModel?.AddLink(customLink);
 
     }
@@ -35,7 +36,12 @@ partial class CustomizedLinks
         var customLinkVM = CustomLinksViewModel?.CustomLinks.First(x => x.DisplayIndex == linkId);
         if (customLinkVM != null && Platforms!=null)
         {
-            customLinkVM.Platform = Platforms.First(x => x.Id == platformId);
+            var selectedPlatform = Platforms.First(x => x.Id == platformId);
+            customLinkVM.PlatformId = selectedPlatform.Id;
+            customLinkVM.PlatformName = selectedPlatform.Name;
+            customLinkVM.PlatformURL = selectedPlatform.URL;
+            customLinkVM.PlatformBrandingColor = selectedPlatform.BrandingColor;
+            customLinkVM.PlatformIconPath = selectedPlatform.Icon;
         }
 
     }

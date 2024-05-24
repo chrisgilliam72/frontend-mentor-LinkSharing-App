@@ -9,6 +9,7 @@ namespace LinkSharing_App.Services
         {
 
             var platforms = await httpClient.GetFromJsonAsync<List<Platform>>("platforms/");
+            platforms.ForEach(x => x.Icon = @"/img/" + x.Icon);
             return platforms;
         }
 

@@ -19,7 +19,7 @@ namespace LinkSharing_App.Pages
         public List<String> Links { get; set; } = new();
 
         [Parameter]
-        public CustomizeLinks CustomLinks { get; set; } = null!;
+        public CustomizeLinksViewModel CustomLinks { get; set; } = null!;
 
         protected override void OnInitialized()
         {

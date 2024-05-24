@@ -13,6 +13,7 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
             if (response != null && response.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 customLinks = await response.Content.ReadFromJsonAsync<List<CustomLink>>();
+                
             }
                
         }
@@ -50,7 +51,7 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
     {
         try
         {
-            var response = await httpClient.DeleteAsync("/customlinks/delete/{linkId}");
+            var response = await httpClient.DeleteAsync($"/customlinks/delete/{linkId}");
             return (response != null && response.StatusCode == System.Net.HttpStatusCode.OK);
         }
         catch 
