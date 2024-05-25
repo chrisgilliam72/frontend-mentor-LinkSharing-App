@@ -1,0 +1,9 @@
+﻿@page "/MobilePreview/{userId}"
+
+<div class="container">
+    <div class="row">
+        <MyLinks ImageSrc="@ProfileDetailsViewModel.ImgSrc" FirstName="@ProfileDetailsViewModel.Name"
+                 LastName="@ProfileDetailsViewModel.LastName" Email="@ProfileDetailsViewModel.EmailAddress"
+                 CustomLinks="@CustomizeLinksViewModel" />
+    </div>
+</div>

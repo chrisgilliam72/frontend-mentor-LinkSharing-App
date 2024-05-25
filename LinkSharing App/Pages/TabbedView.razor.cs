@@ -16,6 +16,8 @@ partial class TabbedView
     public IUserService UserService { get; set; }
     [Inject]
     public ICustomLinkService CustomLinkService { get; set; }
+    [Inject]
+    NavigationManager NavigationManager { get; set; }
 
     [Parameter]
     public String UserId { get; set; } = "";
@@ -75,6 +77,11 @@ partial class TabbedView
     {
         ShowProfileDetails = false;
         ShowCustomLinks = true;
+    }
+
+    public void OnShowMobilePreview()
+    {
+        NavigationManager.NavigateTo($"/MobilePreview/{UserId}", true);
     }
 
     public async Task OnProfileDetailsUpdated(ViewModels.ProfileDetails profileImageViewModel)

@@ -78,10 +78,17 @@
                             </ul>
                         </div>
                         <div class="navbar-button">
-                            <button type="button" class="secondaryButton" data-bs-toggle="modal" data-bs-target="#preview-modal">
-                                <span class="d-none d-md-inline">Preview</span>
-                                <img class="d-inline d-md-none" src="/img/icon-preview-header.svg" />
-                            </button>
+                            <div class="d-none d-md-inline">
+                                <button type="button" class="secondaryButton" data-bs-toggle="modal" data-bs-target="#preview-modal">
+                                    <span class="d-none d-md-inline">Preview</span>
+                                    <img class="d-inline d-md-none" src="/img/icon-preview-header.svg" />
+                                </button>
+                            </div>
+                            <div class="d-inline d-md-none">
+                                <button type="button" class="secondaryButton" @onclick="OnShowMobilePreview">
+                                    <img class="d-inline d-md-none" src="/img/icon-preview-header.svg" />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

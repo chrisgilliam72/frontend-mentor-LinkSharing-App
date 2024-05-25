@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkSharing App", "LinkShar
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkSharingRepository", "LinkSharingRepository\LinkSharingRepository.csproj", "{F9A95BEB-56A5-4E34-AB15-C30B0D98A3DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkSharing Models", "LinkSharing Models\LinkSharing Models.csproj", "{8FC61B84-28BD-4FE9-AA4F-2B97F211302B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkSharing Models", "LinkSharing Models\LinkSharing Models.csproj", "{8FC61B84-28BD-4FE9-AA4F-2B97F211302B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
