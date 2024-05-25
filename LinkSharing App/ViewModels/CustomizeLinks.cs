@@ -8,6 +8,13 @@ public class CustomizeLinksViewModel
     public List<CustomLinkViewModel> CustomLinks =>  _linksList.OrderBy(x => x.DisplayIndex).ToList();
     private int nextDisplayIndex => _linksList.Any() ? _linksList.Max(x => x.DisplayIndex) + 1: 1;
 
+    public List<int> SelectedPlatformIds => _linksList.Select(x=>x.PlatformId).ToList();  
+
+    public bool HasPlatform (int platformId)
+    {
+        return _linksList.FirstOrDefault(x=>x.PlatformId == platformId) != null;
+    }
+
     public CustomLinkViewModel GetNextLinktoToDelete()
     {
         if (_removeList.Any())
@@ -66,12 +73,13 @@ public class CustomizeLinksViewModel
  
     }
 
-    public void RemoveLink(int displayIndex)
+    public CustomLinkViewModel RemoveLink(int displayIndex)
     {
         var link = CustomLinks.First(x => x.DisplayIndex == displayIndex);
         _linksList.Remove(link);
         _removeList.Add(link);
         ReIndex();
+        return link;
     }
 
     public void ReIndex()

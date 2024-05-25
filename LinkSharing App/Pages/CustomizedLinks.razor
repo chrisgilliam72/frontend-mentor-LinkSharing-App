@@ -9,9 +9,13 @@
                     <span class="headingM">Customize your links</span>
                     <span class="bodyS">Add/edit/remove links below and then share all your profile links with the world!</span>
                 </div>
-                <div class="row mt-4">
-                    <button type="button" class="secondaryButton" @onclick="AddNewLink">  + Add new link</button>
-                </div>
+                @if (CanAddLink)
+                {
+                    <div class="row mt-4">
+                        <button type="button" class="secondaryButton" @onclick="AddNewLink">  + Add new link</button>
+                    </div>
+                }
+
                 <div class="row">
 
                     @if (CustomLinksViewModel==null || !CustomLinksViewModel.CustomLinks.Any())

@@ -15,9 +15,21 @@ partial class CustomizedLinks
     public CustomizeLinksViewModel? CustomLinksViewModel { get; set; } = null;
     [Parameter]
     public EventCallback<CustomizeLinksViewModel> LinksUpdated {  get; set; }
-   
+    public bool CanAddLink => CustomLinksViewModel?.CustomLinks.Count < 7;
+    private List<Platform> removedPlatforms  = new();
 
+    protected override void OnInitialized()
+    {
 
+        base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        FilterPlatforms();
+        base.OnParametersSet();
+    }
+     
     public void AddNewLink()
     {
         CustomLinkViewModel customLink = new();
@@ -28,7 +40,18 @@ partial class CustomizedLinks
 
     public void RemoveLink(int linkId)
     {
-        CustomLinksViewModel?.RemoveLink(linkId);
+        var removedLink=CustomLinksViewModel?.RemoveLink(linkId);
+        if (removedLink != null)
+        {
+            var removedPlatform = removedPlatforms.FirstOrDefault(x => x.Id == removedLink.PlatformId);
+            if (removedPlatform != null)
+            {
+                removedPlatforms.Remove(removedPlatform);
+                Platforms.Add(removedPlatform);
+            }
+
+        }
+
     }
 
     public void OnPlatformSelected(int platformId, int linkId)
@@ -42,6 +65,7 @@ partial class CustomizedLinks
             customLinkVM.PlatformURL = selectedPlatform.URL;
             customLinkVM.PlatformBrandingColor = selectedPlatform.BrandingColor;
             customLinkVM.PlatformIconPath = selectedPlatform.Icon;
+
         }
 
     }
@@ -57,5 +81,26 @@ partial class CustomizedLinks
     public void OnSave()
     {
         LinksUpdated.InvokeAsync(CustomLinksViewModel);
+    }
+
+    private void FilterPlatforms()
+    {
+        List<Platform>? selectablePlatforms = new();
+        if (CustomLinksViewModel != null)
+        {
+
+            foreach (var platform in Platforms)
+            {
+                if (CustomLinksViewModel.HasPlatform(platform.Id))
+                    removedPlatforms.Add(platform);
+                else
+                    selectablePlatforms.Add(platform);
+         
+                  
+            }
+                
+        }
+
+        Platforms= selectablePlatforms;
     }
 }
