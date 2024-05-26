@@ -12,6 +12,8 @@ namespace LinkSharing_App.Pages
         public IUserService UserService { get; set; }
         [Inject]
         public ICustomLinkService CustomLinkService { get; set; }
+        [Inject]
+        NavigationManager NavigationManager { get; set; }
         public ViewModels.ProfileDetails ProfileDetailsViewModel { get; set; } = new();
         public CustomizeLinksViewModel? CustomizeLinksViewModel { get; set; } =  null;
 
@@ -32,6 +34,16 @@ namespace LinkSharing_App.Pages
             }
             var listLinks = (await CustomLinkService.GetCustomLinks(userId)).ToList();
             CustomizeLinksViewModel = new CustomizeLinksViewModel(listLinks);
+        }
+
+        public void OnCopyLink()
+        {
+
+        }
+
+        public void OnBack()
+        {
+            NavigationManager.NavigateTo($"/TabbedView/{UserId}", true);
         }
     }
 }

@@ -1,9 +1,24 @@
 ﻿@page "/MobilePreview/{userId}"
 
-<div class="container">
-    <div class="row">
-        <MyLinks ImageSrc="@ProfileDetailsViewModel.ImgSrc" FirstName="@ProfileDetailsViewModel.Name"
-                 LastName="@ProfileDetailsViewModel.LastName" Email="@ProfileDetailsViewModel.EmailAddress"
-                 CustomLinks="@CustomizeLinksViewModel" />
+<div class="container" style="background-color:white">
+    <div class="row ">
+        <div class="col-12 ">
+            <div class="row justify-content-between align-items-center mt-2">
+                <div class="col-auto">
+                    <button class="preview-nav-button" @onclick="OnBack">Back to editor</button>
+                </div>
+                <div class="col-auto">
+                    <button class="preview-nav-button" @onclick="OnCopyLink">Share link</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <MyLinks ImageSrc="@ProfileDetailsViewModel.ImgSrc" FirstName="@ProfileDetailsViewModel.Name"
+                     LastName="@ProfileDetailsViewModel.LastName" Email="@ProfileDetailsViewModel.EmailAddress"
+                     CustomLinks="@CustomizeLinksViewModel" />
+        </div>
     </div>
 </div>

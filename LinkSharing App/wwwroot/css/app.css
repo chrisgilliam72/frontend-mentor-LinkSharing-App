@@ -173,6 +173,21 @@ code {
     
 }
 
+.preview-nav-button {
+    background-color: white;
+    border-radius: 8px;
+    height: 2.5em;
+    color: var(--color-blue);
+    font-family: var(--font-family);
+    font-weight: bold;
+    border-block-color: var(--color-blue);
+}
+
+    .preview-nav-button:hover {
+        background-color: var(--color-blue);
+        color: var(--color-white);
+    }
+
 .secondaryButton-small {
     background-color: white;
     border-radius: 8px;
@@ -183,9 +198,10 @@ code {
     border-block-color: var(--color-blue);
 }
 
-    .secondaryButton:hover {
-        background-color: var(--color-purple-dark)
-    }
+.secondaryButton:hover {
+    background-color: var(--color-purple-dark);
+    color: var(--color-white);
+}
 
 .navbar-button {
     font: var(--font-family);
