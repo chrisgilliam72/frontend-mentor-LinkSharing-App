@@ -5,14 +5,14 @@ public class CustomizeLinksViewModel
 {
     private List<CustomLinkViewModel> _linksList = new();
     private List<CustomLinkViewModel> _removeList = new();
-    public List<CustomLinkViewModel> CustomLinks =>  _linksList.OrderBy(x => x.DisplayIndex).ToList();
-    private int nextDisplayIndex => _linksList.Any() ? _linksList.Max(x => x.DisplayIndex) + 1: 1;
+    public List<CustomLinkViewModel> CustomLinks => _linksList.OrderBy(x => x.DisplayIndex).ToList();
+    private int nextDisplayIndex => _linksList.Any() ? _linksList.Max(x => x.DisplayIndex) + 1 : 1;
 
-    public List<int> SelectedPlatformIds => _linksList.Select(x=>x.PlatformId).ToList();  
+    public List<int> SelectedPlatformIds => _linksList.Select(x => x.PlatformId).ToList();
 
-    public bool HasPlatform (int platformId)
+    public bool HasPlatform(int platformId)
     {
-        return _linksList.FirstOrDefault(x=>x.PlatformId == platformId) != null;
+        return _linksList.FirstOrDefault(x => x.PlatformId == platformId) != null;
     }
 
     public CustomLinkViewModel GetNextLinktoToDelete()
@@ -37,7 +37,7 @@ public class CustomizeLinksViewModel
             {
                 Id = link.Id,
                 PlatformId = link.Platform.Id,
-                PlatformIconPath= @"/img/"+link.Platform.Icon,
+                PlatformIconPath = @"/img/" + link.Platform.Icon,
                 PlatformName = link.Platform.Name,
                 PlatformURL = link.Platform.URL,
                 PlatformBrandingColor = link.Platform.BrandingColor,
@@ -50,7 +50,7 @@ public class CustomizeLinksViewModel
 
     public void MoveLink(int oldIndex, int newIndex)
     {
-        
+
         var itemToMove = _linksList[oldIndex];
         _linksList.RemoveAt(oldIndex);
 
@@ -70,7 +70,7 @@ public class CustomizeLinksViewModel
     {
         customizedLink.DisplayIndex = nextDisplayIndex;
         _linksList.Add(customizedLink);
- 
+
     }
 
     public CustomLinkViewModel RemoveLink(int displayIndex)
@@ -89,4 +89,15 @@ public class CustomizeLinksViewModel
             link.DisplayIndex = index++;
     }
 
+    public void UseWhiteIcons()
+    {
+        foreach (var customLink in _linksList)
+        {
+            if (!customLink.PlatformIconPath.Contains("-white."))
+            {
+                customLink.PlatformIconPath = customLink.PlatformIconPath.Replace(".", "-white.");
+            }
+
+        }
+    }
 }

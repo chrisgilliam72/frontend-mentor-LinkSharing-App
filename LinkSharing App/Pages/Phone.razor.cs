@@ -26,5 +26,14 @@ namespace LinkSharing_App.Pages
 
             base.OnInitialized();
         }
+        protected override void OnParametersSet()
+        {
+            if (CustomLinks != null)
+            {
+                CustomLinks.UseWhiteIcons();
+            }
+
+            base.OnParametersSet();
+        }
     }
 }
