@@ -125,7 +125,7 @@ public class LinkSharingSQLiteRepository(SQLiteContext _context)  : ILinkSharing
         return await _context.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
     }
 
-    public async Task<User?> UpdateUser(int userId, string firstName, string lastName, string email, string photo, string photoFormat)
+    public async Task<User?> UpdateUser(int userId, string firstName, string lastName, string email, string photo, string photoFormat, string publicURL)
     {
         var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
         if (user != null)
@@ -133,8 +133,9 @@ public class LinkSharingSQLiteRepository(SQLiteContext _context)  : ILinkSharing
             user.FirstName = firstName;
             user.Surname = lastName;
             user.Email = email;
-            user.Photo = photo; 
+            user.Photo = photo;
             user.PhotoFormat = photoFormat;
+            user.PublicURl= publicURL;
             await _context.SaveChangesAsync();
         }
 

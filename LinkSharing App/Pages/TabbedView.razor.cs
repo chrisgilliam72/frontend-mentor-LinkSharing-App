@@ -18,6 +18,8 @@ partial class TabbedView
     public ICustomLinkService CustomLinkService { get; set; }
     [Inject]
     NavigationManager NavigationManager { get; set; }
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; }
 
     [Parameter]
     public String UserId { get; set; } = "";
@@ -27,8 +29,7 @@ partial class TabbedView
     public ViewModels.ProfileDetails ProfileDetailsViewModel { get; set; } =  new ();
     public bool ShowProfileDetails { get; set; }
     public bool ShowCustomLinks {  get; set; }
-    [Inject]
-    public IJSRuntime JSRuntime { get; set; }
+
 
     public bool ShowCustomlinkToast { get; set; } = false;
     public bool ShowProfileDetailsToast { get; set; } = false;
@@ -49,6 +50,7 @@ partial class TabbedView
             ProfileDetailsViewModel.EmailAddress = user.Email;
             ProfileDetailsViewModel.Photo = user.Photo;
             ProfileDetailsViewModel.PhotoFormat = user.PhotoFormat;
+            ProfileDetailsViewModel.PublicURL = user.PublicURl;
         }
         var listLinks = (await CustomLinkService.GetCustomLinks(userId)).ToList();
         CustomizeLinksViewModel = new CustomizeLinksViewModel(listLinks);
@@ -63,8 +65,9 @@ partial class TabbedView
         ShowProfileDetailsToast = false;
         ShowPreviewToast = false;
     }
-    public void OnCopyLink()
+    public async Task OnCopyLink()
     {
+        await JSRuntime.InvokeVoidAsync("copyTextToClipboard", ProfileDetailsViewModel.PublicURL);
         ShowPreviewToast = true;
     }
     public void OnShowProfileDetails()
@@ -94,7 +97,9 @@ partial class TabbedView
             Surname = ProfileDetailsViewModel.LastName,
             Email = ProfileDetailsViewModel.EmailAddress,
             Photo = ProfileDetailsViewModel.Photo,
-            PhotoFormat = ProfileDetailsViewModel.PhotoFormat
+            PhotoFormat = ProfileDetailsViewModel.PhotoFormat,
+            PublicURl= ProfileDetailsViewModel.PublicURL
+           
         };
         user = await UserService.UpdateUser(user);
         ShowProfileDetailsToast = true;

@@ -142,7 +142,8 @@ app.MapPost("/users/add", async ([FromServices] ILinkSharingRepository linkShari
 
 app.MapPut("/users/update", async ([FromServices] ILinkSharingRepository linkSharingRepository, [FromBody] User user) =>
 {
-    var updatedUser = await linkSharingRepository.UpdateUser(user.Id, user.FirstName, user.Surname, user.Email, user.Photo, user.PhotoFormat);
+    var updatedUser = await linkSharingRepository.UpdateUser(user.Id, user.FirstName, user.Surname, user.Email,
+                                                             user.Photo, user.PhotoFormat,user.PublicURl);
     return updatedUser != null ? Results.Ok(updatedUser) : Results.NotFound(null);
 }).WithName("UpdateUser")
 .WithOpenApi().Produces(200).Produces(404);

@@ -18,5 +18,7 @@ namespace LinkSharing_App.ViewModels
         public String PhotoFormat { get; set; } = default!;
 
         public bool HasPhoto => !String.IsNullOrEmpty(Photo);   
+
+        public String PublicURL { get; set; } = "";
     }
 }

@@ -1,6 +1,7 @@
 ﻿using LinkSharing_App.Services;
 using LinkSharing_App.ViewModels;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace LinkSharing_App.Pages
 {
@@ -14,6 +15,8 @@ namespace LinkSharing_App.Pages
         public ICustomLinkService CustomLinkService { get; set; }
         [Inject]
         NavigationManager NavigationManager { get; set; }
+        [Inject]
+        public IJSRuntime JSRuntime { get; set; }
         public ViewModels.ProfileDetails ProfileDetailsViewModel { get; set; } = new();
         public CustomizeLinksViewModel? CustomizeLinksViewModel { get; set; } =  null;
 
@@ -36,9 +39,9 @@ namespace LinkSharing_App.Pages
             CustomizeLinksViewModel = new CustomizeLinksViewModel(listLinks);
         }
 
-        public void OnCopyLink()
+        public async Task OnCopyLink()
         {
-
+            await JSRuntime.InvokeVoidAsync("copyTextToClipboard", ProfileDetailsViewModel.PublicURL);
         }
 
         public void OnBack()
