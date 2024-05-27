@@ -1,4 +1,5 @@
 ﻿using LinkSharingRepository.Models;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace LinkSharing_App.ViewModels;
@@ -12,6 +13,7 @@ public class CustomLinkViewModel
     public String PlatformName { get; set; } = "";
     public String PlatformURL { get; set; } = "";
     public String PlatformIconPath { get; set; } = "";
+    public String WhitePlatformIconPath => PlatformIconPath.Contains("-white.") ? PlatformIconPath : PlatformIconPath.Replace(".", "-white.");
     public string PlatformBrandingColor { get; set; } = "";
     public String SelectedPlatformName => PlatformName!=null ? PlatformName : "Select platform";
 
