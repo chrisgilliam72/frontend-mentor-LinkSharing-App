@@ -16,7 +16,7 @@
 
         @if (CustomLinks != null)
         {
-            <div style="position:absolute; top:255px; width:80%; height:350px;">
+        <div style="position:absolute; top:255px; height:350px;">
                 @foreach (var customLink in CustomLinks.CustomLinks)
                 {
                     if (!String.IsNullOrEmpty(customLink.PlatformName))
@@ -25,11 +25,10 @@
                             <div class="col-auto ">
                                 <button class="preview-platform-button" style="background-color:@customLink.PlatformBrandingColor">
                                     <div class="d-flex justify-content-between" style="width:100%;">
-                                        <div>
+                                        <div class="d-flex align-items-center">
                                             <img src="@customLink.WhitePlatformIconPath" />
-                                            <span class="ms-1">@customLink.SelectedPlatformName </span>
+                                            <span class="ms-2">@customLink.SelectedPlatformName </span>
                                         </div>
-
                                         <img src="/img/icon-arrow-right.svg" />
                                     </div>
                                 </button>

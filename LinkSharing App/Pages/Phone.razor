@@ -14,21 +14,17 @@
 
             @if (CustomLinks != null)
             {
-                <div style="position:absolute; top:260px;height:350px;">
+                <div style="position:absolute; top:260px;height:320px; width:75%; left:35px;">
                     @foreach (var customLink in CustomLinks.CustomLinks)
                     {
                         if (!String.IsNullOrEmpty(customLink.PlatformName))
                         {
                             <div class="row justify-content-center mt-3" style="background-color:white;height:50px">
                                 <div class="col-auto">
-                                    <button class="preview-platform-button" style="background-color:@customLink.PlatformBrandingColor; height:40px">
-                                        <div class="d-flex justify-content-between" style="width:100%;">
-                                            <div>
-                                                <img src="@customLink.WhitePlatformIconPath" />
-                                                <span class="ms-1">@customLink.SelectedPlatformName </span>
-                                            </div>
-
-                                            <img src="/img/icon-arrow-right.svg" />
+                                    <button disabled class="phone-platform-button" style="background-color:@customLink.PlatformBrandingColor; height:50px">
+                                        <div class="d-flex  align-items-center justify-content-start" style="width:100%;">
+                                            <img src="@customLink.WhitePlatformIconPath" />
+                                            <span class="ms-2">@customLink.SelectedPlatformName </span>
                                         </div>
                                     </button>
                                 </div>
