@@ -2,7 +2,7 @@
 <div class="container section-background">
 
     <EditForm Model="@CustomLinksViewModel" OnValidSubmit="OnSave">
-        <DataAnnotationsValidator/>
+        <ObjectGraphDataAnnotationsValidator/>
         <div class="card" style="border:none;">
             <div class="card-body p-4">
                 <div class="row">
@@ -80,6 +80,7 @@
                                     <div class="row mt-2">
                                         <label class="form-label bodyS">Link</label>
                                         <InputText type="text" @bind-Value="customLink.LinkUrl" class="form-control" />
+                                        <ValidationMessage For="() => customLink.LinkUrl"/>
                                     </div>
 
                                 </div>

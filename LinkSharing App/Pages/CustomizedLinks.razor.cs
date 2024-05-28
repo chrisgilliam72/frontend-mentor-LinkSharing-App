@@ -80,7 +80,8 @@ partial class CustomizedLinks
     }
     public void OnSave()
     {
-        LinksUpdated.InvokeAsync(CustomLinksViewModel);
+        if (CustomLinksViewModel.IsValid)
+            LinksUpdated.InvokeAsync(CustomLinksViewModel);
     }
 
     private void FilterPlatforms()

@@ -1,15 +1,18 @@
 ﻿using LinkSharingRepository.Models;
+using System.ComponentModel.DataAnnotations;
 namespace LinkSharing_App.ViewModels;
 
 public class CustomizeLinksViewModel
 {
     private List<CustomLinkViewModel> _linksList = new();
     private List<CustomLinkViewModel> _removeList = new();
+    [ValidateComplexType]
     public List<CustomLinkViewModel> CustomLinks => _linksList.OrderBy(x => x.DisplayIndex).ToList();
     private int nextDisplayIndex => _linksList.Any() ? _linksList.Max(x => x.DisplayIndex) + 1 : 1;
 
     public List<int> SelectedPlatformIds => _linksList.Select(x => x.PlatformId).ToList();
 
+    public bool IsValid => _linksList.All(x => x.IsValidURL);
     public bool HasPlatform(int platformId)
     {
         return _linksList.FirstOrDefault(x => x.PlatformId == platformId) != null;

@@ -1,4 +1,5 @@
-﻿using LinkSharingRepository.Models;
+﻿using LinkSharing_App.CustomValidators;
+using LinkSharingRepository.Models;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,7 +8,9 @@ namespace LinkSharing_App.ViewModels;
 public class CustomLinkViewModel
 {
     public int Id { get; set; }
-    public String LinkUrl { get; set; } = " ";
+    [Required]
+    [PlatformURLValidator]
+    public String LinkUrl { get; set; } = default!;
 
     public int PlatformId { get; set; }
     public String PlatformName { get; set; } = "";
@@ -20,6 +23,8 @@ public class CustomLinkViewModel
     public int DisplayIndex { get; set; }
 
     public String HTMLId => "platformSelection" + DisplayIndex;
+
+    public bool IsValidURL => LinkUrl.ToLower().Contains(PlatformURL.ToLower());
 
 
 }
