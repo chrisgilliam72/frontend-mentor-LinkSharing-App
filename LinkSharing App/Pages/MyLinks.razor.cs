@@ -23,6 +23,9 @@ partial class MyLinks
 
     [Parameter]
     public CustomizeLinksViewModel CustomLinks { get; set; } = null!;
+    [Inject]
+    public IJSRuntime JSRuntime { get; set; }
+
 
     protected override void OnInitialized()
     {
@@ -30,4 +33,8 @@ partial class MyLinks
         base.OnInitialized();
     }
 
+    public async Task  OnGotoLink(String platformURL)
+    {
+        await JSRuntime.InvokeVoidAsync("openInNewTab", "https://"+platformURL);
+    }
 }
