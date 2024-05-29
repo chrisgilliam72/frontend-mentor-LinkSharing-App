@@ -9,10 +9,11 @@ PUT {{LinkSharingRepository_HostAddress}}/platforms/update/
 Content-Type: application/json
 
 {
-  "id": 2,
-  "name": "You Tube",
-  "icon": "icon-youtube.svg",
-  "brandingColor": "#FF0000"
+  "id": 3,
+  "name": "GitHub",
+  "icon": "icon-github.svg",
+  "brandingColor": "#333",
+   "url": "www.github.com"
 }
 ###
 PUT {{LinkSharingRepository_HostAddress}}/customlinks/update/1
