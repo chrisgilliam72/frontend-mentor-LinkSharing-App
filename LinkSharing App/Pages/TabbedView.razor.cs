@@ -67,7 +67,7 @@ partial class TabbedView
     }
     public async Task OnCopyLink()
     {
-        await JSRuntime.InvokeVoidAsync("copyTextToClipboard", ProfileDetailsViewModel.PublicURL);
+        await JSRuntime.InvokeVoidAsync("copyTextToClipboard", NavigationManager.BaseUri + $"{UserId}");
         ShowPreviewToast = true;
     }
     public void OnShowProfileDetails()

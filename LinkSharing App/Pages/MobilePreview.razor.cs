@@ -41,7 +41,7 @@ namespace LinkSharing_App.Pages
 
         public async Task OnCopyLink()
         {
-            await JSRuntime.InvokeVoidAsync("copyTextToClipboard", ProfileDetailsViewModel.PublicURL);
+            await JSRuntime.InvokeVoidAsync("copyTextToClipboard", NavigationManager.BaseUri+$"{UserId}");
         }
 
         public void OnBack()
