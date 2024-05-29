@@ -31,7 +31,7 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
         try
         {
             var response = await httpClient.PostAsJsonAsync("/customlinks/add", new { platformId=platformId,userId=userId,linkUrl=linkURL, displayIndex=displayIndex});
-            if (response != null && response.Content!=null && response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (response != null && response.Content!=null && response.StatusCode == System.Net.HttpStatusCode.Created)
             {
                 customLink = await response.Content.ReadFromJsonAsync<CustomLink>();
             }
@@ -52,7 +52,7 @@ public class CustomLinkService(HttpClient httpClient) : ICustomLinkService
         try
         {
             var response = await httpClient.DeleteAsync($"/customlinks/delete/{linkId}");
-            return (response != null && response.StatusCode == System.Net.HttpStatusCode.OK);
+            return (response != null && response.StatusCode != System.Net.HttpStatusCode.NotFound);
         }
         catch 
         {
