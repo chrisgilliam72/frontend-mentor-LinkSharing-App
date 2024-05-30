@@ -7,11 +7,13 @@
             {
                 <img class="round-image mb-2" src="@ImageSrc" height=100 width="100" style="position:absolute; top:60px;" />
             }
-            <div class="d-flex flex-column align-items-center" style="position:absolute; top:185px;width:100%">
-                <span class="headingS text-center" style="background-color:white; width:170px">@FirstName @LastName</span>
-                <span class="bodyS mt-1 text-center" style="background-color:white; width:120px">@Email</span>
-            </div>
+            <div class="d-flex flex-column align-items-center" style="position:absolute; top:185px;width:80%;background-color:white">
+                <span class="headingS text-center">@FirstName @LastName</span>
 
+            </div>
+            <div class="d-flex flex-column align-items-center" style="position:absolute; top:205px;width:80%;background-color:white;">
+                <span class="bodyS mt-1 text-center">@Email</span>
+            </div>
             @if (CustomLinks != null)
             {
                 <div style="position:absolute; top:260px;height:320px; width:75%; left:35px;">

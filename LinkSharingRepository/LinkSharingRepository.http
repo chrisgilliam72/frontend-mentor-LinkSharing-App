@@ -1,5 +1,5 @@
-@LinkSharingRepository_HostAddress = https://localhost:7035
-# @LinkSharingRepository_HostAddress =https://cg-frontendmentor-link-sharing.azurewebsites.net/
+# @LinkSharingRepository_HostAddress = https://localhost:7035
+@LinkSharingRepository_HostAddress =https://cg-frontendmentor-link-sharing.azurewebsites.net/
 ###
 GET {{LinkSharingRepository_HostAddress}}/platforms/
 Accept: application/json
