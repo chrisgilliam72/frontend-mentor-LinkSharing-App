@@ -92,15 +92,5 @@ public class CustomizeLinksViewModel
             link.DisplayIndex = index++;
     }
 
-    public void UseWhiteIcons()
-    {
-        foreach (var customLink in _linksList)
-        {
-            if (!customLink.PlatformIconPath.Contains("-white."))
-            {
-                customLink.PlatformIconPath = customLink.PlatformIconPath.Replace(".", "-white.");
-            }
 
-        }
-    }
 }
