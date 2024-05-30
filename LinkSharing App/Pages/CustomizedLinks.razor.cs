@@ -15,7 +15,7 @@ partial class CustomizedLinks
     public CustomizeLinksViewModel? CustomLinksViewModel { get; set; } = null;
     [Parameter]
     public EventCallback<CustomizeLinksViewModel> LinksUpdated {  get; set; }
-    public bool CanAddLink => CustomLinksViewModel?.CustomLinks.Count < 7;
+    public bool CanAddLink => CustomLinksViewModel?.CustomLinks.Count < 6;
     private List<Platform> removedPlatforms  = new();
 
     protected override void OnInitialized()

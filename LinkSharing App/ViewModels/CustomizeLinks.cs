@@ -33,7 +33,7 @@ public class CustomizeLinksViewModel
     public bool HasLinksToDelete => _removeList.Any();
     public CustomizeLinksViewModel(IEnumerable<CustomLink> customLinks)
     {
-        int index = 1;
+  
         foreach (var link in customLinks)
         {
             CustomLinkViewModel customizedLink = new()
@@ -45,7 +45,7 @@ public class CustomizeLinksViewModel
                 PlatformURL = link.Platform.URL,
                 PlatformBrandingColor = link.Platform.BrandingColor,
                 LinkUrl = link.URL,
-                DisplayIndex = index++,
+                DisplayIndex = link.DisplayIndex,
             };
             _linksList.Add(customizedLink);
         }
