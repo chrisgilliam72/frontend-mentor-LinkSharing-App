@@ -29,8 +29,12 @@ namespace LinkSharing_App.Pages
                 NavigationManager.NavigateTo($"/TabbedView/{authResult.user.Id}", true);
           
              }
-            LoginSuccessful = false;
-            EmailPlaceHolderText = "name@example.com";
+            else
+            {
+                LoginSuccessful = false;
+                EmailPlaceHolderText = "name@example.com";
+            }
+
         }
 
         public void OnErrors()
