@@ -19,7 +19,7 @@ namespace LinkSharing_App.Pages
         public IJSRuntime JSRuntime { get; set; }
         public ViewModels.ProfileDetails ProfileDetailsViewModel { get; set; } = new();
         public CustomizeLinksViewModel? CustomizeLinksViewModel { get; set; } =  null;
-
+        public bool ShowPreviewToast { get; set; }
         protected override async Task OnInitializedAsync()
         {
             int userId = Convert.ToInt32(UserId);
@@ -39,9 +39,17 @@ namespace LinkSharing_App.Pages
             CustomizeLinksViewModel = new CustomizeLinksViewModel(listLinks);
         }
 
+        protected async override Task OnAfterRenderAsync(bool firstRender)
+        {
+            await JSRuntime.InvokeAsync<object>("showToast");
+
+            ShowPreviewToast = false;
+        }
+
         public async Task OnCopyLink()
         {
             await JSRuntime.InvokeVoidAsync("copyTextToClipboard", NavigationManager.BaseUri+$"{UserId}");
+            ShowPreviewToast = true;
         }
 
         public void OnBack()

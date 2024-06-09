@@ -30,7 +30,6 @@ partial class TabbedView
     public bool ShowProfileDetails { get; set; }
     public bool ShowCustomLinks {  get; set; }
 
-
     public bool ShowCustomlinkToast { get; set; } = false;
     public bool ShowProfileDetailsToast { get; set; } = false;
     public bool ShowPreviewToast { get; set; } = false;
