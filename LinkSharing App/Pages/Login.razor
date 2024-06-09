@@ -1,0 +1,64 @@
+﻿@page "/"
+
+<div class="container"  style="background-color:white; ">
+    <div class="row justify-content-center align-items-center" style="height:800px">
+        <div class="col-5 ">
+            <div class="text-center mt-2">
+                <img src="./img/logo-devlinks-large.svg" />
+            </div>
+            <div class="mt-5">
+                <div class="text-start lh-1">
+                    <p class="fs-3 headingM">
+                        Login
+                    </p>
+                    <p class="bodyS">Add your details below to get back into the app</p>
+                </div>
+                <div>
+                    <EditForm Model="Details" OnValidSubmit="OnLogin" OnInvalidSubmit="OnErrors">
+                        <DataAnnotationsValidator/>
+                        <div class="mb-3">
+                            <label for="emailInput" class="form-label bodyS">Email Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-envelope"></i>
+                                </span>
+                                
+                                <InputText type="email" class="form-control" id="emailInput" placeholder="@EmailPlaceHolderText"
+                                           @bind-Value="Details.Username" />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="passwordInput" class="form-label bodyS">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="bi bi-file-lock"></i>
+                                </span>
+                                <InputText type="password" class="form-control" id="passwordInput" placeholder="@PasswordPlaceHolderText"
+                                           @bind-Value="Details.Password"  />
+                            </div>              
+                        </div>
+                        <div class="row justify-content-center p-2">
+                            <button type="submit" class="primary-button-blue" style="width:100%">Login</button>
+                        </div>                      
+                    </EditForm>
+                    <div class="text-center mt-2">
+                        <p class="bodyM">Don't have an account? <a href="/CreateAccount">Create Account</a></p>
+                    </div>
+                </div>
+                @if (!LoginSuccessful)
+                {
+                    <div class="text-center text-danger">
+                        <p>Login unsuccessful</p>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+
+}
