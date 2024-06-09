@@ -16,7 +16,7 @@ public class CustomLinkViewModel
     public String PlatformName { get; set; } = "";
     public String PlatformURL { get; set; } = "";
     public String PlatformIconPath { get; set; } = "";
-    public String WhitePlatformIconPath => PlatformIconPath.Contains("-white.") ? PlatformIconPath : PlatformIconPath.Replace(".", "-white.");
+    public String WhitePlatformIconPath => PlatformIconPath.Contains("-white.") ? PlatformIconPath : PlatformIconPath.Replace(".svg", "-white.svg");
     public string PlatformBrandingColor { get; set; } = "";
     public String SelectedPlatformName => PlatformName!=null ? PlatformName : "Select platform";
 

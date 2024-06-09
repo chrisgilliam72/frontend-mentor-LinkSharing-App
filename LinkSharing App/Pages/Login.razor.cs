@@ -26,7 +26,7 @@ namespace LinkSharing_App.Pages
             if (authResult != null && authResult.user!=null)
             {
                 await StorageService.Write("authtoken", authResult.jwtoken);
-                NavigationManager.NavigateTo($"/TabbedView/{authResult.user.Id}", true);
+                NavigationManager.NavigateTo($"TabbedView/{authResult.user.Id}", true);
           
              }
             else
