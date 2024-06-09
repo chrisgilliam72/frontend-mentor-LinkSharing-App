@@ -46,7 +46,7 @@ namespace LinkSharing_App.Pages
 
         public void OnBack()
         {
-            NavigationManager.NavigateTo($"/TabbedView/{UserId}", true);
+            NavigationManager.NavigateTo($"TabbedView/{UserId}", true);
         }
     }
 }
