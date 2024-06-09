@@ -40,7 +40,7 @@ public class CustomizeLinksViewModel
             {
                 Id = link.Id,
                 PlatformId = link.Platform.Id,
-                PlatformIconPath = @"/img/" + link.Platform.Icon,
+                PlatformIconPath = @"./img/" + link.Platform.Icon,
                 PlatformName = link.Platform.Name,
                 PlatformURL = link.Platform.URL,
                 PlatformBrandingColor = link.Platform.BrandingColor,
