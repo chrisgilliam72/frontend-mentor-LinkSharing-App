@@ -84,7 +84,7 @@ partial class TabbedView
 
     public void OnShowMobilePreview()
     {
-        NavigationManager.NavigateTo($"/MobilePreview/{UserId}", true);
+        NavigationManager.NavigateTo($"MobilePreview/{UserId}", true);
     }
 
     public async Task OnProfileDetailsUpdated(ViewModels.ProfileDetails profileImageViewModel)
