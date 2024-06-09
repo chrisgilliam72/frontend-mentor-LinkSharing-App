@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "LinkSharing App",
   "resources": {
-    "hash": "sha256-GBmmxDWSbkDRnSt4hdpONesgVRuBPuX2e4DR5LZ6Kyw=",
+    "hash": "sha256-q5v29BwlmhRBCGtUPJ2Szz0h0kzohVJQJCqh3w7QpXQ=",
     "jsModuleNative": {
       "dotnet.native.8.0.5.94fxtzy2rm.js": "sha256-boyHe+0RMZDkzBKGhsrnXPhPg3oZ6UqJnTUzngJPjNY="
     },
@@ -17,8 +17,8 @@
       "icudt_no_CJK.dat": "sha256-L7sV7NEYP37/Qr2FPCePo5cJqRgTXRwGHuwF5Q+0Nfs="
     },
     "assembly": {
-      "LinkSharing App.wasm": "sha256-9D4v4AbCXxZX3NtvWT20jxaSug24+Mg92d4R7sEhHlU=",
-      "LinkSharing Models.wasm": "sha256-AZMM8YMRxMHXBI5PI7qAqL+G0EB2QXDzJGO0of3EDjQ=",
+      "LinkSharing App.wasm": "sha256-dxPs3cSOeknaNRNQ3GeGrbsQOnxKbdDnRzq0R9huM+I=",
+      "LinkSharing Models.wasm": "sha256-2GCzpqCpKbBWhsTu+6cFMW0MdVKiXxPMowkW+0TRwwo=",
       "Microsoft.AspNetCore.Authorization.wasm": "sha256-YNrFibgoOVRaN0slDRYnx66ZDadSKoqD1lacUUAg3vs=",
       "Microsoft.AspNetCore.Components.Authorization.wasm": "sha256-69AMT/eMDxiNA0WiNhKv2sANACsb6DM8+RxezA8DWuU=",
       "Microsoft.AspNetCore.Components.DataAnnotations.Validation.wasm": "sha256-Mpd98aRLb9cK/TLwAqYub55BwBvzDAyJs18h1O7jIqk=",
